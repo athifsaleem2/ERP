@@ -1,0 +1,32 @@
+<div class="invoice-container card shadow-sm border-0">
+
+  <div class="card-header gradient-header text-white py-3 d-flex justify-content-between">
+    <h5 class="mb-0">Cash Book</h5>
+    <small>{{ today | date:'dd-MM-yyyy' }}</small>
+  </div>
+
+  <div class="card-body p-4 small">
+
+    <table class="table table-sm table-hover">
+      <thead class="table-light">
+        <tr>
+          <th>Date</th>
+          <th>Description</th>
+          <th class="text-end">Debit</th>
+          <th class="text-end">Credit</th>
+          <th class="text-end">Balance</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let t of transactions">
+          <td>{{ t.date }}</td>
+          <td>{{ t.desc }}</td>
+          <td class="text-end">{{ t.debit }}</td>
+          <td class="text-end">{{ t.credit }}</td>
+          <td class="text-end">{{ t.balance }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+</div>

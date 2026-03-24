@@ -1,0 +1,45 @@
+.invoice-container {
+  border-radius: 12px;
+}
+
+.card-header {
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+
+.summary-box {
+  font-size: 13px;
+}
+
+.table th {
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
+.table td {
+  vertical-align: middle;
+}
+
+.form-control-sm,
+.form-select-sm {
+  font-size: 13px;
+}
+
+.btn {
+  border-radius: 6px;
+  font-size: 13px;
+}
+
+.gradient-header {
+  background: linear-gradient(135deg, #1e3c72, #2a5298);
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+
+.gradient-header h5 {
+  letter-spacing: 0.5px;
+}
+
+.gradient-header small {
+  opacity: 0.85;
+}

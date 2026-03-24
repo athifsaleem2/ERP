@@ -1,0 +1,323 @@
+<div class="sidebar" [class.closed]="!isOpen">
+
+  <ul class="menu-list">
+
+    <!-- DASHBOARD -->
+    <li>
+  <a routerLink="Dashboard" class="single-item text-decoration-none">
+    Dashboard
+  </a>
+</li>
+
+    <!-- SALES -->
+    <li>
+   <div class="menu-header d-flex justify-content-between align-items-center"
+     (click)="toggleMenu('sales')">
+
+  <div class="d-flex align-items-center gap-2">
+    <i class="bi bi-cart-check menu-icon"></i>
+    <span class="fw-semibold">Sales</span>
+  </div>
+
+  <i class="bi bi-chevron-right arrow-icon"
+     [class.rotate]="openMenu === 'sales'">
+  </i>
+
+</div>
+
+      <ul class="submenu" *ngIf="openMenu === 'sales'">
+  <li routerLink="sales-invoice" routerLinkActive="active">
+    Sales Invoice
+  </li>
+  <li routerLink="sales-return" routerLinkActive="active">
+    Sales Return
+  </li>
+  <li routerLink="quotations" routerLinkActive="active">
+    Quotations
+  </li>
+  <li routerLink="customers" routerLinkActive="active">
+    Customers
+  </li>
+  <li routerLink="receipts" routerLinkActive="active">
+    Receipts
+  </li>
+</ul>
+    </li>
+
+   <!-- PURCHASE -->
+<li>
+
+  <div class="menu-header d-flex justify-content-between align-items-center"
+       (click)="toggleMenu('purchase')">
+
+    <div class="d-flex align-items-center gap-2">
+      <i class="bi bi-bag-check menu-icon"></i>
+      <span class="fw-semibold">Purchase</span>
+    </div>
+
+    <i class="bi bi-chevron-right arrow-icon"
+       [class.rotate]="openMenu === 'purchase'">
+    </i>
+
+  </div>
+
+  <ul class="submenu" *ngIf="openMenu === 'purchase'">
+
+    <li routerLink="purchase-invoice" routerLinkActive="active">
+      Purchase Invoice
+    </li>
+
+    <li routerLink="purchase-return" routerLinkActive="active">
+      Purchase Return
+    </li>
+
+    <li routerLink="suppliers" routerLinkActive="active">
+      Suppliers
+    </li>
+
+    <li routerLink="payments" routerLinkActive="active">
+      Payments
+    </li>
+
+  </ul>
+
+</li>
+
+ <!-- INVENTORY -->
+<li>
+
+  <div class="menu-header d-flex justify-content-between align-items-center"
+       (click)="toggleMenu('inventory')">
+
+    <div class="d-flex align-items-center gap-2">
+      <i class="bi bi-box-seam menu-icon"></i>
+      <span class="fw-semibold">Inventory</span>
+    </div>
+
+    <i class="bi bi-chevron-right arrow-icon"
+       [class.rotate]="openMenu === 'inventory'">
+    </i>
+
+  </div>
+
+  <ul class="submenu" *ngIf="openMenu === 'inventory'">
+
+    <li routerLink="products" routerLinkActive="active">
+      Products
+    </li>
+
+    <li routerLink="categories" routerLinkActive="active">
+      Categories
+    </li>
+
+    <li routerLink="stock-in" routerLinkActive="active">
+      Stock In
+    </li>
+
+    <li routerLink="stock-out" routerLinkActive="active">
+      Stock Out
+    </li>
+
+    <li routerLink="stock-transfer" routerLinkActive="active">
+      Stock Transfer
+    </li>
+
+    <li routerLink="stock-report" routerLinkActive="active">
+      Stock Report
+    </li>
+
+  </ul>
+
+</li>
+
+    <!-- LOAN MANAGEMENT -->
+    <li>
+   <div class="menu-header d-flex justify-content-between align-items-center"
+     (click)="toggleMenu('loan')">
+
+  <div class="d-flex align-items-center gap-2">
+    <i class="bi bi-cash-stack menu-icon"></i>
+    <span class="fw-semibold">Loan Management</span>
+  </div>
+
+  <i class="bi bi-chevron-right arrow-icon"
+     [class.rotate]="openMenu === 'loan'">
+  </i>
+
+</div>
+
+     <ul class="submenu" *ngIf="openMenu === 'loan'">
+
+  <li routerLink="loan-application" routerLinkActive="active">
+    Loan Application
+  </li>
+
+  <li routerLink="loan-approval" routerLinkActive="active">
+    Loan Approval
+  </li>
+
+  <li routerLink="emi-schedule" routerLinkActive="active">
+    EMI Schedule
+  </li>
+
+  <li routerLink="emi-payments" routerLinkActive="active">
+    EMI Payments
+  </li>
+
+  <li routerLink="penalty-management" routerLinkActive="active">
+    Penalty Management
+  </li>
+
+  <li routerLink="loan-reports" routerLinkActive="active">
+    Loan Reports
+  </li>
+
+</ul>
+    </li>
+
+    <!-- FINANCE -->
+    <li>
+     <div class="menu-header d-flex justify-content-between align-items-center"
+     (click)="toggleMenu('finance')">
+
+  <div class="d-flex align-items-center gap-2">
+    <i class="bi bi-wallet2 menu-icon"></i>
+    <span class="fw-semibold">Finance</span>
+  </div>
+
+  <i class="bi bi-chevron-right arrow-icon"
+     [class.rotate]="openMenu === 'finance'">
+  </i>
+
+</div>
+
+     <ul class="submenu" *ngIf="openMenu === 'finance'">
+
+  <li routerLink="accounts" routerLinkActive="active">
+    Accounts
+  </li>
+
+  <li routerLink="cash-book" routerLinkActive="active">
+    Cash Book
+  </li>
+
+  <li routerLink="bank-transactions" routerLinkActive="active">
+    Bank Transactions
+  </li>
+
+  <li routerLink="expense-entry" routerLinkActive="active">
+    Expense Entry
+  </li>
+
+  <li routerLink="profit-loss" routerLinkActive="active">
+    Profit & Loss
+  </li>
+
+</ul>
+    </li>
+
+    <!-- HRMS -->
+    <li>
+    <div class="menu-header d-flex justify-content-between align-items-center"
+     (click)="toggleMenu('hrms')">
+
+  <div class="d-flex align-items-center gap-2">
+    <i class="bi bi-people menu-icon"></i>
+    <span class="fw-semibold">HRMS</span>
+  </div>
+
+  <i class="bi bi-chevron-right arrow-icon"
+     [class.rotate]="openMenu === 'hrms'">
+  </i>
+
+</div>
+
+    <ul class="submenu" *ngIf="openMenu === 'hrms'">
+
+<li routerLink="employees" routerLinkActive="active">
+Employees
+</li>
+
+<li routerLink="attendance" routerLinkActive="active">
+Attendance
+</li>
+
+<li routerLink="payroll" routerLinkActive="active">
+Payroll
+</li>
+
+<li routerLink="leave-management" routerLinkActive="active">
+Leave Management
+</li>
+
+</ul>
+    </li>
+
+    <!-- REPORTS -->
+    <li>
+     <div class="menu-header d-flex justify-content-between align-items-center"
+     (click)="toggleMenu('reports')">
+
+  <div class="d-flex align-items-center gap-2">
+    <i class="bi bi-bar-chart-line menu-icon"></i>
+    <span class="fw-semibold">Reports</span>
+  </div>
+
+  <i class="bi bi-chevron-right arrow-icon"
+     [class.rotate]="openMenu === 'reports'">
+  </i>
+
+</div>
+
+    <ul class="submenu" *ngIf="openMenu === 'reports'">
+
+<li routerLink="sales-report" routerLinkActive="active">
+Sales Report
+</li>
+
+<li routerLink="purchase-report" routerLinkActive="active">
+Purchase Report
+</li>
+
+<li routerLink="inventory-report" routerLinkActive="active">
+Inventory Report
+</li>
+
+<li routerLink="loan-report" routerLinkActive="active">
+Loan Report
+</li>
+
+<li routerLink="finance-report" routerLinkActive="active">
+Finance Report
+</li>
+
+</ul>
+    </li>
+
+    <!-- SETTINGS -->
+    <li>
+    <div class="menu-header d-flex justify-content-between align-items-center"
+     (click)="toggleMenu('settings')">
+
+  <div class="d-flex align-items-center gap-2">
+    <i class="bi bi-gear menu-icon"></i>
+    <span class="fw-semibold">Settings</span>
+  </div>
+
+  <i class="bi bi-chevron-right arrow-icon"
+     [class.rotate]="openMenu === 'settings'">
+  </i>
+
+</div>
+
+      <ul class="submenu" *ngIf="openMenu === 'settings'">
+        <li routerLink="user-management" routerLinkActive="active">User Management</li>
+        <li routerLink="roles-permissions" routerLinkActive="active">Roles & Permissions</li>
+        <li routerLink="company-settings" routerLinkActive="active">Company Settings</li>
+        <li routerLink="tax-settings" routerLinkActive="active">Tax Settings</li>
+      </ul>
+    </li>
+
+  </ul>
+
+</div>

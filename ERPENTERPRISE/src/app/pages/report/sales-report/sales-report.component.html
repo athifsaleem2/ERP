@@ -1,0 +1,42 @@
+    <div class="card shadow-sm border-0">
+
+    <div class="card-header gradient-header text-white d-flex justify-content-between align-items-center">
+        <h5 class="mb-0">Sales Report</h5>
+        <button class="btn btn-light btn-sm" (click)="generateReport()">
+        Generate Report
+        </button>
+    </div>
+
+    <div class="card-body small">
+
+        <div class="row g-3">
+
+        <div class="col-md-3">
+            <label>From Date</label>
+            <input type="date" class="form-control form-control-sm" [(ngModel)]="report.fromDate">
+        </div>
+
+        <div class="col-md-3">
+            <label>To Date</label>
+            <input type="date" class="form-control form-control-sm" [(ngModel)]="report.toDate">
+        </div>
+
+        <div class="col-md-3">
+            <label>Customer</label>
+            <input class="form-control form-control-sm" [(ngModel)]="report.customer">
+        </div>
+
+        <div class="col-md-3">
+            <label>Status</label>
+            <select class="form-select form-select-sm" [(ngModel)]="report.status">
+            <option>All</option>
+            <option>Paid</option>
+            <option>Pending</option>
+            </select>
+        </div>
+
+        </div>
+
+    </div>
+
+    </div>

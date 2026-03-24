@@ -1,0 +1,32 @@
+<div class="invoice-container card shadow-sm border-0">
+
+  <div class="card-header gradient-header text-white py-3 d-flex justify-content-between">
+    <h5 class="mb-0">Profit & Loss Statement</h5>
+    <small>{{ today | date:'dd-MM-yyyy' }}</small>
+  </div>
+
+  <div class="card-body p-4 small">
+
+    <div class="summary-box p-3 bg-light border rounded">
+
+      <div class="d-flex justify-content-between mb-2">
+        <span>Total Income</span>
+        <span>₹ {{ totalIncome }}</span>
+      </div>
+
+      <div class="d-flex justify-content-between mb-2">
+        <span>Total Expense</span>
+        <span>₹ {{ totalExpense }}</span>
+      </div>
+
+      <hr>
+
+      <div class="d-flex justify-content-between fw-semibold">
+        <span>Net Profit</span>
+        <span>₹ {{ netProfit }}</span>
+      </div>
+
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,76 @@
+<div class="invoice-container card shadow-sm border-0">
+
+  <div class="card-header gradient-header text-white py-3">
+    <h5 class="mb-0 fw-semibold">Product Management</h5>
+  </div>
+
+  <div class="card-body p-4 small">
+
+    <!-- ADD PRODUCT -->
+    <div class="row g-3 mb-4">
+
+      <div class="col-md-3">
+        <label class="form-label fw-semibold small">Product Name</label>
+        <input type="text" class="form-control form-control-sm">
+      </div>
+
+      <div class="col-md-3">
+        <label class="form-label fw-semibold small">Category</label>
+        <select class="form-select form-select-sm">
+          <option>Select Category</option>
+        </select>
+      </div>
+
+      <div class="col-md-2">
+        <label class="form-label fw-semibold small">Purchase Price</label>
+        <input type="number" class="form-control form-control-sm text-end">
+      </div>
+
+      <div class="col-md-2">
+        <label class="form-label fw-semibold small">Sales Price</label>
+        <input type="number" class="form-control form-control-sm text-end">
+      </div>
+
+      <div class="col-md-2">
+        <label class="form-label fw-semibold small">Stock Qty</label>
+        <input type="number" class="form-control form-control-sm text-end">
+      </div>
+
+    </div>
+
+    <button class="btn btn-sm btn-success mb-3">
+      Save Product
+    </button>
+
+    <!-- PRODUCT TABLE -->
+    <div class="table-responsive">
+      <table class="table table-sm table-hover align-middle">
+        <thead class="table-light">
+          <tr class="text-uppercase small">
+            <th>Name</th>
+            <th>Category</th>
+            <th>Purchase</th>
+            <th>Sales</th>
+            <th>Stock</th>
+            <th width="10%"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Laptop</td>
+            <td>Electronics</td>
+            <td>₹ 40,000</td>
+            <td>₹ 45,000</td>
+            <td>15</td>
+            <td>
+              <button class="btn btn-sm btn-outline-danger">
+                Delete
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</div>

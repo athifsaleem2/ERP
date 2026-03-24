@@ -1,0 +1,11 @@
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  height: 60px;
+}
+
+/* Push content below fixed header */
+.main-container {
+  display: flex;
+}

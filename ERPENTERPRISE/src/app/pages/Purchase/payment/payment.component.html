@@ -1,0 +1,84 @@
+<div class="invoice-container card shadow-sm border-0">
+
+  <!-- HEADER -->
+  <div class="card-header gradient-header text-white py-3 d-flex justify-content-between align-items-center">
+    <div>
+      <h5 class="mb-0 fw-semibold">Supplier Payment</h5>
+      <small class="opacity-75">Enterprise ERP System</small>
+    </div>
+    <div class="text-end small">
+      <div class="fw-semibold">Payment #: PAY-001</div>
+    </div>
+  </div>
+
+  <div class="card-body p-4 small">
+
+    <!-- PAYMENT FORM -->
+    <div class="row g-3 mb-4">
+
+      <div class="col-md-4">
+        <label class="form-label fw-semibold small">Supplier</label>
+        <select class="form-select form-select-sm">
+          <option>Select Supplier</option>
+        </select>
+      </div>
+
+      <div class="col-md-4">
+        <label class="form-label fw-semibold small">Payment Date</label>
+        <input type="date" class="form-control form-control-sm">
+      </div>
+
+      <div class="col-md-4">
+        <label class="form-label fw-semibold small">Payment Mode</label>
+        <select class="form-select form-select-sm">
+          <option>Cash</option>
+          <option>Bank Transfer</option>
+          <option>UPI</option>
+          <option>Cheque</option>
+        </select>
+      </div>
+
+      <div class="col-md-6">
+        <label class="form-label fw-semibold small">Amount</label>
+        <input type="number" class="form-control form-control-sm text-end" placeholder="0.00">
+      </div>
+
+      <div class="col-md-6">
+        <label class="form-label fw-semibold small">Reference No</label>
+        <input type="text" class="form-control form-control-sm" placeholder="Transaction / Cheque No">
+      </div>
+
+      <div class="col-12">
+        <label class="form-label fw-semibold small">Remarks</label>
+        <textarea class="form-control form-control-sm" rows="2"></textarea>
+      </div>
+
+    </div>
+
+    <!-- SUMMARY BOX -->
+    <div class="row justify-content-end">
+      <div class="col-md-4">
+        <div class="summary-box p-3 rounded bg-light border">
+          <div class="d-flex justify-content-between fw-semibold">
+            <span>Total Payment</span>
+            <span>₹ 0.00</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ACTION BUTTONS -->
+    <div class="mt-4 text-end">
+      <button class="btn btn-sm btn-outline-secondary me-2">
+        Cancel
+      </button>
+      <button class="btn btn-sm btn-success me-2">
+        Save
+      </button>
+      <button class="btn btn-sm btn-dark">
+        Save & Print
+      </button>
+    </div>
+
+  </div>
+</div>

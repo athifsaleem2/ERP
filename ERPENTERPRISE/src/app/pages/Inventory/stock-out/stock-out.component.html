@@ -1,0 +1,43 @@
+<div class="invoice-container card shadow-sm border-0">
+
+  <div class="card-header gradient-header text-white py-3">
+    <h5 class="mb-0 fw-semibold">Stock Out Entry</h5>
+  </div>
+
+  <div class="card-body p-4 small">
+
+    <div class="row g-3 mb-4">
+
+      <div class="col-md-4">
+        <label class="form-label fw-semibold small">Product</label>
+        <select class="form-select form-select-sm">
+          <option>Select Product</option>
+        </select>
+      </div>
+
+      <div class="col-md-3">
+        <label class="form-label fw-semibold small">Customer</label>
+        <select class="form-select form-select-sm">
+          <option>Select Customer</option>
+        </select>
+      </div>
+
+      <div class="col-md-2">
+        <label class="form-label fw-semibold small">Quantity</label>
+        <input type="number" class="form-control form-control-sm text-end">
+      </div>
+
+      <div class="col-md-3">
+        <label class="form-label fw-semibold small">Date</label>
+        <input type="date" class="form-control form-control-sm">
+      </div>
+
+    </div>
+
+  <button class="btn btn-sm btn-danger mb-4"
+        (click)="saveStockOut()">
+  Save Stock Out
+</button>
+
+  </div>
+</div>

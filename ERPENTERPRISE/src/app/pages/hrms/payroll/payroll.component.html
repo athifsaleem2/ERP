@@ -1,0 +1,78 @@
+<div class="card shadow-sm border-0">
+
+  <!-- HEADER -->
+  <div class="card-header gradient-header text-white py-3 d-flex justify-content-between align-items-center">
+    <div>
+      <h5 class="mb-0 fw-semibold">Payroll Management</h5>
+      <small class="opacity-75">Employee Salary Processing</small>
+    </div>
+
+    <button class="btn btn-sm btn-light text-dark"
+        
+  (click)="GeneratePayroll()">
+      Generate Payroll
+    </button>
+  </div>
+
+  <div class="card-body p-4 small">
+
+    <!-- FILTER -->
+    <div class="row g-3 mb-4">
+
+      <div class="col-md-3">
+        <select class="form-select form-select-sm">
+          <option>January</option>
+          <option>February</option>
+          <option>March</option>
+        </select>
+      </div>
+
+      <div class="col-md-3">
+        <select class="form-select form-select-sm">
+          <option>All Departments</option>
+          <option>Sales</option>
+          <option>Accounts</option>
+          <option>HR</option>
+        </select>
+      </div>
+
+      <div class="col-md-2">
+        <button class="btn btn-dark btn-sm w-100">
+          Load
+        </button>
+      </div>
+
+    </div>
+
+    <!-- TABLE -->
+    <div class="table-responsive">
+
+      <table class="table table-sm table-hover align-middle">
+
+        <thead class="table-light">
+          <tr class="text-uppercase small">
+            <th>Employee</th>
+            <th>Basic Salary</th>
+            <th>Deductions</th>
+            <th>Net Salary</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr *ngFor="let p of payrollList">
+            <td class="fw-semibold">{{p.employee}}</td>
+            <td>₹{{p.basic}}</td>
+            <td>₹{{p.deduction}}</td>
+            <td class="fw-semibold text-success">₹{{p.net}}</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+
+</div>

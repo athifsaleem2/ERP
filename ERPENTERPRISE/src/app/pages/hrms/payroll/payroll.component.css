@@ -1,0 +1,29 @@
+.card {
+  border-radius: 12px;
+}
+
+.gradient-header {
+  background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+}
+
+.table th {
+  font-weight: 600;
+}
+
+.table td {
+  vertical-align: middle;
+}
+
+.form-control-sm,
+.form-select-sm {
+  font-size: 13px;
+}
+
+.btn {
+  border-radius: 6px;
+  font-size: 13px;
+}
+
+.table-hover tbody tr:hover {
+  background-color: #f5f7fa;
+}

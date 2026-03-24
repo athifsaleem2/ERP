@@ -1,0 +1,128 @@
+<div class="invoice-container card shadow-sm border-0">
+
+  <!-- HEADER -->
+  <div class="card-header gradient-header text-white py-3 d-flex justify-content-between align-items-center">
+    <div>
+      <h5 class="mb-0 fw-semibold">Purchase Return</h5>
+      <small class="opacity-75">Enterprise ERP System</small>
+    </div>
+    <div class="text-end small">
+      <div class="fw-semibold">Return #: PR-001</div>
+      <div>Date: {{ today | date:'dd-MM-yyyy' }}</div>
+    </div>
+  </div>
+
+  <div class="card-body p-4 small">
+
+    <!-- SUPPLIER SECTION -->
+    <div class="row g-3 mb-4">
+
+      <div class="col-md-4">
+        <label class="form-label fw-semibold small">Supplier</label>
+        <select class="form-select form-select-sm">
+          <option>Select Supplier</option>
+        </select>
+      </div>
+
+      <div class="col-md-4">
+        <label class="form-label fw-semibold small">Return Date</label>
+        <input type="date" class="form-control form-control-sm">
+      </div>
+
+      <div class="col-md-4">
+        <label class="form-label fw-semibold small">Reason</label>
+        <input type="text" class="form-control form-control-sm" placeholder="Damaged / Wrong Item">
+      </div>
+
+    </div>
+
+    <!-- ITEMS TABLE -->
+    <div class="table-responsive">
+      <table class="table table-sm table-hover align-middle">
+        <thead class="table-light">
+          <tr class="text-uppercase small">
+            <th width="35%">Product</th>
+            <th width="10%" class="text-end">Qty</th>
+            <th width="15%" class="text-end">Cost</th>
+            <th width="15%" class="text-end">Tax %</th>
+            <th width="15%" class="text-end">Total</th>
+            <th width="10%"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <input type="text" class="form-control form-control-sm" placeholder="Product Name">
+            </td>
+            <td>
+              <input type="number" class="form-control form-control-sm text-end">
+            </td>
+            <td>
+              <input type="number" class="form-control form-control-sm text-end">
+            </td>
+            <td>
+              <input type="number" class="form-control form-control-sm text-end">
+            </td>
+            <td class="text-end fw-semibold">
+              0.00
+            </td>
+            <td class="text-center">
+              <button class="btn btn-sm btn-outline-secondary">
+                ✕
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ADD ITEM BUTTON -->
+    <div class="mb-3">
+      <button class="btn btn-sm btn-outline-dark">
+        + Add Item
+      </button>
+    </div>
+
+    <!-- SUMMARY SECTION -->
+    <div class="row justify-content-end">
+      <div class="col-md-4">
+
+        <div class="summary-box p-3 rounded bg-light border">
+
+          <div class="d-flex justify-content-between mb-2">
+            <span>Subtotal</span>
+            <span>₹ 0.00</span>
+          </div>
+
+          <div class="d-flex justify-content-between mb-2">
+            <span>Tax</span>
+            <span>₹ 0.00</span>
+          </div>
+
+          <hr class="my-2">
+
+          <div class="d-flex justify-content-between fw-semibold text-danger">
+            <span>Total Return Amount</span>
+            <span>₹ 0.00</span>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ACTION BUTTONS -->
+    <div class="mt-4 text-end">
+      <button class="btn btn-sm btn-outline-secondary me-2">
+        Cancel
+      </button>
+      <button class="btn btn-sm btn-warning me-2">
+        Save
+      </button>
+      <button class="btn btn-sm btn-dark">
+        Save & Print
+      </button>
+    </div>
+
+  </div>
+</div>

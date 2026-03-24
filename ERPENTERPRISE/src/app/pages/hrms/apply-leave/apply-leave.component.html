@@ -1,0 +1,70 @@
+<div class="leave-container card shadow-sm border-0">
+
+  <!-- HEADER -->
+  <div class="card-header gradient-header text-white d-flex justify-content-between align-items-center">
+    <div>
+      <h5 class="mb-0 fw-semibold">Leave Application</h5>
+      <small class="opacity-75">Submit Employee Leave Request</small>
+    </div>
+
+    <button class="btn btn-light btn-sm">
+      Leave History
+    </button>
+  </div>
+
+  <!-- BODY -->
+  <div class="card-body small">
+
+    <div class="row g-3">
+
+      <!-- EMPLOYEE -->
+      <div class="col-md-6">
+        <label>Employee</label>
+        <input
+          class="form-control form-control-sm"
+          placeholder="Enter employee name">
+      </div>
+
+      <!-- LEAVE TYPE -->
+      <div class="col-md-6">
+        <label>Leave Type</label>
+        <select class="form-select form-select-sm">
+          <option>Select Leave Type</option>
+          <option>Sick Leave</option>
+          <option>Casual Leave</option>
+          <option>Annual Leave</option>
+        </select>
+      </div>
+
+      <!-- FROM DATE -->
+      <div class="col-md-6">
+        <label>From Date</label>
+        <input type="date" class="form-control form-control-sm">
+      </div>
+
+      <!-- TO DATE -->
+      <div class="col-md-6">
+        <label>To Date</label>
+        <input type="date" class="form-control form-control-sm">
+      </div>
+
+      <!-- REASON -->
+      <div class="col-md-12">
+        <label>Reason</label>
+        <textarea
+          rows="3"
+          class="form-control form-control-sm"
+          placeholder="Enter leave reason"></textarea>
+      </div>
+
+    </div>
+
+    <!-- BUTTON -->
+    <div class="mt-4 text-end">
+      <button class="btn btn-success btn-sm px-4" (click)="applyLeave()">
+        Submit Leave
+      </button>
+    </div>
+
+  </div>
+</div>

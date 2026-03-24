@@ -1,0 +1,100 @@
+<div class="invoice-container card shadow-sm border-0">
+
+  <!-- Header -->
+  <div class="card-header gradient-header text-white py-3">
+    <h5 class="mb-0 fw-semibold">Stock Report</h5>
+  </div>
+
+  <div class="card-body p-4 small">
+
+    <!-- Filters Section -->
+    <div class="row g-3 mb-4">
+
+      <div class="col-md-4">
+        <label class="form-label fw-semibold small">Filter by Category</label>
+        <select class="form-select form-select-sm">
+          <option value="">All Categories</option>
+          <option>Electronics</option>
+          <option>Furniture</option>
+          <option>Accessories</option>
+        </select>
+      </div>
+
+      <div class="col-md-4">
+        <label class="form-label fw-semibold small">Low Stock Threshold</label>
+        <input type="number"
+               class="form-control form-control-sm"
+               placeholder="Enter minimum stock">
+      </div>
+
+      <div class="col-md-4 d-flex align-items-end">
+        <button class="btn btn-sm btn-primary w-100">
+          Apply Filter
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Stock Table -->
+    <div class="table-responsive">
+      <table class="table table-sm table-bordered table-hover align-middle">
+
+        <thead class="table-light text-uppercase small">
+          <tr>
+            <th>Product</th>
+            <th>Category</th>
+            <th>Total In</th>
+            <th>Total Out</th>
+            <th>Available Stock</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr *ngFor="let item of stockData">
+
+            <td>{{item.product}}</td>
+            <td>{{item.category}}</td>
+            <td>{{item.totalIn}}</td>
+            <td>{{item.totalOut}}</td>
+
+            <td class="fw-bold"
+                [ngClass]="{
+                  'text-success': getAvailableStock(item) > 10,
+                  'text-warning': getAvailableStock(item) <= 10 && getAvailableStock(item) > 0,
+                  'text-danger': getAvailableStock(item) <= 0
+                }">
+
+              {{ getAvailableStock(item) }}
+
+            </td>
+
+            <td>
+
+              <span *ngIf="getAvailableStock(item) > 10"
+                    class="badge bg-success">
+                In Stock
+              </span>
+
+              <span *ngIf="getAvailableStock(item) <= 10 && getAvailableStock(item) > 0"
+                    class="badge bg-warning text-dark">
+                Low Stock
+              </span>
+
+              <span *ngIf="getAvailableStock(item) <= 0"
+                    class="badge bg-danger">
+                Out of Stock
+              </span>
+
+            </td>
+
+          </tr>
+
+        </tbody>
+
+      </table>
+    </div>
+
+  </div>
+</div>

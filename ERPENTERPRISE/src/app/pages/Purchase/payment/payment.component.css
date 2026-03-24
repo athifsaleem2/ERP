@@ -1,0 +1,50 @@
+.invoice-container {
+  border-radius: 14px;
+  background: #ffffff;
+}
+
+/* Header Gradient */
+.gradient-header {
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  border-top-left-radius: 14px;
+  border-top-right-radius: 14px;
+}
+
+/* Table */
+.table th {
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
+.table td {
+  vertical-align: middle;
+}
+
+/* Forms */
+.form-control-sm,
+.form-select-sm {
+  font-size: 13px;
+  border-radius: 6px;
+}
+
+.form-control-sm:focus,
+.form-select-sm:focus {
+  box-shadow: 0 0 0 0.15rem rgba(44, 83, 100, 0.25);
+  border-color: #2c5364;
+}
+
+/* Summary */
+.summary-box {
+  font-size: 13px;
+}
+
+/* Buttons */
+.btn {
+  border-radius: 6px;
+  font-size: 13px;
+}
+
+.btn-success:hover {
+  transform: translateY(-1px);
+  transition: 0.2s ease;
+}

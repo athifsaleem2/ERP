@@ -1,0 +1,48 @@
+/* Container */
+.invoice-container {
+  border-radius: 14px;
+  background: #ffffff;
+}
+
+/* Header Gradient */
+.gradient-header {
+  background: linear-gradient(135deg, #1f4037, #99f2c8);
+  border-top-left-radius: 14px;
+  border-top-right-radius: 14px;
+  letter-spacing: 0.5px;
+}
+
+/* Form Styling */
+.form-control-sm {
+  font-size: 13px;
+  border-radius: 6px;
+  transition: 0.2s ease-in-out;
+}
+
+.form-control-sm:focus {
+  box-shadow: 0 0 0 0.15rem rgba(32, 83, 100, 0.25);
+  border-color: #2c5364;
+}
+
+/* Button */
+.btn-success {
+  border-radius: 6px;
+  font-size: 13px;
+  padding: 6px 14px;
+}
+
+.btn-success:hover {
+  background-color: #198754;
+  transform: translateY(-1px);
+  transition: 0.2s ease;
+}
+
+/* Label */
+.form-label {
+  margin-bottom: 4px;
+}
+
+/* Responsive spacing */
+.card-body {
+  background: #fafafa;
+}

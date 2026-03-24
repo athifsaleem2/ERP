@@ -1,0 +1,113 @@
+/* CARD */
+.card {
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+/* HEADER */
+.gradient-header {
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+}
+
+.gradient-header h5 {
+  font-weight: 600;
+  letter-spacing: 0.4px;
+}
+
+/* LABELS */
+label {
+  font-size: 12px;
+  font-weight: 500;
+  color: #555;
+  margin-bottom: 3px;
+}
+
+/* INPUTS */
+.form-control-sm,
+.form-select-sm {
+  font-size: 13px;
+  border-radius: 6px;
+  padding: 6px 8px;
+}
+
+/* INPUT FOCUS */
+.form-control:focus,
+.form-select:focus {
+  border-color: #0d6efd;
+  box-shadow: 0 0 3px rgba(13, 110, 253, 0.3);
+}
+
+/* BUTTON */
+.btn {
+  font-size: 13px;
+  border-radius: 6px;
+  padding: 5px 12px;
+}
+
+.btn-light {
+  border: 1px solid #ddd;
+}
+
+.btn-light:hover {
+  background: #f3f3f3;
+}
+
+/* TABLE */
+.table {
+  font-size: 13px;
+}
+
+.table th {
+  font-size: 12px;
+  color: #444;
+  font-weight: 600;
+}
+
+.table td {
+  vertical-align: middle;
+}
+
+/* HOVER EFFECT */
+.table-hover tbody tr:hover {
+  background-color: #f9f9f9;
+}
+
+/* TABLE HEADER */
+.table-light {
+  background: #f7f7f7;
+}
+
+/* TABLE CONTAINER */
+.table-responsive {
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* CARD BODY */
+.card-body {
+  background: #ffffff;
+}
+
+/* STATUS DROPDOWN */
+.table select {
+  min-width: 110px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+
+  .card-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .card-header button {
+    width: 100%;
+  }
+
+  .row.mb-3 > div {
+    margin-bottom: 8px;
+  }
+
+}

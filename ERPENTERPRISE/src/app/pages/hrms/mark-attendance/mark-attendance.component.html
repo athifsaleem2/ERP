@@ -1,0 +1,75 @@
+<div class="card shadow-sm border-0">
+
+  <div class="card-header gradient-header text-white d-flex justify-content-between align-items-center">
+    <h5 class="mb-0">Attendance Management</h5>
+    <button class="btn btn-light btn-sm">
+      Save Attendance
+    </button>
+  </div>
+
+  <div class="card-body small">
+
+    <div class="row mb-3">
+
+      <div class="col-md-3">
+        <label>Date</label>
+        <input type="date" class="form-control form-control-sm">
+      </div>
+
+      <div class="col-md-3">
+        <label>Department</label>
+        <select class="form-select form-select-sm">
+          <option>All</option>
+          <option>HR</option>
+          <option>Sales</option>
+        </select>
+      </div>
+
+    </div>
+
+    <div class="table-responsive">
+
+      <table class="table table-sm table-hover">
+
+        <thead class="table-light">
+          <tr>
+            <th>Employee</th>
+            <th>Department</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>John</td>
+            <td>Sales</td>
+            <td>
+              <select class="form-select form-select-sm">
+                <option>Present</option>
+                <option>Absent</option>
+                <option>Leave</option>
+              </select>
+            </td>
+          </tr>
+
+          <tr>
+            <td>Maria</td>
+            <td>HR</td>
+            <td>
+              <select class="form-select form-select-sm">
+                <option>Present</option>
+                <option>Absent</option>
+                <option>Leave</option>
+              </select>
+            </td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+</div>

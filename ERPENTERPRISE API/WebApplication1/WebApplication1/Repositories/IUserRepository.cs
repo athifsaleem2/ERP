@@ -1,0 +1,10 @@
+using WebApplication1.Models;
+
+namespace WebApplication1.Repositories
+{
+    public interface IUserRepository
+    {
+        Task<User?> GetByEmailAsync(string email);
+        Task<User> AddAsync(User user);
+    }
+}

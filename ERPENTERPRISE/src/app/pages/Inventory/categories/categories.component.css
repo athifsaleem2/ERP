@@ -1,0 +1,30 @@
+.invoice-container {
+  border-radius: 14px;
+}
+
+.gradient-header {
+  background: linear-gradient(135deg, #134e5e, #71b280);
+  border-top-left-radius: 14px;
+  border-top-right-radius: 14px;
+}
+
+.form-control-sm,
+.form-select-sm {
+  font-size: 13px;
+  border-radius: 6px;
+}
+
+.table th {
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
+.btn {
+  border-radius: 6px;
+  font-size: 13px;
+}
+
+.btn-success:hover {
+  transform: translateY(-1px);
+  transition: 0.2s ease;
+}

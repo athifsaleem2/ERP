@@ -1,0 +1,62 @@
+<div class="invoice-container card shadow-sm border-0">
+
+  <div class="card-header gradient-header text-white py-3">
+    <h5 class="mb-0 fw-semibold">Category Management</h5>
+  </div>
+
+  <div class="card-body p-4 small">
+
+    <!-- Add Category -->
+    <div class="row g-3 mb-3">
+
+      <div class="col-md-6">
+        <label class="form-label fw-semibold small">Category Name</label>
+        <input type="text"
+               class="form-control form-control-sm"
+               [(ngModel)]="categoryName">
+      </div>
+
+      <div class="col-md-6">
+        <label class="form-label fw-semibold small">Description</label>
+        <input type="text"
+               class="form-control form-control-sm"
+               [(ngModel)]="description">
+      </div>
+
+    </div>
+
+    <button class="btn btn-sm btn-success mb-4"
+            (click)="addCategory()">
+      Save Category
+    </button>
+
+    <!-- Category Table -->
+    <div class="table-responsive">
+      <table class="table table-sm table-hover align-middle">
+
+        <thead class="table-light text-uppercase small">
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th width="10%"></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let cat of categories; let i = index">
+            <td>{{cat.name}}</td>
+            <td>{{cat.description}}</td>
+            <td>
+              <button class="btn btn-sm btn-outline-danger"
+                      (click)="deleteCategory(i)">
+                Delete
+              </button>
+            </td>
+          </tr>
+        </tbody>
+
+      </table>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,83 @@
+/* CARD CONTAINER */
+.card {
+  border-radius: 12px;
+  border: none;
+}
+
+/* HEADER STYLE */
+.gradient-header {
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+
+.gradient-header h5 {
+  font-weight: 600;
+  letter-spacing: 0.4px;
+}
+
+/* BODY */
+.card-body {
+  background: #ffffff;
+}
+
+/* LABEL STYLE */
+label {
+  font-size: 12px;
+  font-weight: 500;
+  color: #555;
+  margin-bottom: 4px;
+}
+
+/* INPUT STYLE */
+.form-control-sm,
+.form-select-sm {
+  font-size: 13px;
+  border-radius: 6px;
+  padding: 6px 8px;
+}
+
+/* INPUT FOCUS EFFECT */
+.form-control:focus,
+.form-select:focus {
+  border-color: #0d6efd;
+  box-shadow: 0 0 4px rgba(13, 110, 253, 0.25);
+}
+
+/* BUTTON STYLE */
+.btn {
+  border-radius: 6px;
+  font-size: 13px;
+  padding: 5px 12px;
+}
+
+/* LIGHT BUTTON */
+.btn-light {
+  background: #ffffff;
+  border: 1px solid #ddd;
+  transition: all 0.2s ease;
+}
+
+.btn-light:hover {
+  background: #f5f5f5;
+}
+
+/* GRID SPACING */
+.row.g-3 {
+  margin-top: 5px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+
+  .card-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .card-header button {
+    width: 100%;
+  }
+
+}
