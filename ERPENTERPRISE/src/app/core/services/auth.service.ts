@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'https://localhost:44332/api/Auth'; // Corrected to IIS Express port
+  private apiUrl = 'http://localhost:52888/api/Auth'; // Corrected to match launchSettings.json port
 
   constructor(private http: HttpClient) { }
 

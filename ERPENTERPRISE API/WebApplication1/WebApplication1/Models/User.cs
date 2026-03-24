@@ -3,29 +3,28 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebApplication1.Models
 {
-    [Table("Users")]
+    [Table("userlogin")]
     public class User
     {
         [Key]
         public int Id { get; set; }
 
         [Required]
-        [StringLength(100)]
+        [StringLength(50)]
         public string Username { get; set; } = string.Empty;
 
         [Required]
-        [StringLength(100)]
-        public string Email { get; set; } = string.Empty;
-
-        [Required]
-        [StringLength(100)]
-        public string Password { get; set; } = string.Empty; // Plain text per user request
+        public string Password { get; set; } = string.Empty;
 
         [StringLength(100)]
-        public string FullName { get; set; } = string.Empty;
+        public string? Email { get; set; }
 
-        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        [StringLength(100)]
+        public string? FullName { get; set; }
 
-        public bool IsActive { get; set; } = true;
+        [StringLength(50)]
+        public string? Role { get; set; }
+
+        public DateTime? CreatedAt { get; set; } = DateTime.Now;
     }
 }

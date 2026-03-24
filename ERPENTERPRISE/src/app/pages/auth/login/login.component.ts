@@ -26,7 +26,7 @@ export class LoginComponent {
   createForm() {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
+      password: ['', [Validators.required]],
       remember: [false]
     });
   }
@@ -34,7 +34,7 @@ export class LoginComponent {
   onSubmit() {
     if (this.loginForm.valid) {
       const loginData = {
-        username: this.loginForm.value.email.trim(),
+        email: this.loginForm.value.email.trim(),
         password: this.loginForm.value.password.trim()
       };
       console.log("Sending login data:", loginData);
