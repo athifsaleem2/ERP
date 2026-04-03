@@ -26,8 +26,11 @@
 </div>
 
       <ul class="submenu" *ngIf="openMenu === 'sales'">
-  <li routerLink="sales-invoice" routerLinkActive="active">
-    Sales Invoice
+  <li routerLink="sales-invoice-list" routerLinkActive="active">
+    Sales Invoice List
+  </li>
+  <li routerLink="sales-invoice" routerLinkActive="active" class="text-xs opacity-75 ps-4">
+    + Add New Invoice
   </li>
   <li routerLink="sales-return" routerLinkActive="active">
     Sales Return
@@ -37,9 +40,6 @@
   </li>
   <li routerLink="customers" routerLinkActive="active">
     Customers
-  </li>
-  <li routerLink="receipts" routerLinkActive="active">
-    Receipts
   </li>
 </ul>
     </li>
@@ -62,9 +62,11 @@
   </div>
 
   <ul class="submenu" *ngIf="openMenu === 'purchase'">
-
-    <li routerLink="purchase-invoice" routerLinkActive="active">
-      Purchase Invoice
+    <li routerLink="purchase-invoice-list" routerLinkActive="active">
+      Purchase Invoice List
+    </li>
+    <li routerLink="purchase-invoice" routerLinkActive="active" class="text-xs opacity-75 ps-4">
+      + Add New Purchase
     </li>
 
     <li routerLink="purchase-return" routerLinkActive="active">
@@ -104,6 +106,10 @@
 
     <li routerLink="products" routerLinkActive="active">
       Products
+    </li>
+
+    <li routerLink="add-product" routerLinkActive="active" class="text-xs opacity-75 ps-4">
+      + Add Product
     </li>
 
     <li routerLink="categories" routerLinkActive="active">

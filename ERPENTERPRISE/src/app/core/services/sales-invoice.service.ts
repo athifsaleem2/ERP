@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 export interface SalesInvoiceItem {
   id?: number;
   invoiceId?: number;
+  productId?: number;
   productName: string;
   quantity: number;
   price: number;
@@ -15,6 +16,7 @@ export interface SalesInvoiceItem {
 export interface SalesInvoice {
   id?: number;
   invoiceNumber: string;
+  customerId?: number;
   customerName: string;
   paymentMode: string;
   dueDate: string;
@@ -30,7 +32,7 @@ export interface SalesInvoice {
   providedIn: 'root'
 })
 export class SalesInvoiceService {
-  private apiUrl = `https://localhost:44332/api/SalesInvoice`;
+  private apiUrl = `http://localhost:52888/api/SalesInvoice`;
 
   constructor(private http: HttpClient) { }
 

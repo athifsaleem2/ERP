@@ -1,0 +1,58 @@
+<div class="max-w-full mx-auto p-3">
+  <!-- PURCHASE LIST SECTION -->
+  <div class="bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden transition-all duration-300 hover:shadow-xl">
+    <div class="bg-gradient-to-r from-emerald-800 to-teal-950 text-white px-6 py-4 flex justify-between items-center relative overflow-hidden">
+      <div class="absolute top-0 right-0 -mr-16 -mt-16 w-48 h-48 rounded-full bg-white opacity-5 blur-2xl"></div>
+      <div class="relative z-10">
+        <h2 class="text-xl font-bold tracking-tight mb-0.5">Purchase Invoices</h2>
+        <p class="text-emerald-300 text-xs font-medium tracking-wide">Manage and view all your procurement records</p>
+      </div>
+      <button (click)="navigateToAdd()" 
+        class="relative z-10 px-4 py-2 bg-white text-emerald-900 rounded-lg text-xs font-bold hover:bg-emerald-50 transition-all duration-200 shadow-md flex items-center gap-2">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+        </svg>
+        Add New Purchase
+      </button>
+    </div>
+
+    <div class="p-4">
+      <div class="overflow-x-auto rounded-lg border border-gray-200 shadow-sm text-xs">
+        <table class="min-w-full divide-y divide-gray-200">
+          <thead class="bg-gray-50 text-[10px] uppercase font-bold text-gray-500">
+            <tr>
+              <th scope="col" class="px-6 py-3 text-left tracking-wider">Invoice #</th>
+              <th scope="col" class="px-6 py-3 text-left tracking-wider">Date</th>
+              <th scope="col" class="px-6 py-3 text-right tracking-wider">Grand Total</th>
+              <th scope="col" class="px-6 py-3 text-center tracking-wider">Status</th>
+              <th scope="col" class="px-6 py-3 text-center tracking-wider w-20">Actions</th>
+            </tr>
+          </thead>
+          <tbody class="bg-white divide-y divide-gray-100">
+            <tr *ngFor="let item of invoices" class="hover:bg-emerald-50/30 transition-colors duration-150">
+              <td class="px-6 py-4 whitespace-nowrap font-bold text-emerald-600">{{ item.invoiceNumber }}</td>
+              <td class="px-6 py-4 whitespace-nowrap text-gray-600 font-medium">{{ item.date | date:'dd-MM-yyyy' }}</td>
+              <td class="px-6 py-4 whitespace-nowrap font-black text-right text-emerald-700">₹ {{ item.grandTotal | number:'1.2-2' }}</td>
+              <td class="px-6 py-4 whitespace-nowrap text-center">
+                <span class="px-2.5 py-1 text-[10px] font-bold uppercase rounded-full bg-emerald-100 text-emerald-700 border border-emerald-200">Received</span>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-center text-xs">
+                <button class="text-emerald-600 hover:text-emerald-900 transition-colors">
+                  <i class="bi bi-eye"></i>
+                </button>
+              </td>
+            </tr>
+            <tr *ngIf="invoices.length === 0">
+              <td colspan="5" class="px-6 py-12 text-center text-gray-400">
+                <div class="flex flex-col items-center gap-2">
+                  <i class="bi bi-receipt text-3xl opacity-20"></i>
+                  <span class="text-sm">No purchase invoices found.</span>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

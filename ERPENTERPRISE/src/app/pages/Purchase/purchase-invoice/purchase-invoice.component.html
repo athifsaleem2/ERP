@@ -1,63 +1,102 @@
-<div class="invoice-container card shadow-sm border-0">
-
-  <div class="card-header gradient-header text-white py-3 d-flex justify-content-between align-items-center">
-    <div>
-      <h5 class="mb-0 fw-semibold">Purchase Invoice</h5>
-      <small class="opacity-75">Enterprise ERP System</small>
-    </div>
-    <div class="text-end small">
-      <div class="fw-semibold">Invoice #: PINV-001</div>
-      <div>Date: {{ today | date:'dd-MM-yyyy' }}</div>
-    </div>
-  </div>
-
-  <div class="card-body p-4 small">
-
-    <div class="row g-3 mb-4">
-      <div class="col-md-4">
-        <label class="form-label fw-semibold small">Supplier</label>
-        <select class="form-select form-select-sm">
-          <option>Select Supplier</option>
-        </select>
+<div class="container-fluid p-4">
+  <div class="card shadow-lg border-0 rounded-xl overflow-hidden">
+    <div class="bg-gradient-to-r from-emerald-800 to-teal-950 text-white px-6 py-4 d-flex justify-content-between align-items-center relative overflow-hidden">
+      <div class="absolute top-0 right-0 -mr-16 -mt-16 w-48 h-48 rounded-full bg-white opacity-5 blur-2xl"></div>
+      <div class="relative z-10">
+        <h5 class="mb-0 font-bold tracking-tight"><i class="bi bi-cart-plus me-2 text-emerald-400"></i>Create Purchase Invoice</h5>
+        <div class="flex gap-4 mt-1">
+          <p class="text-[10px] text-emerald-400 font-medium uppercase tracking-widest mb-0">Material Procurement Terminal</p>
+          <p class="text-[10px] text-emerald-200 font-bold uppercase tracking-widest mb-0 opacity-80">| Date: {{ today | date:'dd-MM-yyyy' }}</p>
+        </div>
       </div>
-
-      <div class="col-md-4">
-        <label class="form-label fw-semibold small">Bill No</label>
-        <input type="text" class="form-control form-control-sm">
-      </div>
-
-      <div class="col-md-4">
-        <label class="form-label fw-semibold small">Due Date</label>
-        <input type="date" class="form-control form-control-sm">
+      <div class="relative z-10 bg-white/10 px-3 py-1.5 rounded-lg border border-white/10">
+        <span class="text-[10px] font-bold text-emerald-300 uppercase me-2 opacity-60">Number:</span>
+        <span class="fw-bold tracking-tighter">{{ invoice.invoiceNumber }}</span>
       </div>
     </div>
+    
+    <div class="card-body p-4 text-xs">
+      <!-- HEADER INFO -->
+      <div class="row g-3 mb-4">
+        <div class="col-md-6">
+          <label class="form-label fw-bold text-uppercase text-muted" style="font-size: 10px;">Supplier Selection *</label>
+          <select [(ngModel)]="invoice.supplierId" class="form-select form-select-sm">
+            <option [value]="0" disabled>-- Select Supplier --</option>
+            <option *ngFor="let sup of suppliers" [value]="sup.id">{{ sup.name }}</option>
+          </select>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label fw-bold text-uppercase text-muted" style="font-size: 10px;">Notes</label>
+          <input type="text" [(ngModel)]="invoice.notes" class="form-control form-control-sm" placeholder="Internal remarks...">
+        </div>
+      </div>
 
-    <div class="table-responsive">
-      <table class="table table-sm table-hover align-middle">
-        <thead class="table-light">
-          <tr class="text-uppercase small">
-            <th width="35%">Product</th>
-            <th width="10%" class="text-end">Qty</th>
-            <th width="15%" class="text-end">Cost</th>
-            <th width="15%" class="text-end">Tax %</th>
-            <th width="15%" class="text-end">Total</th>
-            <th width="10%"></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><input type="text" class="form-control form-control-sm"></td>
-            <td><input type="number" class="form-control form-control-sm text-end"></td>
-            <td><input type="number" class="form-control form-control-sm text-end"></td>
-            <td><input type="number" class="form-control form-control-sm text-end"></td>
-            <td class="text-end fw-semibold">0.00</td>
-            <td class="text-center">
-              <button class="btn btn-sm btn-outline-secondary">✕</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <!-- ITEMS TABLE -->
+      <div class="table-responsive mb-4">
+        <table class="table table-bordered table-sm align-middle">
+          <thead class="bg-light">
+            <tr class="text-uppercase text-muted" style="font-size: 10px;">
+              <th class="ps-3" style="width: 40%;">Product</th>
+              <th class="text-center" style="width: 15%;">Qty</th>
+              <th class="text-end" style="width: 20%;">Cost Price</th>
+              <th class="text-end pe-3" style="width: 20%;">Total</th>
+              <th style="width: 5%;"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of invoice.items; let i = index">
+              <td class="ps-3">
+                <select [(ngModel)]="item.productId" (change)="onProductChange(item)" class="form-select form-select-sm border-0 bg-light">
+                  <option [value]="0" disabled>-- Select Product --</option>
+                  <option *ngFor="let prod of products" [value]="prod.id">{{ prod.name }} ({{ prod.sku }})</option>
+                </select>
+              </td>
+              <td>
+                <input type="number" [(ngModel)]="item.quantity" (change)="calculateTotals()" class="form-control form-control-sm text-center border-0">
+              </td>
+              <td>
+                <input type="number" [(ngModel)]="item.costPrice" (change)="calculateTotals()" class="form-control form-control-sm text-end border-0">
+              </td>
+              <td class="text-end pe-3 fw-bold">
+                ₹ {{ item.total | number:'1.2-2' }}
+              </td>
+              <td class="text-center">
+                <button (click)="removeItem(i)" class="btn btn-link text-danger p-0"><i class="bi bi-trash"></i></button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <button (click)="addItem()" class="btn btn-link text-emerald-600 text-decoration-none fw-bold text-[11px] uppercase tracking-widest p-0 mb-4 transition-all hover:text-emerald-800">
+        <i class="bi bi-plus-circle-fill me-1"></i> Add Item Row
+      </button>
+
+      <!-- BOTTOM SECTION -->
+      <div class="row g-4 justify-content-end">
+        <div class="col-lg-5">
+          <div class="bg-light rounded p-4 border shadow-sm">
+            <div class="d-flex justify-content-between mb-2">
+              <span class="text-muted">Subtotal:</span>
+              <span class="fw-bold">₹ {{ invoice.subtotal | number:'1.2-2' }}</span>
+            </div>
+            <div class="d-flex justify-content-between mb-2">
+              <span class="text-muted">GST (18%):</span>
+              <span class="text-success fw-bold">+ ₹ {{ invoice.tax | number:'1.2-2' }}</span>
+            </div>
+            <hr class="my-3 opacity-10">
+            <div class="d-flex justify-content-between align-items-center mb-0">
+              <span class="h6 mb-0 text-uppercase fw-black opacity-60" style="font-size: 11px;">Payable Amount:</span>
+              <span class="h4 mb-0 text-emerald-700 fw-bold">₹ {{ invoice.grandTotal | number:'1.2-2' }}</span>
+            </div>
+          </div>
+          
+          <div class="d-flex gap-3 mt-4">
+            <button class="btn bg-slate-100 text-slate-600 border flex-grow-1 py-3 font-bold text-[11px] uppercase tracking-widest hover:bg-slate-200 transition-all">CANCEL</button>
+            <button (click)="saveInvoice()" class="btn bg-emerald-700 text-white flex-grow-1 py-3 shadow-lg fw-bold text-[11px] uppercase tracking-widest hover:bg-emerald-800 transition-all border-0">COMPLETE PURCHASE</button>
+          </div>
+        </div>
+      </div>
     </div>
-
   </div>
 </div>

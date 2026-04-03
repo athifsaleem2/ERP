@@ -13,7 +13,17 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ISalesInvoiceRepository, SalesInvoiceRepository>();
+builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<ISupplierRepository, SupplierRepository>();
+builder.Services.AddScoped<IPurchaseInvoiceRepository, PurchaseInvoiceRepository>();
+
 builder.Services.AddScoped<ISalesInvoiceService, SalesInvoiceService>();
+builder.Services.AddScoped<ICustomerService, CustomerService>();
+builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<IStockService, StockService>();
+builder.Services.AddScoped<ISupplierService, SupplierService>();
+builder.Services.AddScoped<IPurchaseInvoiceService, PurchaseInvoiceService>();
 
 builder.Services.AddCors(options =>
 {

@@ -1,29 +1,80 @@
-<div class="invoice-container card shadow-sm border-0">
-
-  <div class="card-header gradient-header text-white py-3">
-    <h5 class="mb-0 fw-semibold">Suppliers Management</h5>
-  </div>
-
-  <div class="card-body p-4 small">
-
-    <div class="row g-3 mb-4">
-      <div class="col-md-4">
-        <label class="form-label fw-semibold small">Supplier Name</label>
-        <input type="text" class="form-control form-control-sm">
+<div class="max-w-full mx-auto p-3">
+  <!-- HEADER SECTION -->
+  <div class="bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden mb-6 transition-all duration-300 hover:shadow-xl">
+    <div class="bg-gradient-to-r from-slate-800 to-indigo-950 text-white px-6 py-4 flex justify-between items-center relative overflow-hidden">
+      <div class="absolute top-0 right-0 -mr-16 -mt-16 w-48 h-48 rounded-full bg-white opacity-5 blur-2xl"></div>
+      <div class="relative z-10">
+        <h2 class="text-xl font-bold tracking-tight mb-0.5">Supplier Management</h2>
+        <p class="text-slate-300 text-xs font-medium tracking-wide">Manage your product vendors and procurement details</p>
       </div>
-
-      <div class="col-md-4">
-        <label class="form-label fw-semibold small">Phone</label>
-        <input type="text" class="form-control form-control-sm">
-      </div>
-
-      <div class="col-md-4">
-        <label class="form-label fw-semibold small">GST No</label>
-        <input type="text" class="form-control form-control-sm">
-      </div>
+      <button (click)="navigateToAdd()" 
+        class="relative z-10 px-4 py-2 bg-white text-indigo-900 rounded-lg text-xs font-bold hover:bg-indigo-50 transition-all duration-200 shadow-md flex items-center gap-2">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+        </svg>
+        Add New Supplier
+      </button>
     </div>
 
-    <button class="btn btn-sm btn-success mb-3">Save Supplier</button>
-
+    <!-- SUPPLIER TABLE -->
+    <div class="p-4">
+      <div class="overflow-x-auto rounded-lg border border-gray-200 shadow-sm">
+        <table class="min-w-full divide-y divide-gray-200">
+          <thead class="bg-gray-50">
+            <tr>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Vendor Name</th>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Contact Details</th>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Address</th>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">GST Number</th>
+              <th scope="col" class="px-6 py-3 text-center text-xs font-bold text-gray-500 uppercase tracking-wider w-20">Actions</th>
+            </tr>
+          </thead>
+          <tbody class="bg-white divide-y divide-gray-100">
+            <tr *ngFor="let supplier of suppliers" class="hover:bg-indigo-50/30 transition-colors duration-150">
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="text-xs font-bold text-indigo-700">{{ supplier.name }}</div>
+                <div class="text-[10px] text-gray-400">ID: #SUP-{{ supplier.id }}</div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="text-xs font-medium text-gray-800 flex items-center gap-2">
+                  <i class="bi bi-telephone text-gray-400"></i> {{ supplier.phone }}
+                </div>
+                <div class="text-[10px] text-gray-500 flex items-center gap-2">
+                  <i class="bi bi-envelope text-gray-400"></i> {{ supplier.email || 'N/A' }}
+                </div>
+              </td>
+              <td class="px-6 py-4">
+                <div class="text-xs text-gray-600 truncate max-w-[200px]">{{ supplier.address || 'N/A' }}</div>
+                <div class="text-[10px] font-bold text-slate-500">{{ supplier.contactPerson || 'N/A' }}</div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <span class="px-2 py-1 text-[10px] font-bold tracking-wider rounded bg-slate-100 text-slate-600 border border-slate-200" *ngIf="supplier.gstNumber">
+                  {{ supplier.gstNumber }}
+                </span>
+                <span class="text-xs text-gray-300" *ngIf="!supplier.gstNumber">No GST</span>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-center text-xs font-medium">
+                <div class="flex justify-center gap-2">
+                  <button class="text-indigo-600 hover:text-indigo-900 transition-colors">
+                    <i class="bi bi-pencil-square"></i>
+                  </button>
+                  <button class="text-red-400 hover:text-red-600 transition-colors">
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+            <tr *ngIf="suppliers.length === 0">
+              <td colspan="5" class="px-6 py-12 text-center text-gray-400">
+                <div class="flex flex-col items-center gap-2">
+                  <i class="bi bi-person-exclamation text-3xl text-gray-200"></i>
+                  <span class="text-sm">No suppliers found. Click "Add New Supplier" to get started.</span>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
 </div>

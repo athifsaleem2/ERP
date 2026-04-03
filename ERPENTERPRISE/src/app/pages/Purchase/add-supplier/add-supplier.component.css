@@ -1,0 +1,9 @@
+/* Premium form styles */
+input:focus, textarea:focus {
+  background-color: white !important;
+  box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.05) !important;
+}
+
+label {
+  letter-spacing: 0.05em;
+}
