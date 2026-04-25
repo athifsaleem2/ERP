@@ -1,70 +1,53 @@
-<div class="leave-container card shadow-sm border-0">
-
-  <!-- HEADER -->
-  <div class="card-header gradient-header text-white d-flex justify-content-between align-items-center">
+<div class="hrms-container">
+  <div class="hrms-header">
     <div>
-      <h5 class="mb-0 fw-semibold">Leave Application</h5>
-      <small class="opacity-75">Submit Employee Leave Request</small>
+      <h4 class="hrms-title"><i class="bi bi-send-plus me-2"></i>Apply for Leave</h4>
+      <span class="hrms-sub">HRMS Module &mdash; {{ today | date:'dd MMM yyyy' }}</span>
     </div>
-
-    <button class="btn btn-light btn-sm">
-      Leave History
-    </button>
+    <button class="btn-secondary" (click)="cancel()">← Back</button>
   </div>
 
-  <!-- BODY -->
-  <div class="card-body small">
+  <div *ngIf="successMsg" class="alert-success-bar">✔ {{ successMsg }}</div>
+  <div *ngIf="errorMsg" class="alert-error-bar">✘ {{ errorMsg }}</div>
 
+  <div class="form-card">
+    <h6 class="section-label">Leave Request Details</h6>
     <div class="row g-3">
-
-      <!-- EMPLOYEE -->
       <div class="col-md-6">
-        <label>Employee</label>
-        <input
-          class="form-control form-control-sm"
-          placeholder="Enter employee name">
-      </div>
-
-      <!-- LEAVE TYPE -->
-      <div class="col-md-6">
-        <label>Leave Type</label>
-        <select class="form-select form-select-sm">
-          <option>Select Leave Type</option>
-          <option>Sick Leave</option>
-          <option>Casual Leave</option>
-          <option>Annual Leave</option>
+        <label class="field-label">Employee *</label>
+        <select id="leave-emp" class="field-input" [(ngModel)]="form.employeeId">
+          <option [value]="0">-- Select Employee --</option>
+          <option *ngFor="let e of employees" [value]="e.id">{{ e.name }} ({{ e.empCode }})</option>
         </select>
       </div>
-
-      <!-- FROM DATE -->
       <div class="col-md-6">
-        <label>From Date</label>
-        <input type="date" class="form-control form-control-sm">
+        <label class="field-label">Leave Type *</label>
+        <select id="leave-type" class="field-input" [(ngModel)]="form.leaveType">
+          <option *ngFor="let t of leaveTypes" [value]="t">{{ t }}</option>
+        </select>
       </div>
-
-      <!-- TO DATE -->
-      <div class="col-md-6">
-        <label>To Date</label>
-        <input type="date" class="form-control form-control-sm">
+      <div class="col-md-4">
+        <label class="field-label">From Date *</label>
+        <input id="leave-from" type="date" class="field-input" [(ngModel)]="form.fromDate" (ngModelChange)="computeDays()">
       </div>
-
-      <!-- REASON -->
-      <div class="col-md-12">
-        <label>Reason</label>
-        <textarea
-          rows="3"
-          class="form-control form-control-sm"
-          placeholder="Enter leave reason"></textarea>
+      <div class="col-md-4">
+        <label class="field-label">To Date *</label>
+        <input id="leave-to" type="date" class="field-input" [(ngModel)]="form.toDate" (ngModelChange)="computeDays()">
       </div>
-
+      <div class="col-md-4">
+        <label class="field-label">Total Days</label>
+        <input type="number" class="field-input readonly-field" [value]="form.totalDays" readonly>
+      </div>
+      <div class="col-12">
+        <label class="field-label">Reason</label>
+        <textarea id="leave-reason" class="field-input" rows="3" [(ngModel)]="form.reason" placeholder="Brief reason for leave…" style="resize:none"></textarea>
+      </div>
+      <div class="col-12 d-flex gap-2 justify-content-end">
+        <button class="btn-secondary" (click)="cancel()">Cancel</button>
+        <button id="btn-submit-leave" class="btn-save" (click)="save()" [disabled]="saving">
+          {{ saving ? 'Submitting…' : 'Submit Leave Request' }}
+        </button>
+      </div>
     </div>
-
-    <!-- BUTTON -->
-    <div class="mt-4 text-end">
-      <button class="btn btn-success btn-sm px-4" (click)="applyLeave()">
-        Submit Leave
-      </button>
-    </div>
-
   </div>
 </div>

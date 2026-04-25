@@ -1,74 +1,92 @@
-<div class="card shadow-sm border-0">
-
-  <div class="card-header gradient-header text-white d-flex justify-content-between align-items-center">
-    <h5 class="mb-0">Payroll Management</h5>
-    <button class="btn btn-light btn-sm">
-      Generate Payroll
-    </button>
+<div class="hrms-container">
+  <div class="hrms-header">
+    <div>
+      <h4 class="hrms-title"><i class="bi bi-calculator-fill me-2"></i>Generate Payroll</h4>
+      <span class="hrms-sub">HRMS Module &mdash; {{ today | date:'dd MMM yyyy' }}</span>
+    </div>
+    <button class="btn-secondary" (click)="cancel()">← Back</button>
   </div>
 
-  <div class="card-body small">
+  <div *ngIf="successMsg" class="alert-success-bar">✔ {{ successMsg }}</div>
+  <div *ngIf="errorMsg" class="alert-error-bar">✘ {{ errorMsg }}</div>
 
-    <div class="row g-3 mb-4">
+  <div class="row g-4">
+    <!-- Form -->
+    <div class="col-md-8">
+      <div class="form-card">
+        <h6 class="section-label">Payroll Details</h6>
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label class="field-label">Employee *</label>
+            <select id="gen-employee" class="field-input" [(ngModel)]="form.employeeId" (ngModelChange)="onEmployeeChange()">
+              <option [value]="0">-- Select Employee --</option>
+              <option *ngFor="let e of employees" [value]="e.id">{{ e.name }} ({{ e.empCode }})</option>
+            </select>
+          </div>
+          <div class="col-md-3">
+            <label class="field-label">Month</label>
+            <select id="gen-month" class="field-input" [(ngModel)]="form.month">
+              <option *ngFor="let m of months; let i = index" [value]="i + 1">{{ m }}</option>
+            </select>
+          </div>
+          <div class="col-md-3">
+            <label class="field-label">Year</label>
+            <select id="gen-year" class="field-input" [(ngModel)]="form.year">
+              <option *ngFor="let y of years" [value]="y">{{ y }}</option>
+            </select>
+          </div>
 
-      <div class="col-md-3">
-        <label>Month</label>
-        <input type="month" class="form-control form-control-sm">
+          <div class="col-md-4">
+            <label class="field-label">Basic Salary (₹)</label>
+            <input id="gen-basic" type="number" class="field-input" [(ngModel)]="form.basicSalary" (ngModelChange)="autoCompute()">
+          </div>
+          <div class="col-md-4">
+            <label class="field-label">HRA (auto 40%)</label>
+            <input type="number" class="field-input readonly-field" [value]="form.hra" readonly>
+          </div>
+          <div class="col-md-4">
+            <label class="field-label">DA (auto 10%)</label>
+            <input type="number" class="field-input readonly-field" [value]="form.da" readonly>
+          </div>
+          <div class="col-md-4">
+            <label class="field-label">Bonus (₹)</label>
+            <input id="gen-bonus" type="number" class="field-input" [(ngModel)]="form.bonus" (ngModelChange)="computeNet()" min="0">
+          </div>
+          <div class="col-md-4">
+            <label class="field-label">PF Deduction (auto 12%)</label>
+            <input type="number" class="field-input readonly-field" [value]="form.pfDeduction" readonly>
+          </div>
+          <div class="col-md-4">
+            <label class="field-label">Tax Deduction (₹)</label>
+            <input id="gen-tax" type="number" class="field-input" [(ngModel)]="form.taxDeduction" (ngModelChange)="computeNet()" min="0">
+          </div>
+          <div class="col-md-4">
+            <label class="field-label">Other Deductions (₹)</label>
+            <input id="gen-other" type="number" class="field-input" [(ngModel)]="form.otherDeductions" (ngModelChange)="computeNet()" min="0">
+          </div>
+        </div>
       </div>
-
-      <div class="col-md-3">
-        <label>Employee</label>
-        <select class="form-select form-select-sm">
-          <option>Select Employee</option>
-        </select>
-      </div>
-
-      <div class="col-md-3">
-        <label>Basic Salary</label>
-        <input class="form-control form-control-sm">
-      </div>
-
-      <div class="col-md-3">
-        <label>Bonus</label>
-        <input class="form-control form-control-sm">
-      </div>
-
-      <div class="col-md-3">
-        <label>Deductions</label>
-        <input class="form-control form-control-sm">
-      </div>
-
     </div>
 
-    <div class="table-responsive">
-
-      <table class="table table-sm table-hover">
-
-        <thead class="table-light">
-          <tr>
-            <th>Employee</th>
-            <th>Basic</th>
-            <th>Bonus</th>
-            <th>Deductions</th>
-            <th>Net Salary</th>
-          </tr>
-        </thead>
-
-        <tbody>
-
-          <tr>
-            <td>John</td>
-            <td>20000</td>
-            <td>2000</td>
-            <td>500</td>
-            <td class="fw-bold">21500</td>
-          </tr>
-
-        </tbody>
-
-      </table>
-
+    <!-- Net Salary Preview -->
+    <div class="col-md-4">
+      <div class="net-salary-card">
+        <div class="ns-label">NET SALARY</div>
+        <div class="ns-amount">₹ {{ form.netSalary | number:'1.2-2' }}</div>
+        <div class="ns-breakdown">
+          <div class="ns-row"><span>Basic</span><span>₹ {{ form.basicSalary | number:'1.0-0' }}</span></div>
+          <div class="ns-row"><span>HRA</span><span>₹ {{ form.hra | number:'1.0-0' }}</span></div>
+          <div class="ns-row"><span>DA</span><span>₹ {{ form.da | number:'1.0-0' }}</span></div>
+          <div class="ns-row"><span>Bonus</span><span>₹ {{ form.bonus | number:'1.0-0' }}</span></div>
+          <div class="ns-divider"></div>
+          <div class="ns-row text-danger"><span>PF</span><span>- ₹ {{ form.pfDeduction | number:'1.0-0' }}</span></div>
+          <div class="ns-row text-danger"><span>Tax</span><span>- ₹ {{ form.taxDeduction | number:'1.0-0' }}</span></div>
+          <div class="ns-row text-danger"><span>Others</span><span>- ₹ {{ form.otherDeductions | number:'1.0-0' }}</span></div>
+        </div>
+        <button id="btn-generate" class="btn-save w-100 mt-3" (click)="save()" [disabled]="saving || !form.employeeId">
+          {{ saving ? 'Generating…' : 'Generate Payroll' }}
+        </button>
+      </div>
     </div>
-
   </div>
 </div>

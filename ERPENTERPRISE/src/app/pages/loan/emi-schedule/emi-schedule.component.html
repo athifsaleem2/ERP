@@ -6,7 +6,13 @@
       <small class="opacity-75">Enterprise ERP System</small>
     </div>
     <div class="text-end small">
-      <div class="fw-semibold">Loan ID: LN-001</div>
+      <div class="fw-semibold d-inline-flex align-items-center gap-2">
+        Loan Application:
+        <select class="form-select form-select-sm d-inline-block w-auto" [(ngModel)]="selectedLoanId" (change)="onLoanSelect()">
+          <option [ngValue]="0">Select Loan</option>
+          <option *ngFor="let loan of loans" [ngValue]="loan.id">LA-{{loan.id}} - {{loan.applicantName}}</option>
+        </select>
+      </div>
       <div>Date: {{ today | date:'dd-MM-yyyy' }}</div>
     </div>
   </div>
@@ -26,13 +32,21 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>01-05-2026</td>
-            <td class="text-end">₹ 5,000</td>
-            <td class="text-end">₹ 500</td>
-            <td class="text-end fw-semibold">₹ 5,500</td>
-            <td><span class="badge bg-warning">Pending</span></td>
+          <tr *ngIf="emiList.length === 0">
+            <td colspan="6" class="text-center text-muted py-3">Select a loan to view its EMI schedule.</td>
+          </tr>
+          <tr *ngFor="let emi of emiList; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>{{ emi.dueDate | date:'dd-MM-yyyy' }}</td>
+            <td class="text-end">₹ {{ emi.principalComponent | number:'1.2-2' }}</td>
+            <td class="text-end">₹ {{ emi.interestComponent | number:'1.2-2' }}</td>
+            <td class="text-end fw-semibold">₹ {{ emi.totalEmi | number:'1.2-2' }}</td>
+            <td>
+              <span class="badge" 
+                    [ngClass]="emi.status === 'Paid' ? 'bg-success' : 'bg-warning'">
+                {{ emi.status }}
+              </span>
+            </td>
           </tr>
         </tbody>
       </table>

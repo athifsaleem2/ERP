@@ -1,43 +1,115 @@
-<div class="invoice-container card shadow-sm border-0">
+<div class="relative overflow-hidden bg-white rounded-2xl shadow-2xl border border-gray-100 min-h-[600px] flex flex-col md:flex-row">
+  
+  <div class="absolute top-0 left-0 w-64 h-64 bg-orange-50 rounded-full blur-3xl opacity-40 -ml-20 -mt-20 pointer-events-none"></div>
+  <div class="absolute bottom-0 right-0 w-48 h-48 bg-red-50 rounded-full blur-3xl opacity-30 -mr-10 -mb-10 pointer-events-none"></div>
 
-  <div class="card-header gradient-header text-white py-3">
-    <h5 class="mb-0 fw-semibold">Stock Out Entry</h5>
-  </div>
-
-  <div class="card-body p-4 small">
-
-    <div class="row g-3 mb-4">
-
-      <div class="col-md-4">
-        <label class="form-label fw-semibold small">Product</label>
-        <select class="form-select form-select-sm">
-          <option>Select Product</option>
-        </select>
-      </div>
-
-      <div class="col-md-3">
-        <label class="form-label fw-semibold small">Customer</label>
-        <select class="form-select form-select-sm">
-          <option>Select Customer</option>
-        </select>
-      </div>
-
-      <div class="col-md-2">
-        <label class="form-label fw-semibold small">Quantity</label>
-        <input type="number" class="form-control form-control-sm text-end">
-      </div>
-
-      <div class="col-md-3">
-        <label class="form-label fw-semibold small">Date</label>
-        <input type="date" class="form-control form-control-sm">
-      </div>
-
+  <!-- LEFT: FORM SECTION -->
+  <div class="w-full md:w-1/2 p-8 md:p-10 relative z-10 bg-white border-r border-gray-100">
+    
+    <div class="mb-8">
+      <h2 class="text-3xl font-black text-gray-900 tracking-tight flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-orange-100 text-orange-600 flex items-center justify-center">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+        </div>
+        Stock Check-Out
+      </h2>
+      <p class="text-gray-500 text-xs mt-3 font-medium tracking-wide">Record stock deductions for consumption, damage, or internal usage.</p>
     </div>
 
-  <button class="btn btn-sm btn-danger mb-4"
-        (click)="saveStockOut()">
-  Save Stock Out
-</button>
+    <!-- FORM -->
+    <div class="space-y-5">
+      
+      <!-- Product Selection -->
+      <div class="space-y-1.5">
+        <label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest ml-1">Product to Deduct *</label>
+        <div class="relative">
+          <select [(ngModel)]="entry.productId" (change)="onProductChange()"
+                  class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 transition-all outline-none appearance-none cursor-pointer font-semibold text-gray-700">
+            <option [ngValue]="0" disabled>Select Product</option>
+            <option *ngFor="let p of products" [ngValue]="p.id">{{ p.name }} (SKU: {{ p.sku }})</option>
+          </select>
+          <div class="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path></svg>
+          </div>
+        </div>
+      </div>
 
+      <div class="grid grid-cols-2 gap-4">
+        <div class="space-y-1.5">
+          <label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest ml-1">Quantity Deducted *</label>
+          <div class="relative">
+            <input type="number" [(ngModel)]="entry.quantity" min="1"
+                   class="w-full bg-orange-50/50 border border-orange-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 transition-all outline-none font-black text-orange-700 text-center placeholder-orange-300">
+          </div>
+        </div>
+
+        <div class="space-y-1.5">
+          <label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest ml-1">Date *</label>
+          <input type="date" [(ngModel)]="entry.date"
+                 class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-sm font-semibold text-gray-600 focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 transition-all outline-none">
+        </div>
+      </div>
+
+      <div class="space-y-1.5">
+        <label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest ml-1">Reason for Deduction *</label>
+        <div class="relative">
+          <!-- We use reference to store reason for this entity -->
+          <select [(ngModel)]="entry.reference"
+                  class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 transition-all outline-none appearance-none cursor-pointer text-gray-700">
+            <option value="" disabled>Select Reason...</option>
+            <option *ngFor="let r of reasons" [value]="r">{{ r }}</option>
+          </select>
+          <div class="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path></svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="space-y-1.5">
+        <label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest ml-1">Source Location</label>
+        <input type="text" [(ngModel)]="entry.fromLocation"
+               class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 transition-all outline-none text-gray-600" 
+               placeholder="e.g. Main Warehouse">
+      </div>
+
+      <button (click)="saveStockOut()" [disabled]="!entry.productId || entry.quantity <= 0 || !entry.reference || isSaving"
+              class="w-full mt-2 bg-gradient-to-r from-orange-500 to-red-600 text-white font-black text-xs uppercase tracking-[0.1em] py-3.5 rounded-xl shadow-lg shadow-orange-500/30 hover:shadow-orange-500/50 hover:scale-[1.01] transform transition-all active:scale-[0.99] disabled:opacity-50 disabled:cursor-not-allowed">
+        {{ isSaving ? 'Processing...' : 'Confirm Stock Deduction' }}
+      </button>
+
+    </div>
+  </div>
+
+  <!-- RIGHT: RECENT ENTRIES -->
+  <div class="w-full md:w-1/2 bg-gray-50/80 p-8 md:p-10 relative z-10 flex flex-col">
+    
+    <div class="flex items-center gap-2 mb-6">
+      <div class="w-2 h-2 rounded-full bg-orange-500 animate-pulse"></div>
+      <h3 class="text-sm font-black text-gray-800 uppercase tracking-widest">Recent Deductions</h3>
+    </div>
+
+    <div class="flex-grow space-y-3">
+      <!-- Cards -->
+      <div *ngFor="let item of recentEntries" class="bg-white border border-gray-100 p-4 rounded-xl shadow-sm flex items-center justify-between group hover:border-orange-200 transition-colors">
+        <div class="flex items-center gap-4">
+          <div class="w-10 h-10 rounded-xl bg-orange-50 flex items-center justify-center text-orange-600 font-black text-xs">
+            -{{ item.quantity }}
+          </div>
+          <div>
+            <h4 class="text-xs font-bold text-gray-900">{{ item.productName }}</h4>
+            <p class="text-[10px] text-gray-400 mt-0.5">Reason: {{ item.reference }} &bull; {{ item.date | date:'mediumDate' }}</p>
+          </div>
+        </div>
+        <div class="text-[10px] font-bold text-orange-600 bg-orange-50 px-2 py-1 rounded-md uppercase tracking-wider">
+          Completed
+        </div>
+      </div>
+
+      <!-- Empty State -->
+      <div *ngIf="recentEntries.length === 0" class="h-full flex flex-col justify-center items-center text-center opacity-50">
+        <svg class="w-12 h-12 text-gray-400 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6"></path></svg>
+        <p class="text-xs font-bold text-gray-500">No recent deductions shown</p>
+      </div>
+    </div>
   </div>
 </div>

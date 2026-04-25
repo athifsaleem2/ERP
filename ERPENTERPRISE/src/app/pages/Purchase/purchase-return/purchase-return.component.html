@@ -1,128 +1,236 @@
-<div class="invoice-container card shadow-sm border-0">
+<div class="relative overflow-hidden bg-white rounded-2xl shadow-2xl border border-gray-100 min-h-[600px] flex flex-col">
+  <!-- DECORATIVE BACKGROUND -->
+  <div class="absolute top-0 right-0 w-64 h-64 bg-indigo-50 rounded-full blur-3xl opacity-40 -mr-20 -mt-20"></div>
+  <div class="absolute bottom-0 left-0 w-48 h-48 bg-blue-50 rounded-full blur-3xl opacity-30 -ml-10 -mb-10"></div>
 
-  <!-- HEADER -->
-  <div class="card-header gradient-header text-white py-3 d-flex justify-content-between align-items-center">
-    <div>
-      <h5 class="mb-0 fw-semibold">Purchase Return</h5>
-      <small class="opacity-75">Enterprise ERP System</small>
+  <!-- HEADER AREA -->
+  <div class="relative bg-gradient-to-r from-indigo-700 to-blue-800 p-6 flex justify-between items-center overflow-hidden">
+    <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10"></div>
+    <div class="relative z-10">
+      <h2 class="text-2xl font-black text-white tracking-tight flex items-center gap-2.5">
+        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M16 15v-1a4 4 0 00-4-4H8m0 0l3 3m-3-3l3-3m9 14V5a2 2 0 00-2-2H6a2 2 0 00-2 2v16l4-2 4 2 4-2 4 2z"></path></svg>
+        PURCHASE RETURN
+      </h2>
+      <div class="h-1 w-20 bg-indigo-400 rounded-full mt-1.5 opacity-80"></div>
+      <p class="text-indigo-100 text-[10px] mt-2 font-bold uppercase tracking-[0.2em] opacity-80">Enterprise ERP System</p>
     </div>
-    <div class="text-end small">
-      <div class="fw-semibold">Return #: PR-001</div>
-      <div>Date: {{ today | date:'dd-MM-yyyy' }}</div>
+    <div class="relative z-10 text-right">
+      <div class="bg-white bg-opacity-10 backdrop-blur-md rounded px-3 py-1.5 border border-white border-opacity-20 inline-block mb-1 shadow-sm">
+        <span class="text-base font-bold tracking-wider text-white">{{ purchaseReturn.returnNumber }}</span>
+      </div>
+      <div class="text-indigo-200 text-xs font-medium flex items-center justify-end gap-1.5">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+        Date: {{ today | date:'dd-MM-yyyy' }}
+      </div>
     </div>
   </div>
 
-  <div class="card-body p-4 small">
+  <div class="p-4 flex-grow relative z-10">
+    <!-- RETURN INFO -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
 
-    <!-- SUPPLIER SECTION -->
-    <div class="row g-3 mb-4">
+      <!-- INVOICE NUMBER WITH AUTO-FILL STATUS -->
+      <div class="space-y-1.5">
+        <label class="text-[10px] font-bold text-gray-500 uppercase tracking-widest ml-1">Invoice Number *</label>
+        <div class="relative">
+          <input type="text" [(ngModel)]="purchaseReturn.invoiceNumber"
+                 (input)="onInvoiceInput()"
+                 (blur)="onInvoiceNumberChange()"
+                 class="w-full bg-gray-50 border rounded-xl px-4 py-2.5 text-sm focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 transition-all outline-none pr-10"
+                 [class.border-gray-200]="!invoiceFetched && !invoiceFetchError"
+                 [class.border-green-400]="invoiceFetched"
+                 [class.border-red-400]="invoiceFetchError"
+                 placeholder="Enter Invoice # (auto-fills)">
 
-      <div class="col-md-4">
-        <label class="form-label fw-semibold small">Supplier</label>
-        <select class="form-select form-select-sm">
-          <option>Select Supplier</option>
-        </select>
+          <!-- Spinner -->
+          <div *ngIf="isFetchingInvoice" class="absolute right-3 top-1/2 -translate-y-1/2">
+            <svg class="animate-spin w-4 h-4 text-indigo-500" fill="none" viewBox="0 0 24 24">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+            </svg>
+          </div>
+          <!-- Success -->
+          <div *ngIf="invoiceFetched && !isFetchingInvoice" class="absolute right-3 top-1/2 -translate-y-1/2">
+            <svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
+            </svg>
+          </div>
+          <!-- Error -->
+          <div *ngIf="invoiceFetchError && !isFetchingInvoice" class="absolute right-3 top-1/2 -translate-y-1/2">
+            <svg class="w-4 h-4 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Status Messages -->
+        <p *ngIf="invoiceFetched" class="text-[10px] text-green-600 font-bold ml-1 flex items-center gap-1">
+          <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+          Invoice found — fields auto-filled!
+        </p>
+        <p *ngIf="invoiceFetchError" class="text-[10px] text-red-500 font-bold ml-1">{{ invoiceFetchError }}</p>
       </div>
 
-      <div class="col-md-4">
-        <label class="form-label fw-semibold small">Return Date</label>
-        <input type="date" class="form-control form-control-sm">
+      <!-- SUPPLIER (auto-filled, read-only when fetched) -->
+      <div class="space-y-1.5 col-span-2">
+        <label class="text-[10px] font-bold text-gray-500 uppercase tracking-widest ml-1">Supplier *</label>
+        <div class="relative">
+          <!-- Read-only display when auto-filled -->
+          <div *ngIf="invoiceFetched && supplierName"
+               class="w-full bg-green-50 border border-green-300 rounded-xl px-4 py-2.5 text-sm font-semibold text-green-800 flex items-center gap-2">
+            <svg class="w-4 h-4 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+            </svg>
+            {{ supplierName }}
+            <span class="text-[9px] text-green-600 ml-auto font-bold uppercase tracking-wider">Auto-filled</span>
+          </div>
+          <!-- Dropdown when not auto-filled -->
+          <select *ngIf="!invoiceFetched || !supplierName"
+                  [(ngModel)]="purchaseReturn.supplierId"
+                  class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 transition-all outline-none appearance-none cursor-pointer">
+            <option [ngValue]="undefined">Select Supplier</option>
+            <option *ngFor="let s of suppliers" [ngValue]="s.id">{{ s.name }}</option>
+          </select>
+          <div *ngIf="!invoiceFetched || !supplierName" class="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+          </div>
+        </div>
       </div>
 
-      <div class="col-md-4">
-        <label class="form-label fw-semibold small">Reason</label>
-        <input type="text" class="form-control form-control-sm" placeholder="Damaged / Wrong Item">
+      <div class="space-y-1.5">
+        <label class="text-[10px] font-bold text-gray-500 uppercase tracking-widest ml-1">Return Date</label>
+        <input type="date" [(ngModel)]="purchaseReturn.returnDate"
+               class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 transition-all outline-none">
       </div>
+    </div>
 
+    <!-- REASON AREA -->
+    <div class="mb-6">
+      <div class="group">
+        <label class="text-[10px] font-bold text-gray-500 uppercase tracking-widest ml-1 mb-1.5 block">Reason for Return</label>
+        <div class="flex gap-2">
+          <button *ngFor="let r of ['Damaged', 'Wrong Item', 'Expired', 'Shortage']"
+                  (click)="purchaseReturn.reason = r"
+                  [class.bg-indigo-600]="purchaseReturn.reason === r"
+                  [class.text-white]="purchaseReturn.reason === r"
+                  [class.border-indigo-600]="purchaseReturn.reason === r"
+                  class="px-4 py-1.5 rounded-full border border-gray-200 text-[10px] font-bold uppercase tracking-wider transition-all hover:border-indigo-300">
+            {{r}}
+          </button>
+        </div>
+      </div>
     </div>
 
     <!-- ITEMS TABLE -->
-    <div class="table-responsive">
-      <table class="table table-sm table-hover align-middle">
-        <thead class="table-light">
-          <tr class="text-uppercase small">
-            <th width="35%">Product</th>
-            <th width="10%" class="text-end">Qty</th>
-            <th width="15%" class="text-end">Cost</th>
-            <th width="15%" class="text-end">Tax %</th>
-            <th width="15%" class="text-end">Total</th>
-            <th width="10%"></th>
+    <div class="bg-gray-50 rounded-2xl border border-gray-100 overflow-hidden shadow-sm mb-6">
+      <div *ngIf="invoiceFetched" class="bg-green-50 border-b border-green-200 px-4 py-2 flex items-center gap-2">
+        <svg class="w-3.5 h-3.5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+        </svg>
+        <span class="text-[10px] font-bold text-green-700 uppercase tracking-wider">
+          {{ purchaseReturn.items.length }} item(s) auto-loaded from invoice — review and adjust quantities if needed
+        </span>
+      </div>
+
+      <table class="w-full text-left border-collapse">
+        <thead>
+          <tr class="bg-gray-100 text-[10px] font-black uppercase tracking-[0.15em] text-gray-500 border-b border-gray-200">
+            <th class="px-6 py-4">Product Name</th>
+            <th class="px-6 py-4 text-center w-32">Qty</th>
+            <th class="px-6 py-4 text-right w-40">Cost Price (₹)</th>
+            <th class="px-6 py-4 text-center w-24">Tax %</th>
+            <th class="px-6 py-4 text-right w-40">Amount (₹)</th>
+            <th class="px-6 py-4 text-center w-16"></th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <td>
-              <input type="text" class="form-control form-control-sm" placeholder="Product Name">
+        <tbody class="divide-y divide-gray-200">
+          <tr *ngFor="let item of purchaseReturn.items; let i = index" class="hover:bg-indigo-50/20 transition-colors group">
+            <td class="px-6 py-3">
+              <input type="text" [(ngModel)]="item.productName" placeholder="Product name..."
+                     class="w-full bg-transparent border-b border-transparent focus:border-indigo-500 focus:outline-none py-1 text-sm font-medium">
             </td>
-            <td>
-              <input type="number" class="form-control form-control-sm text-end">
+            <td class="px-6 py-3">
+              <div class="flex items-center justify-center bg-white rounded-lg border border-gray-200 overflow-hidden">
+                <button (click)="item.quantity = (item.quantity > 1 ? item.quantity - 1 : 1); calculateTotals()" class="px-2 py-1 hover:bg-gray-50 text-gray-400">
+                  <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M20 12H4"></path></svg>
+                </button>
+                <input type="number" [(ngModel)]="item.quantity" (change)="calculateTotals()"
+                       class="w-12 text-center text-sm font-bold bg-transparent outline-none">
+                <button (click)="item.quantity = item.quantity + 1; calculateTotals()" class="px-2 py-1 hover:bg-gray-50 text-gray-400">
+                  <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"></path></svg>
+                </button>
+              </div>
             </td>
-            <td>
-              <input type="number" class="form-control form-control-sm text-end">
+            <td class="px-6 py-3">
+              <input type="number" [(ngModel)]="item.price" (change)="calculateTotals()"
+                     class="w-full text-right bg-transparent border-b border-transparent focus:border-indigo-500 focus:outline-none py-1 text-sm font-bold text-gray-700">
             </td>
-            <td>
-              <input type="number" class="form-control form-control-sm text-end">
+            <td class="px-6 py-3">
+              <input type="number" [(ngModel)]="item.taxPercentage" (change)="calculateTotals()"
+                     class="w-full text-center bg-transparent border-b border-transparent focus:border-indigo-500 focus:outline-none py-1 text-sm font-medium text-gray-600">
             </td>
-            <td class="text-end fw-semibold">
-              0.00
+            <td class="px-6 py-3 text-right text-sm font-black text-indigo-700">
+              ₹ {{ item.total | number:'1.2-2' }}
             </td>
-            <td class="text-center">
-              <button class="btn btn-sm btn-outline-secondary">
-                ✕
+            <td class="px-6 py-3 text-center">
+              <button (click)="removeItem(i)" class="text-gray-300 hover:text-red-500 transition-colors">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
               </button>
             </td>
           </tr>
         </tbody>
       </table>
-    </div>
 
-    <!-- ADD ITEM BUTTON -->
-    <div class="mb-3">
-      <button class="btn btn-sm btn-outline-dark">
-        + Add Item
-      </button>
-    </div>
-
-    <!-- SUMMARY SECTION -->
-    <div class="row justify-content-end">
-      <div class="col-md-4">
-
-        <div class="summary-box p-3 rounded bg-light border">
-
-          <div class="d-flex justify-content-between mb-2">
-            <span>Subtotal</span>
-            <span>₹ 0.00</span>
+      <div class="p-4 bg-white/50 border-t border-gray-200">
+        <button (click)="addItem()" class="inline-flex items-center gap-2 group">
+          <div class="w-7 h-7 bg-indigo-50 rounded-full flex items-center justify-center text-indigo-600 transition-all group-hover:bg-indigo-600 group-hover:text-white">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M12 4v16m8-8H4"></path></svg>
           </div>
-
-          <div class="d-flex justify-content-between mb-2">
-            <span>Tax</span>
-            <span>₹ 0.00</span>
-          </div>
-
-          <hr class="my-2">
-
-          <div class="d-flex justify-content-between fw-semibold text-danger">
-            <span>Total Return Amount</span>
-            <span>₹ 0.00</span>
-          </div>
-
-        </div>
-
+          <span class="text-xs font-black text-indigo-600 uppercase tracking-widest">Add Product</span>
+        </button>
       </div>
     </div>
 
-    <!-- ACTION BUTTONS -->
-    <div class="mt-4 text-end">
-      <button class="btn btn-sm btn-outline-secondary me-2">
-        Cancel
-      </button>
-      <button class="btn btn-sm btn-warning me-2">
-        Save
-      </button>
-      <button class="btn btn-sm btn-dark">
-        Save & Print
-      </button>
-    </div>
+    <!-- SUMMARY SECTION -->
+    <div class="flex justify-between items-end mt-auto">
+      <div class="space-y-2">
+        <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Quick Notes</p>
+        <textarea placeholder="Reason details or adjustment notes..." class="w-80 h-16 bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-xs focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 transition-all outline-none resize-none shadow-inner"></textarea>
+      </div>
 
+      <div class="w-72 bg-gradient-to-br from-indigo-900 to-blue-900 rounded-3xl p-6 text-white shadow-xl shadow-indigo-900/20 relative overflow-hidden group">
+        <div class="absolute -top-10 -right-10 w-32 h-32 bg-white/10 rounded-full blur-2xl group-hover:scale-125 transition-transform duration-700"></div>
+
+        <div class="relative z-10 space-y-3">
+          <div class="flex justify-between items-center border-b border-white/10 pb-3">
+            <span class="text-[10px] font-bold uppercase tracking-[0.2em] opacity-60">Subtotal</span>
+            <span class="text-sm font-black">₹ {{ subtotal | number:'1.2-2' }}</span>
+          </div>
+          <div class="flex justify-between items-center border-b border-white/10 pb-3">
+            <span class="text-[10px] font-bold uppercase tracking-[0.2em] opacity-60">Tax Amount</span>
+            <span class="text-sm font-black">₹ {{ taxTotal | number:'1.2-2' }}</span>
+          </div>
+          <div class="flex justify-between items-center pt-1">
+            <span class="text-xs font-black uppercase tracking-[0.3em]">Credit Note</span>
+            <div class="text-right">
+              <span class="block text-2xl font-black text-white leading-none">₹ {{ purchaseReturn.totalAmount | number:'1.2-2' }}</span>
+              <span class="text-[8px] font-bold opacity-50 uppercase tracking-widest mt-1 block">Total Verified</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER ACTIONS -->
+  <div class="bg-gray-50/80 backdrop-blur-sm px-6 py-5 border-t border-gray-100 flex justify-between items-center">
+    <div class="flex items-center gap-2">
+      <div class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
+      <span class="text-[10px] font-black text-gray-500 uppercase tracking-widest">Active Draft</span>
+    </div>
+    <div class="flex gap-3">
+      <button (click)="cancel()" class="px-6 py-2.5 rounded-xl border border-gray-200 text-xs font-bold text-gray-500 hover:bg-white hover:text-gray-700 hover:border-gray-300 transition-all">Cancel</button>
+      <button (click)="processReturn()" class="px-8 py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 to-blue-700 text-white text-xs font-black uppercase tracking-[0.1em] shadow-lg shadow-indigo-600/30 hover:shadow-indigo-600/50 hover:scale-[1.02] transform transition-all active:scale-[0.98]">Process &amp; Save</button>
+    </div>
   </div>
 </div>

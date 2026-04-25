@@ -1,75 +1,58 @@
-<div class="card shadow-sm border-0">
-
-  <div class="card-header gradient-header text-white d-flex justify-content-between align-items-center">
-    <h5 class="mb-0">Attendance Management</h5>
-    <button class="btn btn-light btn-sm">
-      Save Attendance
-    </button>
+<div class="hrms-container">
+  <div class="hrms-header">
+    <div>
+      <h4 class="hrms-title"><i class="bi bi-pencil-square me-2"></i>Mark Attendance</h4>
+      <span class="hrms-sub">HRMS Module &mdash; {{ today | date:'dd MMM yyyy' }}</span>
+    </div>
+    <button class="btn-secondary" (click)="cancel()">← Back</button>
   </div>
 
-  <div class="card-body small">
+  <div *ngIf="successMsg" class="alert-success-bar">✔ {{ successMsg }}</div>
 
-    <div class="row mb-3">
-
+  <div class="form-card">
+    <div class="row g-3 align-items-end mb-3">
       <div class="col-md-3">
-        <label>Date</label>
-        <input type="date" class="form-control form-control-sm">
+        <label class="field-label">Attendance Date *</label>
+        <input id="mark-date" type="date" class="field-input" [(ngModel)]="attendanceDate">
       </div>
-
-      <div class="col-md-3">
-        <label>Department</label>
-        <select class="form-select form-select-sm">
-          <option>All</option>
-          <option>HR</option>
-          <option>Sales</option>
-        </select>
+      <div class="col-md-auto d-flex gap-2">
+        <button class="btn-quick btn-present" (click)="markAll('Present')">Mark All Present</button>
+        <button class="btn-quick btn-absent" (click)="markAll('Absent')">Mark All Absent</button>
       </div>
-
     </div>
+  </div>
 
-    <div class="table-responsive">
+  <div class="table-card">
+    <div *ngIf="loading" class="loading-state">Loading employees…</div>
 
-      <table class="table table-sm table-hover">
-
-        <thead class="table-light">
+    <div *ngIf="!loading && rows.length > 0" class="table-responsive">
+      <table class="hrms-table">
+        <thead>
           <tr>
-            <th>Employee</th>
-            <th>Department</th>
-            <th>Status</th>
+            <th>#</th><th>Employee Name</th><th>Status</th><th>Check In</th><th>Check Out</th>
           </tr>
         </thead>
-
         <tbody>
-
-          <tr>
-            <td>John</td>
-            <td>Sales</td>
+          <tr *ngFor="let r of rows; let i = index">
+            <td class="row-num">{{ i + 1 }}</td>
+            <td class="fw-semibold">{{ r.employeeName }}</td>
             <td>
-              <select class="form-select form-select-sm">
-                <option>Present</option>
-                <option>Absent</option>
-                <option>Leave</option>
+              <select class="field-input-sm" [(ngModel)]="r.status">
+                <option *ngFor="let s of statusOptions" [value]="s">{{ s }}</option>
               </select>
             </td>
+            <td><input type="time" class="field-input-sm" [(ngModel)]="r.checkIn"></td>
+            <td><input type="time" class="field-input-sm" [(ngModel)]="r.checkOut"></td>
           </tr>
-
-          <tr>
-            <td>Maria</td>
-            <td>HR</td>
-            <td>
-              <select class="form-select form-select-sm">
-                <option>Present</option>
-                <option>Absent</option>
-                <option>Leave</option>
-              </select>
-            </td>
-          </tr>
-
         </tbody>
-
       </table>
-
     </div>
 
+    <div *ngIf="!loading" class="d-flex justify-content-end gap-2 mt-3">
+      <button class="btn-secondary" (click)="cancel()">Cancel</button>
+      <button id="btn-save-attendance" class="btn-save" (click)="save()" [disabled]="saving">
+        {{ saving ? 'Saving…' : 'Save Attendance' }}
+      </button>
+    </div>
   </div>
 </div>

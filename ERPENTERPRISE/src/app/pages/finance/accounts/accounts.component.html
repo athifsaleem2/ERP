@@ -1,67 +1,85 @@
-<div class="invoice-container card shadow-sm border-0">
+<div class="finance-container">
 
-  <!-- HEADER -->
-  <div class="card-header gradient-header text-white py-3 d-flex justify-content-between align-items-center">
+  <!-- Header -->
+  <div class="finance-header">
     <div>
-      <h5 class="mb-0 fw-semibold">Accounts Management</h5>
-      <small class="opacity-75">Enterprise ERP - Finance Module</small>
+      <h4 class="finance-title"><i class="bi bi-journal-bookmarks-fill me-2"></i>Chart of Accounts</h4>
+      <span class="finance-sub">Finance Module &mdash; {{ today | date:'dd MMM yyyy' }}</span>
     </div>
-    <div class="text-end small">
-      <div>Date: {{ today | date:'dd-MM-yyyy' }}</div>
+    <div class="header-badge">{{ accounts.length }} Accounts</div>
+  </div>
+
+  <!-- Alerts -->
+  <div *ngIf="successMsg" class="alert-success-bar">✔ {{ successMsg }}</div>
+  <div *ngIf="errorMsg" class="alert-error-bar">✘ {{ errorMsg }}</div>
+
+  <!-- Form Card -->
+  <div class="form-card">
+    <h6 class="section-label">Add New Account</h6>
+    <div class="row g-3">
+      <div class="col-md-4">
+        <label class="field-label">Account Name *</label>
+        <input id="acc-name" type="text" class="field-input" [(ngModel)]="form.accountName" placeholder="e.g. Cash in Hand">
+      </div>
+      <div class="col-md-3">
+        <label class="field-label">Account Type *</label>
+        <select id="acc-type" class="field-input" [(ngModel)]="form.accountType">
+          <option *ngFor="let t of accountTypes" [value]="t">{{ t }}</option>
+        </select>
+      </div>
+      <div class="col-md-3">
+        <label class="field-label">Opening Balance (₹)</label>
+        <input id="acc-balance" type="number" class="field-input" [(ngModel)]="form.openingBalance" min="0">
+      </div>
+      <div class="col-md-2 d-flex align-items-end">
+        <button id="btn-save-account" class="btn-save w-100" (click)="saveAccount()" [disabled]="saving">
+          <span *ngIf="!saving">Save</span>
+          <span *ngIf="saving">Saving…</span>
+        </button>
+      </div>
     </div>
   </div>
 
-  <div class="card-body p-4 small">
+  <!-- Table -->
+  <div class="table-card">
+    <div *ngIf="loading" class="loading-state">Loading accounts…</div>
+    <div *ngIf="!loading && accounts.length === 0" class="empty-state">No accounts added yet</div>
 
-    <!-- FORM -->
-    <div class="row g-3 mb-4">
-
-      <div class="col-md-4">
-        <label class="form-label fw-semibold">Account Name</label>
-        <input type="text" class="form-control form-control-sm">
-      </div>
-
-      <div class="col-md-4">
-        <label class="form-label fw-semibold">Account Type</label>
-        <select class="form-select form-select-sm">
-          <option>Asset</option>
-          <option>Liability</option>
-          <option>Income</option>
-          <option>Expense</option>
-        </select>
-      </div>
-
-      <div class="col-md-4">
-        <label class="form-label fw-semibold">Opening Balance</label>
-        <input type="number" class="form-control form-control-sm">
-      </div>
-
-    </div>
-
-    <!-- TABLE -->
-    <div class="table-responsive">
-      <table class="table table-sm table-hover align-middle">
-        <thead class="table-light">
-          <tr class="text-uppercase small">
-            <th>Account</th>
+    <div *ngIf="!loading && accounts.length > 0" class="table-responsive">
+      <table class="finance-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Account Name</th>
             <th>Type</th>
-            <th class="text-end">Balance</th>
+            <th class="text-end">Opening Balance</th>
+            <th class="text-end">Current Balance</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Cash Account</td>
-            <td>Asset</td>
-            <td class="text-end">₹ 0.00</td>
+          <tr *ngFor="let a of accounts; let i = index">
+            <td class="row-num">{{ i + 1 }}</td>
+            <td class="fw-semibold">{{ a.accountName }}</td>
+            <td>
+              <span class="type-badge" [ngClass]="'type-' + getTypeColor(a.accountType)">{{ a.accountType }}</span>
+            </td>
+            <td class="text-end">₹ {{ a.openingBalance | number:'1.2-2' }}</td>
+            <td class="text-end fw-semibold">₹ {{ (a.currentBalance ?? a.openingBalance) | number:'1.2-2' }}</td>
+            <td>
+              <button class="btn-del" (click)="deleteAccount(a.id)">Delete</button>
+            </td>
           </tr>
         </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="4" class="fw-bold">Total Balance</td>
+            <td class="text-end fw-bold text-success">₹ {{ totalBalance | number:'1.2-2' }}</td>
+            <td></td>
+          </tr>
+        </tfoot>
       </table>
     </div>
-
-    <!-- BUTTON -->
-    <div class="mt-4 text-end">
-      <button class="btn btn-sm btn-success">Save Account</button>
-    </div>
-
   </div>
+
 </div>

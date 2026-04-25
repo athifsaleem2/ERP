@@ -1,0 +1,58 @@
+<div class="max-w-full mx-auto p-3">
+  <div class="bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden transition-all duration-300 hover:shadow-xl">
+    
+    <div class="bg-gradient-to-r from-emerald-800 to-teal-950 text-white px-6 py-4 flex justify-between items-center relative overflow-hidden">
+      <div class="absolute top-0 right-0 -mr-16 -mt-16 w-48 h-48 rounded-full bg-white opacity-5 blur-2xl"></div>
+      <div class="relative z-10">
+        <h2 class="text-xl font-bold tracking-tight mb-0.5">Stock In Registry</h2>
+        <p class="text-emerald-300 text-xs font-medium tracking-wide">Track all incoming inventory receipts</p>
+      </div>
+      <button (click)="navigateToAdd()" 
+        class="relative z-10 px-4 py-2 bg-white text-emerald-900 rounded-lg text-xs font-bold hover:bg-emerald-50 transition-all duration-200 shadow-md flex items-center gap-2">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+        </svg>
+        Log Stock In
+      </button>
+    </div>
+
+    <div class="p-4">
+      <div class="overflow-x-auto rounded-lg border border-gray-200 shadow-sm text-xs">
+        <table class="min-w-full divide-y divide-gray-200">
+          <thead class="bg-gray-50 text-[10px] uppercase font-bold text-gray-500">
+            <tr>
+              <th scope="col" class="px-6 py-3 text-left tracking-wider">Date</th>
+              <th scope="col" class="px-6 py-3 text-left tracking-wider">Product</th>
+              <th scope="col" class="px-6 py-3 text-left tracking-wider">Supplier / Reference</th>
+              <th scope="col" class="px-6 py-3 text-left tracking-wider">Destination</th>
+              <th scope="col" class="px-6 py-3 text-right tracking-wider">Qty Recv.</th>
+              <th scope="col" class="px-6 py-3 text-center tracking-wider w-20">Actions</th>
+            </tr>
+          </thead>
+          <tbody class="bg-white divide-y divide-gray-100">
+            <tr *ngFor="let item of entries" class="hover:bg-emerald-50/30 transition-colors duration-150">
+              <td class="px-6 py-4 whitespace-nowrap text-gray-600 font-medium">{{ item.date | date:'dd-MMM-yyyy' }}</td>
+              <td class="px-6 py-4 whitespace-nowrap font-bold text-gray-800">{{ item.productName }}</td>
+              <td class="px-6 py-4 whitespace-nowrap text-gray-600">{{ item.reference }}</td>
+              <td class="px-6 py-4 whitespace-nowrap text-gray-600">{{ item.toLocation }}</td>
+              <td class="px-6 py-4 whitespace-nowrap font-black text-right text-emerald-700">+{{ item.quantity }}</td>
+              <td class="px-6 py-4 whitespace-nowrap text-center text-xs">
+                <button class="text-emerald-600 hover:text-emerald-900 transition-colors">
+                  <svg class="w-4 h-4 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+                </button>
+              </td>
+            </tr>
+            <tr *ngIf="entries.length === 0">
+              <td colspan="6" class="px-6 py-12 text-center text-gray-400">
+                <div class="flex flex-col items-center gap-2">
+                  <svg class="w-10 h-10 opacity-20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path></svg>
+                  <span class="text-sm">No incoming stock entries logged yet.</span>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

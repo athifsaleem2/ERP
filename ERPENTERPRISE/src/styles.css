@@ -1,1 +1,22 @@
-/* Tailwind CSS is loaded via CDN in index.html */
+/* Global Viewport Lock */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100% !important;
+  width: 100% !important;
+  overflow: hidden !important; /* Forces the window itself to never scroll */
+  position: fixed; /* Extra layer of protection for mobile/iOS */
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  background-color: #f8fafc;
+}
+
+/* Base resets */
+* {
+  box-sizing: border-box;
+}
+
+::selection {
+  background-color: rgba(99, 102, 241, 0.2);
+  color: #4f46e5;
+}

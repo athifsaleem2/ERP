@@ -1,75 +1,70 @@
-<div class="card shadow-sm border-0">
-
-  <div class="card-header gradient-header text-white py-3 d-flex justify-content-between align-items-center">
+<div class="hrms-container">
+  <div class="hrms-header">
     <div>
-      <h5 class="mb-0 fw-semibold">Employee Management</h5>
-      <small>Manage Employees</small>
+      <h4 class="hrms-title"><i class="bi bi-people-fill me-2"></i>Employee Management</h4>
+      <span class="hrms-sub">HRMS Module &mdash; {{ today | date:'dd MMM yyyy' }}</span>
     </div>
-
-   <button
-  class="btn btn-sm btn-light text-dark"
-  (click)="addEmployee()">
-  + Add Employee
-</button>
+    <button id="btn-add-employee" class="btn-add" (click)="addEmployee()">+ Add Employee</button>
   </div>
 
-  <div class="card-body p-4 small">
+  <!-- Summary Cards -->
+  <div class="summary-cards">
+    <div class="sum-card sum-blue">
+      <span class="sum-icon">👥</span>
+      <div><div class="sum-label">Total Employees</div><div class="sum-value">{{ employees.length }}</div></div>
+    </div>
+    <div class="sum-card sum-green">
+      <span class="sum-icon">✅</span>
+      <div><div class="sum-label">Active</div><div class="sum-value">{{ activeCount }}</div></div>
+    </div>
+    <div class="sum-card sum-red">
+      <span class="sum-icon">❌</span>
+      <div><div class="sum-label">Inactive</div><div class="sum-value">{{ inactiveCount }}</div></div>
+    </div>
+  </div>
 
-    <div class="row g-3 mb-4">
-
-      <div class="col-md-4">
-        <input class="form-control form-control-sm" placeholder="Search Employee">
+  <!-- Filters -->
+  <div class="form-card">
+    <div class="row g-3">
+      <div class="col-md-5">
+        <input id="emp-search" type="text" class="field-input" [(ngModel)]="searchTerm" placeholder="🔍 Search by name, code or department…">
       </div>
-
-      <div class="col-md-2">
-        <button class="btn btn-sm btn-dark w-100">
-          Search
-        </button>
-      </div>
-
       <div class="col-md-3">
-        <select class="form-select form-select-sm">
-          <option>All Employees</option>
+        <select id="emp-filter-status" class="field-input" [(ngModel)]="filterStatus">
+          <option value="">All Statuses</option>
           <option>Active</option>
           <option>Inactive</option>
+          <option>On Leave</option>
         </select>
       </div>
-
     </div>
-
-    <div class="table-responsive">
-
-      <table class="table table-sm table-hover align-middle">
-
-        <thead class="table-light">
-          <tr>
-            <th>Name</th>
-            <th>Department</th>
-            <th>Phone</th>
-            <th>Status</th>
-            <th width="160" class="text-center">Action</th>
-          </tr>
-        </thead>
-
-        <tbody>
-
-          <tr>
-            <td class="fw-semibold">John Doe</td>
-            <td>Sales</td>
-            <td>9999999999</td>
-            <td><span class="badge bg-success">Active</span></td>
-            <td class="text-center">
-              <button class="btn btn-sm btn-outline-primary me-1">Edit</button>
-              <button class="btn btn-sm btn-outline-danger">Delete</button>
-            </td>
-          </tr>
-
-        </tbody>
-
-      </table>
-
-    </div>
-
   </div>
 
+  <!-- Table -->
+  <div class="table-card">
+    <div *ngIf="loading" class="loading-state">Loading employees…</div>
+    <div *ngIf="!loading && filtered.length === 0" class="empty-state">No employees found</div>
+    <div *ngIf="!loading && filtered.length > 0" class="table-responsive">
+      <table class="hrms-table">
+        <thead>
+          <tr>
+            <th>Emp Code</th><th>Name</th><th>Department</th><th>Designation</th>
+            <th>Phone</th><th class="text-end">Basic Salary</th><th>Status</th><th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let e of filtered">
+            <td class="mono">{{ e.empCode }}</td>
+            <td class="fw-semibold">{{ e.name }}</td>
+            <td>{{ e.department }}</td>
+            <td class="text-muted">{{ e.designation || '—' }}</td>
+            <td class="mono">{{ e.phone || '—' }}</td>
+            <td class="text-end">₹ {{ e.basicSalary | number:'1.2-2' }}</td>
+            <td><span class="status-badge" [ngClass]="'badge-' + statusColor(e.status)">{{ e.status }}</span></td>
+            <td><button class="btn-del" (click)="delete(e.id)">Delete</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>

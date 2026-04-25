@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { ProductService, Product } from '../../../core/services/product.service';
+import { CategoryService, Category } from '../../../core/services/category.service';
 
 @Component({
   selector: 'app-add-product',
@@ -11,7 +12,9 @@ import { ProductService, Product } from '../../../core/services/product.service'
   templateUrl: './add-product.component.html',
   styleUrl: './add-product.component.css'
 })
-export class AddProductComponent {
+export class AddProductComponent implements OnInit {
+  categories: Category[] = [];
+
   product: Product = {
     sku: '',
     name: '',
@@ -24,8 +27,16 @@ export class AddProductComponent {
 
   constructor(
     private productService: ProductService,
+    private categoryService: CategoryService,
     private router: Router
   ) {}
+
+  ngOnInit(): void {
+    this.categoryService.getCategories().subscribe({
+      next: (data) => this.categories = data,
+      error: (err) => console.error('Error loading categories', err)
+    });
+  }
 
   saveProduct(): void {
     if (!this.product.name || !this.product.sku || this.product.price <= 0) {

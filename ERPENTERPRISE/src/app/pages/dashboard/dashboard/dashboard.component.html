@@ -1,125 +1,232 @@
-<div class="max-w-full mx-auto p-4">
+<div class="max-w-full mx-auto p-0 space-y-6 animate-fade-in">
   
-  <!-- WELCOME BAR -->
-  <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
-    <div>
-      <h1 class="text-2xl font-black text-slate-900 tracking-tight">Executive Dashboard</h1>
-      <p class="text-slate-500 text-sm font-medium">System overview and business intelligence insights</p>
+  <!-- TOP BAR: GREETING & CLOCK -->
+  <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+    <div class="flex items-center gap-3">
+      <div class="w-12 h-12 rounded-2xl bg-indigo-600 flex items-center justify-center text-white shadow-lg shadow-indigo-100">
+        <i class="bi bi-person-check-fill text-xl"></i>
+      </div>
+      <div>
+        <h1 class="text-2xl font-bold text-slate-900 tracking-tight">{{ greeting }}, Admin</h1>
+        <p class="text-slate-500 text-xs font-medium flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          System Operational • {{ today | date:'EEEE, MMM d' }}
+        </p>
+      </div>
     </div>
-    <div class="flex gap-2">
-      <div class="px-4 py-2 bg-white border border-slate-200 rounded-lg shadow-sm text-xs font-bold text-slate-600 flex items-center gap-2" *ngIf="today">
-        <i class="bi bi-calendar-event text-indigo-500"></i>
-        {{ today | date:'longDate' }}
+    
+    <div class="flex items-center gap-3">
+      <div class="glass-card px-6 py-3 rounded-2xl flex items-center gap-4">
+        <div class="text-right">
+          <div class="text-[10px] font-semibold text-slate-400 uppercase tracking-widest">Local Time</div>
+          <div class="text-xl font-bold text-slate-800 tabular-nums">{{ currentTime }}</div>
+        </div>
+        <div class="w-px h-8 bg-slate-200"></div>
+        <i class="bi bi-clock-history text-indigo-500 text-xl"></i>
       </div>
     </div>
   </div>
 
   <!-- KPI GRID -->
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
     
-    <!-- Total Sales -->
-    <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 transition-all hover:shadow-md group">
+    <!-- Revenue -->
+    <div class="glass-card p-5 rounded-3xl hover-glow-indigo group">
       <div class="flex justify-between items-start mb-4">
-        <div class="w-12 h-12 bg-indigo-50 rounded-xl flex items-center justify-center text-indigo-600 group-hover:bg-indigo-600 group-hover:text-white transition-all">
-          <i class="bi bi-currency-dollar text-xl"></i>
+        <div class="icon-box w-10 h-10 bg-indigo-50 text-indigo-600 group-hover:bg-indigo-600 group-hover:text-white">
+          <i class="bi bi-graph-up-arrow text-lg"></i>
         </div>
-        <span class="px-2 py-1 bg-emerald-50 text-emerald-600 text-[10px] font-bold rounded-full">+12.5%</span>
+        <div class="flex flex-col items-end">
+          <span class="px-2 py-0.5 bg-emerald-50 text-emerald-600 text-[9px] font-bold rounded-lg border border-emerald-100 flex items-center gap-1">
+            <i class="bi bi-arrow-up-short"></i> 12%
+          </span>
+        </div>
       </div>
-      <h3 class="text-slate-500 text-xs font-bold uppercase tracking-widest mb-1">Total Revenue</h3>
-      <p class="text-2xl font-black text-slate-900">₹ {{ totalSales | number:'1.2-2' }}</p>
+      <h3 class="text-slate-400 text-[10px] font-semibold uppercase tracking-widest mb-1">Total Revenue</h3>
+      <p class="text-2xl font-bold text-slate-900">₹ {{ totalSales | number:'1.2-2' }}</p>
     </div>
 
-    <!-- Total Purchases -->
-    <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 transition-all hover:shadow-md group">
+    <!-- Procurement -->
+    <div class="glass-card p-5 rounded-3xl hover-glow-rose group">
       <div class="flex justify-between items-start mb-4">
-        <div class="w-12 h-12 bg-rose-50 rounded-xl flex items-center justify-center text-rose-600 group-hover:bg-rose-600 group-hover:text-white transition-all">
-          <i class="bi bi-cart-check text-xl"></i>
+        <div class="icon-box w-10 h-10 bg-rose-50 text-rose-600 group-hover:bg-rose-600 group-hover:text-white">
+          <i class="bi bi-bag-check text-lg"></i>
         </div>
-        <span class="px-2 py-1 bg-rose-50 text-rose-600 text-[10px] font-bold rounded-full">Costing</span>
+        <span class="px-2 py-0.5 bg-slate-50 text-slate-500 text-[9px] font-bold rounded-lg border border-slate-100">Monthly</span>
       </div>
-      <h3 class="text-slate-500 text-xs font-bold uppercase tracking-widest mb-1">Total Procurement</h3>
-      <p class="text-2xl font-black text-slate-900">₹ {{ totalPurchases | number:'1.2-2' }}</p>
+      <h3 class="text-slate-400 text-[10px] font-semibold uppercase tracking-widest mb-1">Total Procurement</h3>
+      <p class="text-2xl font-bold text-slate-900">₹ {{ totalPurchases | number:'1.2-2' }}</p>
     </div>
 
-    <!-- Total Items -->
-    <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 transition-all hover:shadow-md group">
+    <!-- Inventory -->
+    <div class="glass-card p-5 rounded-3xl hover-glow-emerald group">
       <div class="flex justify-between items-start mb-4">
-        <div class="w-12 h-12 bg-emerald-50 rounded-xl flex items-center justify-center text-emerald-600 group-hover:bg-emerald-600 group-hover:text-white transition-all">
-          <i class="bi bi-box-seam text-xl"></i>
+        <div class="icon-box w-10 h-10 bg-emerald-50 text-emerald-600 group-hover:bg-emerald-600 group-hover:text-white">
+          <i class="bi bi-box-seam text-lg"></i>
         </div>
       </div>
-      <h3 class="text-slate-500 text-xs font-bold uppercase tracking-widest mb-1">Inventory Level</h3>
-      <p class="text-2xl font-black text-slate-900">{{ totalStock }} Units</p>
+      <h3 class="text-slate-400 text-[10px] font-semibold uppercase tracking-widest mb-1">Items in Stock</h3>
+      <p class="text-2xl font-bold text-slate-900">{{ totalStock | number }} <span class="text-xs font-medium text-slate-400">Units</span></p>
     </div>
 
     <!-- Low Stock -->
-    <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 transition-all hover:shadow-md group" [class.border-rose-200]="lowStockItems > 0">
+    <div class="glass-card p-5 rounded-3xl group transition-colors" [ngClass]="lowStockItems > 0 ? 'border-rose-200 bg-rose-50/10' : ''">
       <div class="flex justify-between items-start mb-4">
-        <div class="w-12 h-12 rounded-xl flex items-center justify-center transition-all"
-          [ngClass]="lowStockItems > 0 ? 'bg-rose-600 text-white' : 'bg-slate-50 text-slate-400'">
-          <i class="bi bi-exclamation-triangle text-xl"></i>
+        <div class="icon-box w-10 h-10" [ngClass]="lowStockItems > 0 ? 'bg-rose-600 text-white shadow-lg shadow-rose-200' : 'bg-slate-100 text-slate-400'">
+          <i class="bi bi-exclamation-triangle text-lg"></i>
         </div>
-        <span *ngIf="lowStockItems > 0" class="flex h-2 w-2 relative">
-          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
-          <span class="relative inline-flex rounded-full h-2 w-2 bg-rose-500"></span>
-        </span>
+        <div *ngIf="lowStockItems > 0" class="flex h-2 w-2">
+          <span class="animate-ping absolute inline-flex h-2 w-2 rounded-full bg-rose-400 opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2 w-2 bg-rose-600"></span>
+        </div>
       </div>
-      <h3 class="text-slate-500 text-xs font-bold uppercase tracking-widest mb-1">Low Stock Alerts</h3>
-      <p class="text-2xl font-black" [class.text-rose-600]="lowStockItems > 0" [class.text-slate-900]="lowStockItems === 0">
-        {{ lowStockItems }} Items
+      <h3 class="text-slate-400 text-[10px] font-semibold uppercase tracking-widest mb-1">Alerts</h3>
+      <p class="text-2xl font-bold" [class.text-rose-600]="lowStockItems > 0" [class.text-slate-900]="lowStockItems === 0">
+        {{ lowStockItems }} <span class="text-xs font-medium text-slate-400">Critical</span>
       </p>
     </div>
-
   </div>
 
-  <!-- CHARTS SECTION -->
-  <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-    <div class="lg:col-span-2 bg-white rounded-2xl p-8 shadow-sm border border-slate-100 text-xs">
-      <div class="flex justify-between items-center mb-8">
+  <!-- MAIN ANALYTICS SECTION -->
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    
+    <!-- CHART PANEL -->
+    <div class="lg:col-span-2 glass-card rounded-3xl p-6">
+      <div class="flex justify-between items-center mb-6">
         <div>
-          <h4 class="text-lg font-bold text-slate-900">Revenue Analytics</h4>
-          <p class="text-slate-500 text-[10px] font-medium tracking-wide">Last 7 transactions performance</p>
+          <h4 class="text-lg font-bold text-slate-900">Performance Analytics</h4>
+          <p class="text-slate-500 text-[11px] font-medium">Revenue vs. Procurement tracking</p>
+        </div>
+        <div class="flex gap-2">
+          <button class="px-3 py-1.5 bg-white border border-slate-200 rounded-lg text-[10px] font-bold hover:bg-slate-50 transition-colors">Daily</button>
+          <button class="px-3 py-1.5 bg-indigo-600 text-white rounded-lg text-[10px] font-bold shadow-md shadow-indigo-100">Weekly</button>
         </div>
       </div>
-      <div class="relative h-[300px]">
+      
+      <div class="relative h-[320px]">
         <canvas id="salesChart"></canvas>
       </div>
     </div>
 
-    <!-- RECENT ACTIVITY OR QUICK LINKS -->
-    <div class="bg-slate-900 rounded-2xl p-8 text-white relative overflow-hidden flex flex-col justify-between">
-      <div class="absolute top-0 right-0 -mr-20 -mt-20 w-64 h-64 rounded-full bg-indigo-500/10 blur-3xl"></div>
-      
-      <div class="relative z-10">
-        <h4 class="text-lg font-bold mb-2">Quick Actions</h4>
-        <p class="text-indigo-300 text-[10px] font-medium tracking-wide mb-8">Jump to core modules</p>
+    <!-- RECENT TRANSACTIONS SIDEBAR -->
+    <div class="glass-card rounded-3xl p-6 flex flex-col">
+      <div class="flex justify-between items-center mb-6">
+        <h4 class="text-lg font-bold text-slate-900">Recent Activity</h4>
+        <button class="text-indigo-600 font-semibold text-[10px] uppercase tracking-wider hover:underline">View All</button>
+      </div>
+
+      <div class="space-y-4 flex-grow custom-scrollbar overflow-y-auto pr-1" style="max-height: 340px;">
+        <div *ngFor="let trans of recentTransactions" class="flex items-center gap-3 group cursor-pointer">
+          <div class="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 transition-transform group-hover:scale-105"
+               [ngClass]="'bg-' + trans.color + '-50 text-' + trans.color + '-600'">
+            <i class="bi" [ngClass]="trans.type === 'SALE' ? 'bi-arrow-up-right' : 'bi-arrow-down-left'"></i>
+          </div>
+          <div class="flex-grow">
+            <div class="text-[11px] font-bold text-slate-900 leading-tight">{{ trans.customerName || trans.supplierName }}</div>
+            <div class="text-[9px] font-semibold text-slate-400 capitalize">{{ trans.invoiceNumber }} • {{ trans.displayDate | date:'shortDate' }}</div>
+          </div>
+          <div class="text-right">
+            <div class="text-xs font-bold" [ngClass]="'text-' + trans.color + '-600'">
+              {{ trans.type === 'SALE' ? '+' : '-' }}₹{{ trans.grandTotal | number:'1.0-0' }}
+            </div>
+            <div class="text-[9px] font-semibold uppercase tracking-tighter" [ngClass]="'text-' + trans.color + '-400'">{{ trans.type }}</div>
+          </div>
+        </div>
         
-        <div class="space-y-4">
-          <button routerLink="/dashboard/sales-invoice" class="w-full flex items-center justify-between p-4 bg-white/5 rounded-xl border border-white/5 hover:bg-white/10 transition-all">
-            <span class="text-xs font-bold">New Sales Invoice</span>
-            <i class="bi bi-arrow-right"></i>
-          </button>
-          <button routerLink="/dashboard/purchase-invoice" class="w-full flex items-center justify-between p-4 bg-white/5 rounded-xl border border-white/5 hover:bg-white/10 transition-all">
-            <span class="text-xs font-bold">Record Purchase</span>
-            <i class="bi bi-arrow-right"></i>
-          </button>
-          <button routerLink="/dashboard/add-product" class="w-full flex items-center justify-between p-4 bg-white/5 rounded-xl border border-white/5 hover:bg-white/10 transition-all">
-            <span class="text-xs font-bold">Add Inventory Item</span>
-            <i class="bi bi-arrow-right"></i>
-          </button>
+        <!-- Empty State -->
+        <div *ngIf="recentTransactions.length === 0" class="py-12 text-center">
+          <i class="bi bi-shield-slash text-4xl text-slate-200 mb-4 block"></i>
+          <p class="text-slate-400 text-xs font-bold">No recent activity detected</p>
         </div>
       </div>
 
-      <div class="relative z-10 mt-8 pt-8 border-t border-white/10">
-        <div class="flex items-center gap-4 text-xs">
-          <div class="w-10 h-10 rounded-full bg-indigo-600 flex items-center justify-center font-bold">AS</div>
-          <div>
-            <div class="font-black">Administrator</div>
-            <div class="text-indigo-400 text-[10px]">ERP System Access</div>
+      <!-- QUICK ACTIONS INTEGRATED -->
+      <div class="mt-6 pt-6 border-t border-slate-100 grid grid-cols-2 gap-2">
+        <button routerLink="/dashboard/sales-invoice" class="p-2.5 bg-indigo-50 border border-indigo-100 rounded-xl text-[10px] font-bold text-indigo-700 hover:bg-indigo-600 hover:text-white transition-all flex items-center justify-center gap-1.5">
+          <i class="bi bi-plus-circle"></i> Sales
+        </button>
+        <button routerLink="/dashboard/purchase-invoice" class="p-2.5 bg-rose-50 border border-rose-100 rounded-xl text-[10px] font-bold text-rose-700 hover:bg-rose-600 hover:text-white transition-all flex items-center justify-center gap-1.5">
+          <i class="bi bi-cart"></i> Purchase
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECONDARY INSIGHTS GRID -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pb-6">
+    
+    <!-- TOP PRODUCTS -->
+    <div class="glass-card p-6 rounded-3xl border-l-4 border-l-indigo-600">
+      <h4 class="text-base font-bold text-slate-900 mb-4 flex items-center gap-2">
+        <i class="bi bi-star-fill text-yellow-500"></i> Top Performers
+      </h4>
+      <div class="space-y-6">
+        <div *ngFor="let prod of topProducts; let i = index" class="flex items-center gap-4">
+          <div class="w-8 h-8 rounded-lg bg-slate-100 flex items-center justify-center text-xs font-bold text-slate-500">0{{ i + 1 }}</div>
+          <div class="flex-grow">
+            <div class="text-xs font-bold text-slate-800">{{ prod.name }}</div>
+            <div class="w-full h-1.5 bg-slate-100 rounded-full mt-2 overflow-hidden">
+              <div class="h-full bg-indigo-500 rounded-full" [style.width.%]="(prod.count / topProducts[0].count) * 100"></div>
+            </div>
           </div>
+          <div class="text-xs font-bold text-indigo-600">{{ prod.count }} Sold</div>
         </div>
       </div>
     </div>
+
+    <!-- CRITICAL STOCK -->
+    <div class="glass-card p-6 rounded-3xl border-l-4 border-l-rose-600">
+      <h4 class="text-base font-bold text-slate-900 mb-4 flex items-center gap-2">
+        <i class="bi bi-lightning-charge-fill text-rose-500"></i> Critical Stock
+      </h4>
+      <div class="space-y-6">
+        <div *ngFor="let item of criticalItems" class="flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center">
+              <i class="bi bi-box"></i>
+            </div>
+            <div>
+              <div class="text-xs font-bold text-slate-800">{{ item.name }}</div>
+              <div class="text-[10px] font-medium text-slate-400">SKU: {{ item.sku }}</div>
+            </div>
+          </div>
+          <div class="text-right">
+            <div class="text-xs font-bold text-rose-600">{{ item.stockQuantity }} Left</div>
+            <button class="text-[9px] font-bold uppercase text-rose-400 border border-rose-200 px-2 py-0.5 rounded hover:bg-rose-600 hover:text-white transition-colors">Order</button>
+          </div>
+        </div>
+        <div *ngIf="criticalItems.length === 0" class="text-center py-4">
+          <p class="text-slate-400 text-xs font-medium">Stock levels healthy ✨</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SYSTEM ACCESS / PROFILE MOCK -->
+    <div class="bg-gradient-dark p-6 rounded-3xl text-white relative overflow-hidden flex flex-col justify-between">
+      <div class="absolute top-0 right-0 -mr-16 -mt-16 w-32 h-32 rounded-full bg-indigo-500/10 blur-3xl"></div>
+      
+      <div>
+        <div class="flex items-center gap-3 mb-6">
+          <div class="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center text-lg backdrop-blur-md border border-white/10">
+            <i class="bi bi-shield-lock"></i>
+          </div>
+          <div>
+            <h4 class="text-base font-bold tracking-tight">Security & Access</h4>
+            <p class="text-indigo-300 text-[9px] font-semibold uppercase tracking-widest leading-none">Admin Role</p>
+          </div>
+        </div>
+        
+        <p class="text-slate-400 text-[11px] font-medium leading-normal mb-6">
+          Welcome to your high-performance ERP environment. Your session is secured with end-to-end encryption.
+        </p>
+      </div>
+
+      <button routerLink="/dashboard/add-product" class="w-full flex items-center justify-between p-3 bg-white text-slate-900 rounded-xl font-bold text-[11px] hover:bg-indigo-50 transition-all group">
+        <span>Register New Asset</span>
+        <i class="bi bi-arrow-right transition-transform group-hover:translate-x-1"></i>
+      </button>
+    </div>
+
   </div>
 
 </div>

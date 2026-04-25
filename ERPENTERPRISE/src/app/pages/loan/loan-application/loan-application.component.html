@@ -17,10 +17,8 @@
     <!-- CUSTOMER SECTION -->
     <div class="row g-3 mb-4">
       <div class="col-md-4">
-        <label class="form-label fw-semibold small">Customer</label>
-        <select class="form-select form-select-sm">
-          <option>Select Customer</option>
-        </select>
+        <label class="form-label fw-semibold small">Applicant Name *</label>
+        <input type="text" [(ngModel)]="loan.applicantName" class="form-control form-control-sm" placeholder="Enter Full Name">
       </div>
 
       <div class="col-md-4">
@@ -33,21 +31,21 @@
       </div>
 
       <div class="col-md-4">
-        <label class="form-label fw-semibold small">Tenure (Months)</label>
-        <input type="number" class="form-control form-control-sm">
+        <label class="form-label fw-semibold small">Tenure (Months) *</label>
+        <input type="number" [(ngModel)]="loan.tenureMonths" class="form-control form-control-sm">
       </div>
     </div>
 
     <!-- LOAN DETAILS -->
     <div class="row g-3 mb-4">
       <div class="col-md-4">
-        <label class="form-label fw-semibold small">Loan Amount</label>
-        <input type="number" class="form-control form-control-sm">
+        <label class="form-label fw-semibold small">Loan Amount *</label>
+        <input type="number" [(ngModel)]="loan.principalAmount" class="form-control form-control-sm">
       </div>
 
       <div class="col-md-4">
-        <label class="form-label fw-semibold small">Interest %</label>
-        <input type="number" class="form-control form-control-sm">
+        <label class="form-label fw-semibold small">Interest % (Annual) *</label>
+        <input type="number" [(ngModel)]="loan.interestRate" class="form-control form-control-sm">
       </div>
 
       <div class="col-md-4">
@@ -64,7 +62,7 @@
 
           <div class="d-flex justify-content-between mb-2">
             <span>Total Interest</span>
-            <span>₹ 0.00</span>
+            <span>₹ {{ totalInterest | number:'1.2-2' }}</span>
           </div>
 
           <div class="d-flex justify-content-between mb-2">
@@ -76,7 +74,7 @@
 
           <div class="d-flex justify-content-between fw-semibold">
             <span>Total Payable</span>
-            <span class="text-dark">₹ 0.00</span>
+            <span class="text-dark">₹ {{ totalPayable | number:'1.2-2' }}</span>
           </div>
 
         </div>
@@ -89,11 +87,8 @@
       <button class="btn btn-sm btn-outline-secondary me-2">
         Cancel
       </button>
-      <button class="btn btn-sm btn-success me-2">
-        Save
-      </button>
-      <button class="btn btn-sm btn-dark">
-        Save & Approve
+      <button class="btn btn-sm btn-success" (click)="save()">
+        Submit Application
       </button>
     </div>
 

@@ -8,7 +8,9 @@ import { DashboardComponent } from './pages/dashboard/dashboard/dashboard.compon
 import { SalesInvoiceComponent } from './pages/Sales/sales-invoice/sales-invoice.component';
 import { SalesInvoiceListComponent } from './pages/Sales/sales-invoice-list/sales-invoice-list.component';
 import { SalesReturnComponent } from './pages/Sales/sales-return/sales-return.component';
+import { SalesReturnListComponent } from './pages/Sales/sales-return-list/sales-return-list.component';
 import { QuotationsComponent } from './pages/Sales/quotations/quotations.component';
+import { QuotationsListComponent } from './pages/Sales/quotations-list/quotations-list.component';
 import { CustomersComponent } from './pages/Sales/customers/customers.component';
 import { AddCustomerComponent } from './pages/Sales/add-customer/add-customer.component';
 import { ReceiptsComponent } from './pages/Sales/receipts/receipts.component';
@@ -21,9 +23,11 @@ import { AddProductComponent } from './pages/Inventory/add-product/add-product.c
 import { PurchaseInvoiceComponent } from './pages/Purchase/purchase-invoice/purchase-invoice.component';
 import { PurchaseInvoiceListComponent } from './pages/Purchase/purchase-invoice-list/purchase-invoice-list.component';
 import { PurchaseReturnComponent } from './pages/Purchase/purchase-return/purchase-return.component';
+import { PurchaseReturnListComponent } from './pages/Purchase/purchase-return-list/purchase-return-list.component';
 import { SuppliersComponent } from './pages/Purchase/suppliers/suppliers.component';
 import { AddSupplierComponent } from './pages/Purchase/add-supplier/add-supplier.component';
 import { PaymentComponent } from './pages/Purchase/payment/payment.component';
+import { PaymentListComponent } from './pages/Purchase/payment-list/payment-list.component';
 
 // INVENTORY
 import { ProductsComponent } from './pages/Inventory/products/products.component';
@@ -32,6 +36,9 @@ import { StockInComponent } from './pages/Inventory/stock-in/stock-in.component'
 import { StockOutComponent } from './pages/Inventory/stock-out/stock-out.component';
 import { StockTransferComponent } from './pages/Inventory/stock-transfer/stock-transfer.component';
 import { StockReportComponent } from './pages/Inventory/stock-report/stock-report.component';
+import { StockInListComponent } from './pages/Inventory/stock-in-list/stock-in-list.component';
+import { StockOutListComponent } from './pages/Inventory/stock-out-list/stock-out-list.component';
+import { StockTransferListComponent } from './pages/Inventory/stock-transfer-list/stock-transfer-list.component';
 
 // LOAN MANAGEMENT
 import { LoanApplicationComponent } from './pages/loan/loan-application/loan-application.component';
@@ -95,7 +102,9 @@ export const routes: Routes = [
       // SALES
       { path: 'sales-invoice', component: SalesInvoiceComponent },
       { path: 'sales-invoice-list', component: SalesInvoiceListComponent },
+      { path: 'sales-return-list', component: SalesReturnListComponent },
       { path: 'sales-return', component: SalesReturnComponent },
+      { path: 'quotations-list', component: QuotationsListComponent },
       { path: 'quotations', component: QuotationsComponent },
       { path: 'customers', component: CustomersComponent },
       { path: 'add-customer', component: AddCustomerComponent },
@@ -109,8 +118,10 @@ export const routes: Routes = [
       { path: 'purchase-invoice', component: PurchaseInvoiceComponent },
       { path: 'purchase-invoice-list', component: PurchaseInvoiceListComponent },
       { path: 'purchase-return', component: PurchaseReturnComponent },
+      { path: 'purchase-return-list', component: PurchaseReturnListComponent },
       { path: 'suppliers', component: SuppliersComponent },
       { path: 'add-supplier', component: AddSupplierComponent },
+      { path: 'payments-list', component: PaymentListComponent },
       { path: 'payments', component: PaymentComponent },
 
 
@@ -118,8 +129,11 @@ export const routes: Routes = [
       { path: 'products', component: ProductsComponent },
       { path: 'categories', component: CategoriesComponent },
       { path: 'stock-in', component: StockInComponent },
+      { path: 'stock-in-list', component: StockInListComponent },
       { path: 'stock-out', component: StockOutComponent },
+      { path: 'stock-out-list', component: StockOutListComponent },
       { path: 'stock-transfer', component: StockTransferComponent },
+      { path: 'stock-transfer-list', component: StockTransferListComponent },
       { path: 'stock-report', component: StockReportComponent },
 
 

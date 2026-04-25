@@ -1,84 +1,115 @@
-<div class="invoice-container card shadow-sm border-0">
+<div class="relative overflow-hidden bg-white rounded-2xl shadow-2xl border border-gray-100 min-h-[500px] flex flex-col">
+  <!-- DECORATIVE BACKGROUND -->
+  <div class="absolute top-0 right-0 w-64 h-64 bg-emerald-50 rounded-full blur-3xl opacity-40 -mr-20 -mt-20"></div>
+  <div class="absolute bottom-0 left-0 w-48 h-48 bg-teal-50 rounded-full blur-3xl opacity-30 -ml-10 -mb-10"></div>
 
-  <!-- HEADER -->
-  <div class="card-header gradient-header text-white py-3 d-flex justify-content-between align-items-center">
-    <div>
-      <h5 class="mb-0 fw-semibold">Supplier Payment</h5>
-      <small class="opacity-75">Enterprise ERP System</small>
+  <!-- HEADER AREA -->
+  <div class="relative bg-gradient-to-r from-emerald-700 to-teal-800 p-6 flex justify-between items-center overflow-hidden">
+    <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10"></div>
+    <div class="relative z-10">
+      <h2 class="text-2xl font-black text-white tracking-tight flex items-center gap-2.5">
+        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+        SUPPLIER PAYMENT
+      </h2>
+      <div class="h-1 w-20 bg-emerald-400 rounded-full mt-1.5 opacity-80"></div>
+      <p class="text-emerald-100 text-[10px] mt-2 font-bold uppercase tracking-[0.2em] opacity-80">Finance Control Center</p>
     </div>
-    <div class="text-end small">
-      <div class="fw-semibold">Payment #: PAY-001</div>
+    <div class="relative z-10 text-right text-white">
+      <div class="bg-white bg-opacity-10 backdrop-blur-md rounded px-3 py-1.5 border border-white border-opacity-20 inline-block mb-1 shadow-sm font-bold tracking-wider">
+        {{ payment.paymentNumber }}
+      </div>
+      <div class="text-emerald-200 text-xs font-medium flex items-center justify-end gap-1.5">
+        Date: {{ today | date:'dd-MM-yyyy' }}
+      </div>
     </div>
   </div>
 
-  <div class="card-body p-4 small">
+  <div class="p-6 flex-grow relative z-10">
+    <div class="max-w-4xl mx-auto space-y-6">
+      
+      <!-- MAIN FORM -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        
+        <!-- LEFT COLUMN -->
+        <div class="space-y-4">
+          <div class="space-y-1.5">
+            <label class="text-[10px] font-bold text-gray-500 uppercase tracking-widest ml-1">Supplier *</label>
+            <div class="relative">
+              <select [(ngModel)]="payment.supplierId" 
+                      class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-sm focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-500 transition-all outline-none appearance-none cursor-pointer">
+                <option [ngValue]="undefined">Select Supplier for Payment</option>
+                <option *ngFor="let s of suppliers" [ngValue]="s.id">{{ s.name }}</option>
+              </select>
+              <div class="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+              </div>
+            </div>
+          </div>
 
-    <!-- PAYMENT FORM -->
-    <div class="row g-3 mb-4">
+          <div class="space-y-1.5">
+            <label class="text-[10px] font-bold text-gray-500 uppercase tracking-widest ml-1">Payment Date</label>
+            <input type="date" [(ngModel)]="payment.paymentDate" 
+                   class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-sm focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-500 transition-all outline-none">
+          </div>
 
-      <div class="col-md-4">
-        <label class="form-label fw-semibold small">Supplier</label>
-        <select class="form-select form-select-sm">
-          <option>Select Supplier</option>
-        </select>
-      </div>
+          <div class="space-y-1.5">
+            <label class="text-[10px] font-bold text-gray-500 uppercase tracking-widest ml-1">Payment Mode</label>
+            <div class="grid grid-cols-2 gap-2">
+              <button *ngFor="let mode of ['Cash', 'Bank Transfer', 'UPI', 'Cheque']" 
+                      (click)="payment.paymentMode = mode"
+                      [class.bg-emerald-600]="payment.paymentMode === mode"
+                      [class.text-white]="payment.paymentMode === mode"
+                      [class.border-emerald-600]="payment.paymentMode === mode"
+                      class="px-3 py-2 rounded-lg border border-gray-100 text-[10px] font-bold uppercase tracking-wider transition-all hover:bg-emerald-50 shadow-sm">
+                {{mode}}
+              </button>
+            </div>
+          </div>
+        </div>
 
-      <div class="col-md-4">
-        <label class="form-label fw-semibold small">Payment Date</label>
-        <input type="date" class="form-control form-control-sm">
-      </div>
+        <!-- RIGHT COLUMN -->
+        <div class="space-y-4">
+          <div class="space-y-1.5">
+            <label class="text-[10px] font-bold text-gray-500 uppercase tracking-widest ml-1">Amount to Pay *</label>
+            <div class="relative">
+              <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 font-bold">₹</span>
+              <input type="number" [(ngModel)]="payment.amount" 
+                     class="w-full bg-gray-50 border border-emerald-100 rounded-2xl pl-8 pr-4 py-5 text-2xl font-black text-emerald-700 focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-500 transition-all outline-none placeholder-gray-300" 
+                     placeholder="0.00">
+            </div>
+          </div>
 
-      <div class="col-md-4">
-        <label class="form-label fw-semibold small">Payment Mode</label>
-        <select class="form-select form-select-sm">
-          <option>Cash</option>
-          <option>Bank Transfer</option>
-          <option>UPI</option>
-          <option>Cheque</option>
-        </select>
-      </div>
+          <div class="space-y-1.5">
+            <label class="text-[10px] font-bold text-gray-500 uppercase tracking-widest ml-1">Reference / Cheque No</label>
+            <input type="text" [(ngModel)]="payment.referenceNo" 
+                   class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-sm focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-500 transition-all outline-none" 
+                   placeholder="Enter Transaction Reference">
+          </div>
 
-      <div class="col-md-6">
-        <label class="form-label fw-semibold small">Amount</label>
-        <input type="number" class="form-control form-control-sm text-end" placeholder="0.00">
-      </div>
-
-      <div class="col-md-6">
-        <label class="form-label fw-semibold small">Reference No</label>
-        <input type="text" class="form-control form-control-sm" placeholder="Transaction / Cheque No">
-      </div>
-
-      <div class="col-12">
-        <label class="form-label fw-semibold small">Remarks</label>
-        <textarea class="form-control form-control-sm" rows="2"></textarea>
-      </div>
-
-    </div>
-
-    <!-- SUMMARY BOX -->
-    <div class="row justify-content-end">
-      <div class="col-md-4">
-        <div class="summary-box p-3 rounded bg-light border">
-          <div class="d-flex justify-content-between fw-semibold">
-            <span>Total Payment</span>
-            <span>₹ 0.00</span>
+          <div class="space-y-1.5">
+            <label class="text-[10px] font-bold text-gray-500 uppercase tracking-widest ml-1">Remarks</label>
+            <textarea [(ngModel)]="payment.remarks" 
+                      class="w-full h-24 bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-sm focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-500 transition-all outline-none resize-none shadow-inner" 
+                      placeholder="Enter internal notes..."></textarea>
           </div>
         </div>
       </div>
-    </div>
 
-    <!-- ACTION BUTTONS -->
-    <div class="mt-4 text-end">
-      <button class="btn btn-sm btn-outline-secondary me-2">
-        Cancel
-      </button>
-      <button class="btn btn-sm btn-success me-2">
-        Save
-      </button>
-      <button class="btn btn-sm btn-dark">
-        Save & Print
+    </div>
+  </div>
+
+  <!-- FOOTER ACTIONS -->
+  <div class="bg-gray-50/80 backdrop-blur-sm px-8 py-6 border-t border-gray-100 flex justify-between items-center">
+    <div class="flex items-center gap-2">
+      <div class="w-2 h-2 rounded-full bg-teal-500"></div>
+      <span class="text-[10px] font-black text-gray-400 uppercase tracking-widest">Secure Financial Transaction</span>
+    </div>
+    <div class="flex gap-4">
+      <button class="px-8 py-3 rounded-xl border border-gray-200 text-xs font-bold text-gray-500 hover:bg-white hover:text-gray-700 hover:border-gray-300 transition-all uppercase tracking-widest">Discard</button>
+      <button (click)="processPayment()" 
+              class="px-12 py-3 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-700 text-white text-xs font-black uppercase tracking-[0.2em] shadow-xl shadow-emerald-600/30 hover:shadow-emerald-600/50 hover:scale-[1.02] transform transition-all active:scale-[0.98]">
+        Process Payment
       </button>
     </div>
-
   </div>
 </div>

@@ -12,5 +12,6 @@ namespace WebApplication1.Repositories
         Task UpdateAsync(PurchaseInvoice invoice);
         Task DeleteAsync(int id);
         Task<bool> InvoiceExistsAsync(string invoiceNumber);
+        Task<PurchaseInvoice?> GetByInvoiceNumberAsync(string invoiceNumber);
     }
 }

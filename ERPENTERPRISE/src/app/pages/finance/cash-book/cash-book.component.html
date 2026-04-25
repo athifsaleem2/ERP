@@ -1,32 +1,101 @@
-<div class="invoice-container card shadow-sm border-0">
+<div class="finance-container">
 
-  <div class="card-header gradient-header text-white py-3 d-flex justify-content-between">
-    <h5 class="mb-0">Cash Book</h5>
-    <small>{{ today | date:'dd-MM-yyyy' }}</small>
+  <!-- Header -->
+  <div class="finance-header">
+    <div>
+      <h4 class="finance-title"><i class="bi bi-book-half me-2"></i>Cash Book</h4>
+      <span class="finance-sub">Finance Module &mdash; {{ today | date:'dd MMM yyyy' }}</span>
+    </div>
   </div>
 
-  <div class="card-body p-4 small">
-
-    <table class="table table-sm table-hover">
-      <thead class="table-light">
-        <tr>
-          <th>Date</th>
-          <th>Description</th>
-          <th class="text-end">Debit</th>
-          <th class="text-end">Credit</th>
-          <th class="text-end">Balance</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let t of transactions">
-          <td>{{ t.date }}</td>
-          <td>{{ t.desc }}</td>
-          <td class="text-end">{{ t.debit }}</td>
-          <td class="text-end">{{ t.credit }}</td>
-          <td class="text-end">{{ t.balance }}</td>
-        </tr>
-      </tbody>
-    </table>
-
+  <!-- Filter Row -->
+  <div class="form-card">
+    <h6 class="section-label">Date Filter</h6>
+    <div class="row g-3 align-items-end">
+      <div class="col-md-3">
+        <label class="field-label">From Date</label>
+        <input id="cb-from" type="date" class="field-input" [(ngModel)]="filterFrom">
+      </div>
+      <div class="col-md-3">
+        <label class="field-label">To Date</label>
+        <input id="cb-to" type="date" class="field-input" [(ngModel)]="filterTo">
+      </div>
+      <div class="col-md-3">
+        <button class="btn-save" (click)="filterFrom = ''; filterTo = ''">Clear Filter</button>
+      </div>
+    </div>
   </div>
+
+  <!-- Summary -->
+  <div class="summary-cards">
+    <div class="sum-card sum-red">
+      <span class="sum-icon">D</span>
+      <div>
+        <div class="sum-label">Total Debit</div>
+        <div class="sum-value">₹ {{ totalDebit | number:'1.2-2' }}</div>
+      </div>
+    </div>
+    <div class="sum-card sum-green">
+      <span class="sum-icon">C</span>
+      <div>
+        <div class="sum-label">Total Credit</div>
+        <div class="sum-value">₹ {{ totalCredit | number:'1.2-2' }}</div>
+      </div>
+    </div>
+    <div class="sum-card" [ngClass]="closingBalance >= 0 ? 'sum-blue' : 'sum-red'">
+      <span class="sum-icon">⇌</span>
+      <div>
+        <div class="sum-label">Closing Balance</div>
+        <div class="sum-value">₹ {{ closingBalance | number:'1.2-2' }}</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Table -->
+  <div class="table-card">
+    <div *ngIf="loading" class="loading-state">Loading cash book…</div>
+    <div *ngIf="!loading && filtered.length === 0" class="empty-state">
+      No entries found. Add expenses or bank transactions to see them here.
+    </div>
+
+    <div *ngIf="!loading && filtered.length > 0" class="table-responsive">
+      <table class="finance-table">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Description</th>
+            <th class="text-end">Debit (₹)</th>
+            <th class="text-end">Credit (₹)</th>
+            <th class="text-end">Balance (₹)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let e of filtered">
+            <td>{{ e.date | date:'dd-MM-yyyy' }}</td>
+            <td>{{ e.description }}</td>
+            <td class="text-end text-danger">
+              <span *ngIf="e.debit > 0">₹ {{ e.debit | number:'1.2-2' }}</span>
+              <span *ngIf="e.debit === 0" class="text-muted">—</span>
+            </td>
+            <td class="text-end text-success">
+              <span *ngIf="e.credit > 0">₹ {{ e.credit | number:'1.2-2' }}</span>
+              <span *ngIf="e.credit === 0" class="text-muted">—</span>
+            </td>
+            <td class="text-end fw-semibold" [ngClass]="e.balance >= 0 ? 'text-primary' : 'text-danger'">
+              ₹ {{ e.balance | number:'1.2-2' }}
+            </td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="2" class="fw-bold">Totals</td>
+            <td class="text-end fw-bold text-danger">₹ {{ totalDebit | number:'1.2-2' }}</td>
+            <td class="text-end fw-bold text-success">₹ {{ totalCredit | number:'1.2-2' }}</td>
+            <td class="text-end fw-bold text-primary">₹ {{ closingBalance | number:'1.2-2' }}</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+
 </div>

@@ -4,7 +4,7 @@
 
     <!-- DASHBOARD -->
     <li>
-  <a routerLink="Dashboard" class="single-item text-decoration-none">
+  <a routerLink="home" class="single-item text-decoration-none" routerLinkActive="active">
     Dashboard
   </a>
 </li>
@@ -32,11 +32,17 @@
   <li routerLink="sales-invoice" routerLinkActive="active" class="text-xs opacity-75 ps-4">
     + Add New Invoice
   </li>
-  <li routerLink="sales-return" routerLinkActive="active">
-    Sales Return
+  <li routerLink="sales-return-list" routerLinkActive="active">
+    Sales Return List
   </li>
-  <li routerLink="quotations" routerLinkActive="active">
-    Quotations
+  <li routerLink="sales-return" routerLinkActive="active" class="text-xs opacity-75 ps-4">
+    + Add New Return
+  </li>
+  <li routerLink="quotations-list" routerLinkActive="active">
+    Quotations List
+  </li>
+  <li routerLink="quotations" routerLinkActive="active" class="text-xs opacity-75 ps-4">
+    + Add New Quotation
   </li>
   <li routerLink="customers" routerLinkActive="active">
     Customers
@@ -69,16 +75,22 @@
       + Add New Purchase
     </li>
 
-    <li routerLink="purchase-return" routerLinkActive="active">
-      Purchase Return
+    <li routerLink="purchase-return-list" routerLinkActive="active">
+      Purchase Return List
+    </li>
+    <li routerLink="purchase-return" routerLinkActive="active" class="text-xs opacity-75 ps-4">
+      + Add New Return
     </li>
 
     <li routerLink="suppliers" routerLinkActive="active">
       Suppliers
     </li>
 
-    <li routerLink="payments" routerLinkActive="active">
-      Payments
+    <li routerLink="payments-list" routerLinkActive="active">
+      Payments List
+    </li>
+    <li routerLink="payments" routerLinkActive="active" class="text-xs opacity-75 ps-4">
+      + Add New Payment
     </li>
 
   </ul>
@@ -107,7 +119,6 @@
     <li routerLink="products" routerLinkActive="active">
       Products
     </li>
-
     <li routerLink="add-product" routerLinkActive="active" class="text-xs opacity-75 ps-4">
       + Add Product
     </li>
@@ -116,16 +127,25 @@
       Categories
     </li>
 
-    <li routerLink="stock-in" routerLinkActive="active">
-      Stock In
+    <li routerLink="stock-in-list" routerLinkActive="active">
+      Stock In List
+    </li>
+    <li routerLink="stock-in" routerLinkActive="active" class="text-xs opacity-75 ps-4">
+      + Log Stock In
     </li>
 
-    <li routerLink="stock-out" routerLinkActive="active">
-      Stock Out
+    <li routerLink="stock-out-list" routerLinkActive="active">
+      Stock Out List
+    </li>
+    <li routerLink="stock-out" routerLinkActive="active" class="text-xs opacity-75 ps-4">
+      + Log Stock Out
     </li>
 
-    <li routerLink="stock-transfer" routerLinkActive="active">
-      Stock Transfer
+    <li routerLink="stock-transfer-list" routerLinkActive="active">
+      Stock Transfer List
+    </li>
+    <li routerLink="stock-transfer" routerLinkActive="active" class="text-xs opacity-75 ps-4">
+      + New Transfer
     </li>
 
     <li routerLink="stock-report" routerLinkActive="active">

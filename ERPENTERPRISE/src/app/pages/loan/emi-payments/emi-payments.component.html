@@ -6,32 +6,47 @@
       <small class="opacity-75">Enterprise ERP System</small>
     </div>
     <div class="text-end small">
-      <div class="fw-semibold">Receipt #: EMI-001</div>
+      <div class="fw-semibold d-inline-flex align-items-center gap-2">
+        Select Loan:
+        <select class="form-select form-select-sm d-inline-block w-auto" [(ngModel)]="selectedLoanId" (change)="onLoanSelect()">
+          <option [ngValue]="0">Select Loan</option>
+          <option *ngFor="let loan of loans" [ngValue]="loan.id">LA-{{loan.id}} - {{loan.applicantName}}</option>
+        </select>
+      </div>
       <div>Date: {{ today | date:'dd-MM-yyyy' }}</div>
     </div>
   </div>
 
   <div class="card-body p-4 small">
 
-    <div class="row g-3 mb-4">
-      <div class="col-md-4">
-        <label class="form-label fw-semibold small">Loan ID</label>
-        <input class="form-control form-control-sm">
-      </div>
-
-      <div class="col-md-4">
-        <label class="form-label fw-semibold small">EMI No</label>
-        <input class="form-control form-control-sm">
-      </div>
-
-      <div class="col-md-4">
-        <label class="form-label fw-semibold small">Amount Paid</label>
-        <input class="form-control form-control-sm">
-      </div>
-    </div>
-
-    <div class="text-end">
-      <button class="btn btn-sm btn-success">Save Payment</button>
+    <div class="table-responsive">
+      <table class="table table-hover align-middle border">
+        <thead class="table-light">
+          <tr>
+            <th class="ps-3 text-secondary fw-semibold">Due Date</th>
+            <th class="text-secondary fw-semibold">Principal</th>
+            <th class="text-secondary fw-semibold">Interest</th>
+            <th class="text-secondary fw-semibold">Penalty</th>
+            <th class="text-secondary fw-semibold">Total Amount</th>
+            <th class="text-center text-secondary fw-semibold">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngIf="pendingEmis.length === 0">
+            <td colspan="6" class="text-center text-muted py-3">No pending EMIs found for this loan.</td>
+          </tr>
+          <tr *ngFor="let emi of pendingEmis">
+            <td class="ps-3">{{ emi.dueDate | date:'dd-MM-yyyy' }}</td>
+            <td>₹ {{ emi.principalComponent | number:'1.2-2' }}</td>
+            <td>₹ {{ emi.interestComponent | number:'1.2-2' }}</td>
+            <td class="text-danger fw-semibold">₹ {{ emi.penaltyAmount | number:'1.2-2' }}</td>
+            <td class="fw-semibold">₹ {{ emi.totalEmi + emi.penaltyAmount | number:'1.2-2' }}</td>
+            <td class="text-center">
+              <button class="btn btn-sm btn-success" (click)="payEmi(emi.id)">Pay EMI</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
 
   </div>

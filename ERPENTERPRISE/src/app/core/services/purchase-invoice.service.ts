@@ -39,6 +39,10 @@ export class PurchaseInvoiceService {
     return this.http.get<PurchaseInvoice>(`${this.apiUrl}/${id}`);
   }
 
+  getInvoiceByNumber(invoiceNumber: string): Observable<PurchaseInvoice> {
+    return this.http.get<PurchaseInvoice>(`${this.apiUrl}/number/${invoiceNumber}`);
+  }
+
   createInvoice(invoice: PurchaseInvoice): Observable<PurchaseInvoice> {
     return this.http.post<PurchaseInvoice>(this.apiUrl, invoice);
   }

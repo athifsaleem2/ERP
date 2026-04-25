@@ -1,38 +1,48 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { LoanService, Loan } from '../../../core/services/loan.service';
 
 @Component({
   selector: 'app-loan-application',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './loan-application.component.html',
   styleUrls: ['./loan-application.component.css']
 })
 export class LoanApplicationComponent {
 
   today: Date = new Date();
-  applicationNumber: string = '';
 
-  loanAmount: number = 0;
-  interestRate: number = 0;
-  tenure: number = 0;
+  loan: Loan = {
+    applicantName: '',
+    principalAmount: 0,
+    interestRate: 0,
+    tenureMonths: 0
+  };
 
-  totalInterest: number = 0;
-  totalPayable: number = 0;
+  constructor(private loanService: LoanService) {}
 
-  constructor() {
-    this.generateApplicationNumber();
+  get totalInterest(): number {
+    return (this.loan.principalAmount * this.loan.interestRate * this.loan.tenureMonths / 12) / 100;
   }
 
-  generateApplicationNumber() {
-    const random = Math.floor(100 + Math.random() * 900);
-    this.applicationNumber = `LA-${random}`;
+  get totalPayable(): number {
+    return this.loan.principalAmount + this.totalInterest;
   }
 
-  calculateLoan() {
-    const interest = (this.loanAmount * this.interestRate * this.tenure) / 100;
-    this.totalInterest = interest;
-    this.totalPayable = this.loanAmount + interest;
+  save() {
+    if(!this.loan.applicantName || this.loan.principalAmount <= 0 || this.loan.tenureMonths <= 0) {
+       alert("Please fill necessary details");
+       return;
+    }
+    this.loanService.applyForLoan(this.loan).subscribe({
+      next: (res) => {
+        alert("Loan applied successfully! Status: " + res.status);
+        this.loan = { applicantName: '', principalAmount: 0, interestRate: 0, tenureMonths: 0 };
+      },
+      error: (err) => alert("Error applying for loan")
+    });
   }
 
 }

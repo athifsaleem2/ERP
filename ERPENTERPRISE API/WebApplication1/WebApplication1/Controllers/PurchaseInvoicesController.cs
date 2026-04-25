@@ -32,6 +32,14 @@ namespace WebApplication1.Controllers
             return Ok(invoice);
         }
 
+        [HttpGet("number/{invoiceNumber}")]
+        public async Task<ActionResult<PurchaseInvoice>> GetInvoiceByNumber(string invoiceNumber)
+        {
+            var invoice = await _service.GetInvoiceByNumberAsync(invoiceNumber);
+            if (invoice == null) return NotFound();
+            return Ok(invoice);
+        }
+
         [HttpPost]
         public async Task<ActionResult<PurchaseInvoice>> CreateInvoice(PurchaseInvoice invoice)
         {

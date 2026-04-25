@@ -1,78 +1,66 @@
-<div class="card shadow-sm border-0">
-
-  <!-- HEADER -->
-  <div class="card-header gradient-header text-white py-3 d-flex justify-content-between align-items-center">
+<div class="hrms-container">
+  <div class="hrms-header">
     <div>
-      <h5 class="mb-0 fw-semibold">Attendance Management</h5>
-      <small class="opacity-75">Track Employee Attendance</small>
+      <h4 class="hrms-title"><i class="bi bi-calendar-check-fill me-2"></i>Attendance Register</h4>
+      <span class="hrms-sub">HRMS Module &mdash; {{ today | date:'dd MMM yyyy' }}</span>
     </div>
-
-    <button class="btn btn-sm btn-light text-dark"
-     (click)="addAttendance()">
-      + Mark Attendance
-    </button>
+    <button id="btn-mark-attendance" class="btn-add" (click)="markAttendance()">+ Mark Attendance</button>
   </div>
 
-  <div class="card-body p-4 small">
-
-    <!-- FILTER -->
-    <div class="row g-3 mb-4">
-
-      <div class="col-md-3">
-        <input type="date" class="form-control form-control-sm">
-      </div>
-
-      <div class="col-md-3">
-        <select class="form-select form-select-sm">
-          <option>All Employees</option>
-          <option>Sales</option>
-          <option>HR</option>
-          <option>Accounts</option>
-        </select>
-      </div>
-
-      <div class="col-md-2">
-        <button class="btn btn-dark btn-sm w-100">
-          Load
-        </button>
-      </div>
-
+  <!-- Summary Cards -->
+  <div class="summary-cards">
+    <div class="sum-card sum-green">
+      <span class="sum-icon">✅</span>
+      <div><div class="sum-label">Present</div><div class="sum-value">{{ presentCount }}</div></div>
     </div>
+    <div class="sum-card sum-red">
+      <span class="sum-icon">❌</span>
+      <div><div class="sum-label">Absent</div><div class="sum-value">{{ absentCount }}</div></div>
+    </div>
+    <div class="sum-card sum-blue">
+      <span class="sum-icon">📋</span>
+      <div><div class="sum-label">Leave / Half Day</div><div class="sum-value">{{ leaveCount }}</div></div>
+    </div>
+  </div>
 
-    <!-- TABLE -->
-    <div class="table-responsive">
+  <!-- Filter -->
+  <div class="form-card">
+    <div class="row g-3 align-items-end">
+      <div class="col-md-3">
+        <label class="field-label">Filter by Date</label>
+        <input id="att-filter-date" type="date" class="field-input" [(ngModel)]="filterDate">
+      </div>
+      <div class="col-md-2">
+        <button class="btn-secondary" (click)="filterDate = ''">Clear</button>
+      </div>
+    </div>
+  </div>
 
-      <table class="table table-sm table-hover align-middle">
-
-        <thead class="table-light">
-          <tr class="text-uppercase small">
-            <th>Employee</th>
-            <th>Date</th>
-            <th>Status</th>
-            <th>Check In</th>
-            <th>Check Out</th>
+  <!-- Table -->
+  <div class="table-card">
+    <div *ngIf="loading" class="loading-state">Loading attendance…</div>
+    <div *ngIf="!loading && filtered.length === 0" class="empty-state">No attendance records found</div>
+    <div *ngIf="!loading && filtered.length > 0" class="table-responsive">
+      <table class="hrms-table">
+        <thead>
+          <tr>
+            <th>Date</th><th>Employee</th><th>Department</th><th>Status</th>
+            <th>Check In</th><th>Check Out</th><th>Remarks</th><th>Action</th>
           </tr>
         </thead>
-
         <tbody>
-
-          <tr *ngFor="let a of attendanceList">
-            <td class="fw-semibold">{{a.employee}}</td>
-            <td>{{a.date | date:'dd MMM yyyy'}}</td>
-            <td>
-              <span class="badge bg-success" *ngIf="a.status=='Present'">Present</span>
-              <span class="badge bg-danger" *ngIf="a.status=='Absent'">Absent</span>
-            </td>
-            <td>{{a.checkin}}</td>
-            <td>{{a.checkout}}</td>
+          <tr *ngFor="let a of filtered">
+            <td>{{ a.date | date:'dd-MM-yyyy' }}</td>
+            <td class="fw-semibold">{{ a.employee?.name || '—' }}</td>
+            <td class="text-muted">{{ a.employee?.department || '—' }}</td>
+            <td><span class="status-badge" [ngClass]="'badge-' + statusColor(a.status)">{{ a.status }}</span></td>
+            <td class="mono">{{ a.checkIn || '—' }}</td>
+            <td class="mono">{{ a.checkOut || '—' }}</td>
+            <td class="text-muted small">{{ a.remarks || '—' }}</td>
+            <td><button class="btn-del" (click)="delete(a.id)">Delete</button></td>
           </tr>
-
         </tbody>
-
       </table>
-
     </div>
-
   </div>
-
 </div>

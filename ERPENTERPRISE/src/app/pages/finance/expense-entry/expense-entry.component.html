@@ -1,37 +1,106 @@
-<div class="invoice-container card shadow-sm border-0">
+<div class="finance-container">
 
-  <div class="card-header gradient-header text-white py-3">
-    <h5 class="mb-0">Expense Entry</h5>
+  <!-- Header -->
+  <div class="finance-header">
+    <div>
+      <h4 class="finance-title"><i class="bi bi-receipt-cutoff me-2"></i>Expense Entry</h4>
+      <span class="finance-sub">Finance Module &mdash; {{ today | date:'dd MMM yyyy' }}</span>
+    </div>
+    <div class="header-badge total-badge">₹ {{ totalAmount | number:'1.2-2' }} Total</div>
   </div>
 
-  <div class="card-body p-4 small">
+  <div *ngIf="successMsg" class="alert-success-bar">✔ {{ successMsg }}</div>
+  <div *ngIf="errorMsg" class="alert-error-bar">✘ {{ errorMsg }}</div>
 
+  <!-- Form Card -->
+  <div class="form-card">
+    <h6 class="section-label">Record New Expense</h6>
     <div class="row g-3">
-
-      <div class="col-md-4">
-        <label class="form-label fw-semibold">Expense Category</label>
-        <input class="form-control form-control-sm">
+      <div class="col-md-2">
+        <label class="field-label">Expense No.</label>
+        <input id="exp-number" type="text" class="field-input readonly-field" [value]="form.expenseNumber" readonly>
       </div>
-
-      <div class="col-md-4">
-        <label class="form-label fw-semibold">Amount</label>
-        <input type="number" class="form-control form-control-sm">
+      <div class="col-md-2">
+        <label class="field-label">Date *</label>
+        <input id="exp-date" type="date" class="field-input" [(ngModel)]="form.expenseDate">
       </div>
-
-      <div class="col-md-4">
-        <label class="form-label fw-semibold">Payment Mode</label>
-        <select class="form-select form-select-sm">
-          <option>Cash</option>
-          <option>Bank</option>
-          <option>Card</option>
+      <div class="col-md-3">
+        <label class="field-label">Category *</label>
+        <select id="exp-category" class="field-input" [(ngModel)]="form.category">
+          <option value="">-- Select Category --</option>
+          <option *ngFor="let c of categories" [value]="c">{{ c }}</option>
         </select>
       </div>
-
+      <div class="col-md-2">
+        <label class="field-label">Amount (₹) *</label>
+        <input id="exp-amount" type="number" class="field-input" [(ngModel)]="form.amount" min="0" placeholder="0.00">
+      </div>
+      <div class="col-md-2">
+        <label class="field-label">Payment Mode</label>
+        <select id="exp-mode" class="field-input" [(ngModel)]="form.paymentMode">
+          <option *ngFor="let m of paymentModes" [value]="m">{{ m }}</option>
+        </select>
+      </div>
+      <div class="col-md-12">
+        <label class="field-label">Description (optional)</label>
+        <input id="exp-desc" type="text" class="field-input" [(ngModel)]="form.description" placeholder="Short description…">
+      </div>
+      <div class="col-12 text-end">
+        <button id="btn-save-expense" class="btn-save" (click)="saveExpense()" [disabled]="saving">
+          <span *ngIf="!saving">Save Expense</span>
+          <span *ngIf="saving">Saving…</span>
+        </button>
+      </div>
     </div>
-
-    <div class="mt-4 text-end">
-      <button class="btn btn-sm btn-success">Save Expense</button>
-    </div>
-
   </div>
+
+  <!-- Table -->
+  <div class="table-card">
+    <div class="table-header-row">
+      <h6 class="section-label mb-0">Expense Ledger</h6>
+    </div>
+    <div *ngIf="loading" class="loading-state">Loading expenses…</div>
+    <div *ngIf="!loading && expenses.length === 0" class="empty-state">No expenses recorded yet</div>
+
+    <div *ngIf="!loading && expenses.length > 0" class="table-responsive">
+      <table class="finance-table">
+        <thead>
+          <tr>
+            <th>Exp. No.</th>
+            <th>Date</th>
+            <th>Category</th>
+            <th>Description</th>
+            <th>Mode</th>
+            <th class="text-end">Amount (₹)</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let e of expenses">
+            <td class="mono">{{ e.expenseNumber }}</td>
+            <td>{{ e.expenseDate | date:'dd-MM-yyyy' }}</td>
+            <td><span class="cat-pill">{{ e.category }}</span></td>
+            <td class="text-muted small">{{ e.description || '—' }}</td>
+            <td>
+              <span class="mode-badge" [ngClass]="{'mode-cash': e.paymentMode === 'Cash', 'mode-bank': e.paymentMode !== 'Cash'}">
+                {{ e.paymentMode }}
+              </span>
+            </td>
+            <td class="text-end fw-semibold">₹ {{ e.amount | number:'1.2-2' }}</td>
+            <td>
+              <button class="btn-del" (click)="deleteExpense(e.id)">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="5" class="fw-bold">Total</td>
+            <td class="text-end fw-bold text-danger">₹ {{ totalAmount | number:'1.2-2' }}</td>
+            <td></td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+
 </div>

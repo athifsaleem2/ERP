@@ -53,5 +53,10 @@ namespace WebApplication1.Services
         {
             return await _repository.InvoiceExistsAsync(invoiceNumber);
         }
+
+        public async Task<PurchaseInvoice?> GetInvoiceByNumberAsync(string invoiceNumber)
+        {
+            return await _repository.GetByInvoiceNumberAsync(invoiceNumber);
+        }
     }
 }

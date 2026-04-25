@@ -56,5 +56,13 @@ namespace WebApplication1.Repositories
         {
             return await _context.PurchaseInvoices.AnyAsync(i => i.InvoiceNumber == invoiceNumber);
         }
+
+        public async Task<PurchaseInvoice?> GetByInvoiceNumberAsync(string invoiceNumber)
+        {
+            return await _context.PurchaseInvoices
+                .Include(i => i.Supplier)
+                .Include(i => i.Items)
+                .FirstOrDefaultAsync(i => i.InvoiceNumber == invoiceNumber);
+        }
     }
 }

@@ -1,11 +1,11 @@
 <app-header (toggleSidebar)="toggleSidebar()"></app-header>
 
-<div class="main-container">
-
+<div class="main-layout-wrapper">
   <app-sidebar [isOpen]="isSidebarOpen"></app-sidebar>
 
-  <div class="flex-grow-1 p-3">
-    <router-outlet></router-outlet>
-  </div>
-
+  <main class="content-area" [class.sidebar-collapsed]="!isSidebarOpen">
+    <div class="scroll-container">
+      <router-outlet></router-outlet>
+    </div>
+  </main>
 </div>

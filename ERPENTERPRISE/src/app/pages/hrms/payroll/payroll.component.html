@@ -1,78 +1,77 @@
-<div class="card shadow-sm border-0">
-
-  <!-- HEADER -->
-  <div class="card-header gradient-header text-white py-3 d-flex justify-content-between align-items-center">
+<div class="hrms-container">
+  <div class="hrms-header">
     <div>
-      <h5 class="mb-0 fw-semibold">Payroll Management</h5>
-      <small class="opacity-75">Employee Salary Processing</small>
+      <h4 class="hrms-title"><i class="bi bi-cash-coin me-2"></i>Payroll Management</h4>
+      <span class="hrms-sub">HRMS Module &mdash; {{ today | date:'dd MMM yyyy' }}</span>
     </div>
-
-    <button class="btn btn-sm btn-light text-dark"
-        
-  (click)="GeneratePayroll()">
-      Generate Payroll
-    </button>
+    <button id="btn-generate-payroll" class="btn-add" (click)="generatePayroll()">+ Generate Payroll</button>
   </div>
 
-  <div class="card-body p-4 small">
-
-    <!-- FILTER -->
-    <div class="row g-3 mb-4">
-
-      <div class="col-md-3">
-        <select class="form-select form-select-sm">
-          <option>January</option>
-          <option>February</option>
-          <option>March</option>
-        </select>
-      </div>
-
-      <div class="col-md-3">
-        <select class="form-select form-select-sm">
-          <option>All Departments</option>
-          <option>Sales</option>
-          <option>Accounts</option>
-          <option>HR</option>
-        </select>
-      </div>
-
-      <div class="col-md-2">
-        <button class="btn btn-dark btn-sm w-100">
-          Load
-        </button>
-      </div>
-
+  <!-- Summary Cards -->
+  <div class="summary-cards">
+    <div class="sum-card sum-blue">
+      <span class="sum-icon">📋</span>
+      <div><div class="sum-label">Records This Month</div><div class="sum-value">{{ filtered.length }}</div></div>
     </div>
+    <div class="sum-card sum-green">
+      <span class="sum-icon">✅</span>
+      <div><div class="sum-label">Paid</div><div class="sum-value">{{ paidCount }}</div></div>
+    </div>
+    <div class="sum-card sum-blue">
+      <span class="sum-icon">₹</span>
+      <div><div class="sum-label">Total Net Salary</div><div class="sum-value">₹ {{ totalNetSalary | number:'1.0-0' }}</div></div>
+    </div>
+  </div>
 
-    <!-- TABLE -->
-    <div class="table-responsive">
+  <!-- Filter -->
+  <div class="form-card">
+    <div class="row g-3 align-items-end">
+      <div class="col-md-3">
+        <label class="field-label">Month</label>
+        <select id="pay-month" class="field-input" [(ngModel)]="filterMonth">
+          <option *ngFor="let m of months; let i = index" [value]="i + 1">{{ m }}</option>
+        </select>
+      </div>
+      <div class="col-md-2">
+        <label class="field-label">Year</label>
+        <select id="pay-year" class="field-input" [(ngModel)]="filterYear">
+          <option *ngFor="let y of years" [value]="y">{{ y }}</option>
+        </select>
+      </div>
+    </div>
+  </div>
 
-      <table class="table table-sm table-hover align-middle">
-
-        <thead class="table-light">
-          <tr class="text-uppercase small">
-            <th>Employee</th>
-            <th>Basic Salary</th>
-            <th>Deductions</th>
-            <th>Net Salary</th>
+  <!-- Table -->
+  <div class="table-card">
+    <div *ngIf="loading" class="loading-state">Loading payroll…</div>
+    <div *ngIf="!loading && filtered.length === 0" class="empty-state">No payroll records for this period</div>
+    <div *ngIf="!loading && filtered.length > 0" class="table-responsive">
+      <table class="hrms-table">
+        <thead>
+          <tr>
+            <th>Employee</th><th>Department</th><th>Period</th>
+            <th class="text-end">Basic</th><th class="text-end">HRA+DA</th>
+            <th class="text-end">Deductions</th><th class="text-end">Net Salary</th>
+            <th>Status</th><th>Action</th>
           </tr>
         </thead>
-
         <tbody>
-
-          <tr *ngFor="let p of payrollList">
-            <td class="fw-semibold">{{p.employee}}</td>
-            <td>₹{{p.basic}}</td>
-            <td>₹{{p.deduction}}</td>
-            <td class="fw-semibold text-success">₹{{p.net}}</td>
+          <tr *ngFor="let p of filtered">
+            <td class="fw-semibold">{{ p.employee?.name || '—' }}</td>
+            <td class="text-muted">{{ p.employee?.department || '—' }}</td>
+            <td class="mono">{{ getMonthName(p.month) }} {{ p.year }}</td>
+            <td class="text-end">₹ {{ p.basicSalary | number:'1.0-0' }}</td>
+            <td class="text-end">₹ {{ (p.hra + p.da) | number:'1.0-0' }}</td>
+            <td class="text-end text-danger">₹ {{ (p.pfDeduction + p.taxDeduction + p.otherDeductions) | number:'1.0-0' }}</td>
+            <td class="text-end fw-bold text-success">₹ {{ p.netSalary | number:'1.0-0' }}</td>
+            <td><span class="status-badge" [ngClass]="'badge-' + statusColor(p.status)">{{ p.status }}</span></td>
+            <td class="d-flex gap-1">
+              <button *ngIf="p.status !== 'Paid'" class="btn-approve" (click)="markPaid(p.id)">Mark Paid</button>
+              <button class="btn-del" (click)="delete(p.id)">Del</button>
+            </td>
           </tr>
-
         </tbody>
-
       </table>
-
     </div>
-
   </div>
-
 </div>

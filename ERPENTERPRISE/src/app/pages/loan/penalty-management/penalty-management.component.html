@@ -6,7 +6,7 @@
       <small class="opacity-75">Enterprise ERP System</small>
     </div>
     <div class="text-end small">
-      <div class="fw-semibold">Loan ID: LN-001</div>
+      <div class="fw-semibold"></div>
       <div>Date: {{ today | date:'dd-MM-yyyy' }}</div>
     </div>
   </div>
@@ -15,23 +15,31 @@
 
     <div class="row g-3 mb-4">
       <div class="col-md-4">
-        <label class="form-label fw-semibold small">Overdue EMI</label>
-        <input class="form-control form-control-sm">
+        <label class="form-label fw-semibold small">Select Loan *</label>
+        <select class="form-select form-select-sm" [(ngModel)]="selectedLoanId" (change)="onLoanSelect()">
+          <option [ngValue]="0">-- Select Loan --</option>
+          <option *ngFor="let loan of loans" [ngValue]="loan.id">LA-{{loan.id}} - {{loan.applicantName}}</option>
+        </select>
       </div>
 
       <div class="col-md-4">
-        <label class="form-label fw-semibold small">Penalty %</label>
-        <input class="form-control form-control-sm">
+        <label class="form-label fw-semibold small">Select EMI *</label>
+        <select class="form-select form-select-sm" [(ngModel)]="selectedEmiId">
+          <option [ngValue]="0">-- Select Due EMI --</option>
+          <option *ngFor="let emi of pendingEmis" [ngValue]="emi.id">
+            Due: {{emi.dueDate | date:'dd-MM-yyyy'}} | Amount: ₹{{emi.totalEmi + emi.penaltyAmount}}
+          </option>
+        </select>
       </div>
 
       <div class="col-md-4">
-        <label class="form-label fw-semibold small">Penalty Amount</label>
-        <input class="form-control form-control-sm">
+        <label class="form-label fw-semibold small">Penalty Amount (₹) *</label>
+        <input type="number" class="form-control form-control-sm" [(ngModel)]="penaltyAmount" placeholder="Enter flat penalty amt">
       </div>
     </div>
 
     <div class="text-end">
-      <button class="btn btn-sm btn-dark">Apply Penalty</button>
+      <button class="btn btn-sm btn-dark" (click)="applyPenalty()">Apply Penalty</button>
     </div>
 
   </div>

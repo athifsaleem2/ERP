@@ -1,90 +1,68 @@
-<div class="card shadow-sm border-0">
+<div class="hrms-container">
+  <div class="hrms-header">
+    <div>
+      <h4 class="hrms-title"><i class="bi bi-calendar2-x me-2"></i>Leave Management</h4>
+      <span class="hrms-sub">HRMS Module &mdash; {{ today | date:'dd MMM yyyy' }}</span>
+    </div>
+    <button id="btn-apply-leave" class="btn-add" (click)="applyLeave()">+ Apply Leave</button>
+  </div>
 
-  <div class="card-header gradient-header text-white d-flex justify-content-between align-items-center">
-    <h5 class="mb-0">Leave Management</h5>
-    <button class="btn btn-light btn-sm"
-        (click)="ApplyLeave()">
-      Apply Leave
+  <!-- Summary Cards -->
+  <div class="summary-cards">
+    <div class="sum-card sum-blue">
+      <span class="sum-icon">📋</span>
+      <div><div class="sum-label">Total Requests</div><div class="sum-value">{{ leaveList.length }}</div></div>
+    </div>
+    <div class="sum-card sum-orange">
+      <span class="sum-icon">⏳</span>
+      <div><div class="sum-label">Pending</div><div class="sum-value">{{ pendingCount }}</div></div>
+    </div>
+    <div class="sum-card sum-green">
+      <span class="sum-icon">✅</span>
+      <div><div class="sum-label">Approved</div><div class="sum-value">{{ approvedCount }}</div></div>
+    </div>
+    <div class="sum-card sum-red">
+      <span class="sum-icon">❌</span>
+      <div><div class="sum-label">Rejected</div><div class="sum-value">{{ rejectedCount }}</div></div>
+    </div>
+  </div>
+
+  <!-- Tabs -->
+  <div class="tab-row">
+    <button *ngFor="let t of tabs" class="tab-btn" [ngClass]="{'tab-active': activeTab === t}" (click)="activeTab = t">
+      {{ t }}
     </button>
   </div>
 
-  <div class="card-body small">
-
-    <div class="row g-3 mb-4">
-
-      <div class="col-md-4">
-        <label>Employee</label>
-        <select class="form-select form-select-sm">
-          <option>Select Employee</option>
-        </select>
-      </div>
-
-      <div class="col-md-4">
-        <label>Leave Type</label>
-        <select class="form-select form-select-sm">
-          <option>Sick Leave</option>
-          <option>Casual Leave</option>
-          <option>Annual Leave</option>
-        </select>
-      </div>
-
-      <div class="col-md-4">
-        <label>Status</label>
-        <select class="form-select form-select-sm">
-          <option>Pending</option>
-          <option>Approved</option>
-          <option>Rejected</option>
-        </select>
-      </div>
-
-      <div class="col-md-4">
-        <label>From Date</label>
-        <input type="date" class="form-control form-control-sm">
-      </div>
-
-      <div class="col-md-4">
-        <label>To Date</label>
-        <input type="date" class="form-control form-control-sm">
-      </div>
-
-      <div class="col-md-12">
-        <label>Reason</label>
-        <textarea class="form-control form-control-sm"></textarea>
-      </div>
-
-    </div>
-
-    <div class="table-responsive">
-
-      <table class="table table-sm table-hover">
-
-        <thead class="table-light">
+  <!-- Table -->
+  <div class="table-card">
+    <div *ngIf="loading" class="loading-state">Loading leave requests…</div>
+    <div *ngIf="!loading && filtered.length === 0" class="empty-state">No {{ activeTab === 'All' ? '' : activeTab }} leave requests found</div>
+    <div *ngIf="!loading && filtered.length > 0" class="table-responsive">
+      <table class="hrms-table">
+        <thead>
           <tr>
-            <th>Employee</th>
-            <th>Leave Type</th>
-            <th>From</th>
-            <th>To</th>
-            <th>Status</th>
+            <th>Employee</th><th>Leave Type</th><th>From</th><th>To</th>
+            <th>Days</th><th>Reason</th><th>Status</th><th>Action</th>
           </tr>
         </thead>
-
         <tbody>
-
-          <tr>
-            <td>John</td>
-            <td>Sick Leave</td>
-            <td>10-03-2026</td>
-            <td>12-03-2026</td>
-            <td>
-              <span class="badge bg-warning">Pending</span>
+          <tr *ngFor="let l of filtered">
+            <td class="fw-semibold">{{ l.employee?.name || '—' }}</td>
+            <td><span class="leave-type-pill">{{ l.leaveType }}</span></td>
+            <td>{{ l.fromDate | date:'dd-MM-yyyy' }}</td>
+            <td>{{ l.toDate | date:'dd-MM-yyyy' }}</td>
+            <td class="text-center fw-semibold">{{ l.totalDays }}</td>
+            <td class="text-muted small">{{ l.reason || '—' }}</td>
+            <td><span class="status-badge" [ngClass]="'badge-' + statusColor(l.status)">{{ l.status }}</span></td>
+            <td class="d-flex gap-1">
+              <button *ngIf="l.status === 'Pending'" class="btn-approve" (click)="approve(l.id)">✓</button>
+              <button *ngIf="l.status === 'Pending'" class="btn-reject" (click)="reject(l.id)">✗</button>
+              <button class="btn-del" (click)="delete(l.id)">Del</button>
             </td>
           </tr>
-
         </tbody>
-
       </table>
-
     </div>
-
   </div>
 </div>

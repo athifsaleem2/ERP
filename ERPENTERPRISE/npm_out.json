@@ -1,0 +1,430 @@
+npm warn ERESOLVE overriding peer dependency
+npm warn While resolving: erpenterprise@0.0.0
+npm warn Found: @angular/common@19.2.19
+npm warn node_modules/@angular/common
+npm warn   @angular/common@"19.2.21" from the root project
+npm warn   6 more (@angular/forms, @angular/platform-browser, ...)
+npm warn
+npm warn Could not resolve dependency:
+npm warn peer @angular/common@"19.2.19" from @angular/platform-browser@19.2.19
+npm warn node_modules/@angular/platform-browser
+npm warn   @angular/platform-browser@"19.2.21" from the root project
+npm warn   4 more (@angular/forms, @angular/platform-browser-dynamic, ...)
+npm warn ERESOLVE overriding peer dependency
+npm warn While resolving: erpenterprise@0.0.0
+npm warn Found: @angular/common@19.2.19
+npm warn node_modules/@angular/common
+npm warn   @angular/common@"19.2.21" from the root project
+npm warn   6 more (@angular/forms, @angular/platform-browser, ...)
+npm warn
+npm warn Could not resolve dependency:
+npm warn peer @angular/common@"19.2.19" from @angular/platform-browser@19.2.19
+npm warn node_modules/@angular/platform-browser
+npm warn   @angular/platform-browser@"19.2.21" from the root project
+npm warn   4 more (@angular/forms, @angular/platform-browser-dynamic, ...)
+npm warn ERESOLVE overriding peer dependency
+npm warn While resolving: erpenterprise@0.0.0
+npm warn Found: @angular/common@19.2.19
+npm warn node_modules/@angular/common
+npm warn   @angular/common@"19.2.21" from the root project
+npm warn   6 more (@angular/forms, @angular/platform-browser, ...)
+npm warn
+npm warn Could not resolve dependency:
+npm warn peer @angular/common@"19.2.19" from @angular/platform-server@19.2.19
+npm warn node_modules/@angular/platform-server
+npm warn   @angular/platform-server@"19.2.21" from the root project
+npm warn   3 more (@angular-devkit/build-angular, @angular/build, @angular/ssr)
+npm warn ERESOLVE overriding peer dependency
+npm warn While resolving: erpenterprise@0.0.0
+npm warn Found: @angular/common@19.2.19
+npm warn node_modules/@angular/common
+npm warn   @angular/common@"19.2.21" from the root project
+npm warn   6 more (@angular/forms, @angular/platform-browser, ...)
+npm warn
+npm warn Could not resolve dependency:
+npm warn peer @angular/common@"19.2.19" from @angular/platform-server@19.2.19
+npm warn node_modules/@angular/platform-server
+npm warn   @angular/platform-server@"19.2.21" from the root project
+npm warn   3 more (@angular-devkit/build-angular, @angular/build, @angular/ssr)
+npm warn ERESOLVE overriding peer dependency
+npm warn While resolving: erpenterprise@0.0.0
+npm warn Found: @angular/common@19.2.19
+npm warn node_modules/@angular/common
+npm warn   @angular/common@"19.2.21" from the root project
+npm warn   6 more (@angular/forms, @angular/platform-browser, ...)
+npm warn
+npm warn Could not resolve dependency:
+npm warn peer @angular/common@"19.2.19" from @angular/router@19.2.19
+npm warn node_modules/@angular/router
+npm warn   @angular/router@"19.2.21" from the root project
+npm warn   1 more (@angular/ssr)
+npm warn ERESOLVE overriding peer dependency
+npm warn While resolving: erpenterprise@0.0.0
+npm warn Found: @angular/common@19.2.19
+npm warn node_modules/@angular/common
+npm warn   @angular/common@"19.2.21" from the root project
+npm warn   6 more (@angular/forms, @angular/platform-browser, ...)
+npm warn
+npm warn Could not resolve dependency:
+npm warn peer @angular/common@"19.2.19" from @angular/router@19.2.19
+npm warn node_modules/@angular/router
+npm warn   @angular/router@"19.2.21" from the root project
+npm warn   1 more (@angular/ssr)
+npm warn ERESOLVE overriding peer dependency
+npm warn While resolving: erpenterprise@0.0.0
+npm warn Found: @angular/common@19.2.19
+npm warn node_modules/@angular/common
+npm warn   @angular/common@"19.2.21" from the root project
+npm warn   6 more (@angular/forms, @angular/platform-browser, ...)
+npm warn
+npm warn Could not resolve dependency:
+npm warn peer @angular/common@"^19.0.0 || ^19.2.0-next.0" from @angular/ssr@19.2.21
+npm warn node_modules/@angular/ssr
+npm warn   @angular/ssr@"19.2.21" from the root project
+npm warn   2 more (@angular-devkit/build-angular, @angular/build)
+npm warn ERESOLVE overriding peer dependency
+npm warn While resolving: erpenterprise@0.0.0
+npm warn Found: @angular/common@19.2.19
+npm warn node_modules/@angular/common
+npm warn   @angular/common@"19.2.21" from the root project
+npm warn   6 more (@angular/forms, @angular/platform-browser, ...)
+npm warn
+npm warn Could not resolve dependency:
+npm warn peer @angular/common@"^19.0.0 || ^19.2.0-next.0" from @angular/ssr@19.2.21
+npm warn node_modules/@angular/ssr
+npm warn   @angular/ssr@"19.2.21" from the root project
+npm warn   2 more (@angular-devkit/build-angular, @angular/build)
+npm warn ERESOLVE overriding peer dependency
+npm warn While resolving: erpenterprise@0.0.0
+npm warn Found: @angular/compiler@19.2.19
+npm warn node_modules/@angular/compiler
+npm warn   @angular/compiler@"19.2.21" from the root project
+npm warn   3 more (@angular/compiler-cli, ...)
+npm warn
+npm warn Could not resolve dependency:
+npm warn peer @angular/compiler@"19.2.19" from @angular/compiler-cli@19.2.19
+npm warn node_modules/@angular/compiler-cli
+npm warn   dev @angular/compiler-cli@"19.2.21" from the root project
+npm warn   2 more (@angular-devkit/build-angular, @ngtools/webpack)
+npm warn ERESOLVE overriding peer dependency
+npm warn While resolving: erpenterprise@0.0.0
+npm warn Found: @angular/compiler@19.2.19
+npm warn node_modules/@angular/compiler
+npm warn   @angular/compiler@"19.2.21" from the root project
+npm warn   3 more (@angular/compiler-cli, ...)
+npm warn
+npm warn Could not resolve dependency:
+npm warn peer @angular/compiler@"19.2.19" from @angular/platform-server@19.2.19
+npm warn node_modules/@angular/platform-server
+npm warn   @angular/platform-server@"19.2.21" from the root project
+npm warn   3 more (@angular-devkit/build-angular, @angular/build, @angular/ssr)
+npm warn ERESOLVE overriding peer dependency
+npm warn While resolving: erpenterprise@0.0.0
+npm warn Found: @angular/compiler@19.2.19
+npm warn node_modules/@angular/compiler
+npm warn   @angular/compiler@"19.2.21" from the root project
+npm warn   3 more (@angular/compiler-cli, ...)
+npm warn
+npm warn Could not resolve dependency:
+npm warn peer @angular/compiler@"19.2.19" from @angular/platform-server@19.2.19
+npm warn node_modules/@angular/platform-server
+npm warn   @angular/platform-server@"19.2.21" from the root project
+npm warn   3 more (@angular-devkit/build-angular, @angular/build, @angular/ssr)
+npm warn ERESOLVE overriding peer dependency
+npm warn While resolving: erpenterprise@0.0.0
+npm warn Found: @angular/compiler-cli@19.2.19
+npm warn node_modules/@angular/compiler-cli
+npm warn   dev @angular/compiler-cli@"19.2.21" from the root project
+npm warn   2 more (@angular-devkit/build-angular, @ngtools/webpack)
+npm warn
+npm warn Could not resolve dependency:
+npm warn peer @angular/compiler-cli@"^19.0.0 || ^19.2.0-next.0" from @angular-devkit/build-angular@19.2.21
+npm warn node_modules/@angular-devkit/build-angular
+npm warn   dev @angular-devkit/build-angular@"^19.2.21" from the root project
+npm warn ERESOLVE overriding peer dependency
+npm warn While resolving: erpenterprise@0.0.0
+npm warn Found: @angular/core@19.2.19
+npm warn node_modules/@angular/core
+npm warn   @angular/core@"19.2.21" from the root project
+npm warn   6 more (@angular/forms, @angular/platform-browser, ...)
+npm warn
+npm warn Could not resolve dependency:
+npm warn peer @angular/core@"19.2.19" from @angular/platform-browser@19.2.19
+npm warn node_modules/@angular/platform-browser
+npm warn   @angular/platform-browser@"19.2.21" from the root project
+npm warn   4 more (@angular/forms, @angular/platform-browser-dynamic, ...)
+npm warn ERESOLVE overriding peer dependency
+npm warn While resolving: erpenterprise@0.0.0
+npm warn Found: @angular/core@19.2.19
+npm warn node_modules/@angular/core
+npm warn   @angular/core@"19.2.21" from the root project
+npm warn   6 more (@angular/forms, @angular/platform-browser, ...)
+npm warn
+npm warn Could not resolve dependency:
+npm warn peer @angular/core@"19.2.19" from @angular/platform-browser@19.2.19
+npm warn node_modules/@angular/platform-browser
+npm warn   @angular/platform-browser@"19.2.21" from the root project
+npm warn   4 more (@angular/forms, @angular/platform-browser-dynamic, ...)
+npm warn ERESOLVE overriding peer dependency
+npm warn While resolving: erpenterprise@0.0.0
+npm warn Found: @angular/core@19.2.19
+npm warn node_modules/@angular/core
+npm warn   @angular/core@"19.2.21" from the root project
+npm warn   6 more (@angular/forms, @angular/platform-browser, ...)
+npm warn
+npm warn Could not resolve dependency:
+npm warn peer @angular/core@"19.2.19" from @angular/platform-server@19.2.19
+npm warn node_modules/@angular/platform-server
+npm warn   @angular/platform-server@"19.2.21" from the root project
+npm warn   3 more (@angular-devkit/build-angular, @angular/build, @angular/ssr)
+npm warn ERESOLVE overriding peer dependency
+npm warn While resolving: erpenterprise@0.0.0
+npm warn Found: @angular/core@19.2.19
+npm warn node_modules/@angular/core
+npm warn   @angular/core@"19.2.21" from the root project
+npm warn   6 more (@angular/forms, @angular/platform-browser, ...)
+npm warn
+npm warn Could not resolve dependency:
+npm warn peer @angular/core@"19.2.19" from @angular/platform-server@19.2.19
+npm warn node_modules/@angular/platform-server
+npm warn   @angular/platform-server@"19.2.21" from the root project
+npm warn   3 more (@angular-devkit/build-angular, @angular/build, @angular/ssr)
+npm warn ERESOLVE overriding peer dependency
+npm warn While resolving: erpenterprise@0.0.0
+npm warn Found: @angular/core@19.2.19
+npm warn node_modules/@angular/core
+npm warn   @angular/core@"19.2.21" from the root project
+npm warn   6 more (@angular/forms, @angular/platform-browser, ...)
+npm warn
+npm warn Could not resolve dependency:
+npm warn peer @angular/core@"19.2.19" from @angular/router@19.2.19
+npm warn node_modules/@angular/router
+npm warn   @angular/router@"19.2.21" from the root project
+npm warn   1 more (@angular/ssr)
+npm warn ERESOLVE overriding peer dependency
+npm warn While resolving: erpenterprise@0.0.0
+npm warn Found: @angular/core@19.2.19
+npm warn node_modules/@angular/core
+npm warn   @angular/core@"19.2.21" from the root project
+npm warn   6 more (@angular/forms, @angular/platform-browser, ...)
+npm warn
+npm warn Could not resolve dependency:
+npm warn peer @angular/core@"19.2.19" from @angular/router@19.2.19
+npm warn node_modules/@angular/router
+npm warn   @angular/router@"19.2.21" from the root project
+npm warn   1 more (@angular/ssr)
+npm warn ERESOLVE overriding peer dependency
+npm warn While resolving: erpenterprise@0.0.0
+npm warn Found: @angular/core@19.2.19
+npm warn node_modules/@angular/core
+npm warn   @angular/core@"19.2.21" from the root project
+npm warn   6 more (@angular/forms, @angular/platform-browser, ...)
+npm warn
+npm warn Could not resolve dependency:
+npm warn peer @angular/core@"^19.0.0 || ^19.2.0-next.0" from @angular/ssr@19.2.21
+npm warn node_modules/@angular/ssr
+npm warn   @angular/ssr@"19.2.21" from the root project
+npm warn   2 more (@angular-devkit/build-angular, @angular/build)
+npm warn ERESOLVE overriding peer dependency
+npm warn While resolving: erpenterprise@0.0.0
+npm warn Found: @angular/core@19.2.19
+npm warn node_modules/@angular/core
+npm warn   @angular/core@"19.2.21" from the root project
+npm warn   6 more (@angular/forms, @angular/platform-browser, ...)
+npm warn
+npm warn Could not resolve dependency:
+npm warn peer @angular/core@"^19.0.0 || ^19.2.0-next.0" from @angular/ssr@19.2.21
+npm warn node_modules/@angular/ssr
+npm warn   @angular/ssr@"19.2.21" from the root project
+npm warn   2 more (@angular-devkit/build-angular, @angular/build)
+npm warn ERESOLVE overriding peer dependency
+npm warn While resolving: erpenterprise@0.0.0
+npm warn Found: @angular/platform-browser@19.2.19
+npm warn node_modules/@angular/platform-browser
+npm warn   @angular/platform-browser@"19.2.21" from the root project
+npm warn   4 more (@angular/forms, @angular/platform-browser-dynamic, ...)
+npm warn
+npm warn Could not resolve dependency:
+npm warn peer @angular/platform-browser@"19.2.19" from @angular/platform-server@19.2.19
+npm warn node_modules/@angular/platform-server
+npm warn   @angular/platform-server@"19.2.21" from the root project
+npm warn   3 more (@angular-devkit/build-angular, @angular/build, @angular/ssr)
+npm warn ERESOLVE overriding peer dependency
+npm warn While resolving: erpenterprise@0.0.0
+npm warn Found: @angular/platform-browser@19.2.19
+npm warn node_modules/@angular/platform-browser
+npm warn   @angular/platform-browser@"19.2.21" from the root project
+npm warn   4 more (@angular/forms, @angular/platform-browser-dynamic, ...)
+npm warn
+npm warn Could not resolve dependency:
+npm warn peer @angular/platform-browser@"19.2.19" from @angular/platform-server@19.2.19
+npm warn node_modules/@angular/platform-server
+npm warn   @angular/platform-server@"19.2.21" from the root project
+npm warn   3 more (@angular-devkit/build-angular, @angular/build, @angular/ssr)
+npm warn ERESOLVE overriding peer dependency
+npm warn While resolving: erpenterprise@0.0.0
+npm warn Found: @angular/platform-browser@19.2.19
+npm warn node_modules/@angular/platform-browser
+npm warn   @angular/platform-browser@"19.2.21" from the root project
+npm warn   4 more (@angular/forms, @angular/platform-browser-dynamic, ...)
+npm warn
+npm warn Could not resolve dependency:
+npm warn peer @angular/platform-browser@"19.2.19" from @angular/router@19.2.19
+npm warn node_modules/@angular/router
+npm warn   @angular/router@"19.2.21" from the root project
+npm warn   1 more (@angular/ssr)
+npm warn ERESOLVE overriding peer dependency
+npm warn While resolving: erpenterprise@0.0.0
+npm warn Found: @angular/platform-browser@19.2.19
+npm warn node_modules/@angular/platform-browser
+npm warn   @angular/platform-browser@"19.2.21" from the root project
+npm warn   4 more (@angular/forms, @angular/platform-browser-dynamic, ...)
+npm warn
+npm warn Could not resolve dependency:
+npm warn peer @angular/platform-browser@"19.2.19" from @angular/router@19.2.19
+npm warn node_modules/@angular/router
+npm warn   @angular/router@"19.2.21" from the root project
+npm warn   1 more (@angular/ssr)
+npm warn ERESOLVE overriding peer dependency
+npm warn While resolving: erpenterprise@0.0.0
+npm warn Found: @angular/platform-server@19.2.19
+npm warn node_modules/@angular/platform-server
+npm warn   @angular/platform-server@"19.2.21" from the root project
+npm warn   3 more (@angular-devkit/build-angular, @angular/build, @angular/ssr)
+npm warn
+npm warn Could not resolve dependency:
+npm warn peerOptional @angular/platform-server@"^19.0.0 || ^19.2.0-next.0" from @angular-devkit/build-angular@19.2.21
+npm warn node_modules/@angular-devkit/build-angular
+npm warn   dev @angular-devkit/build-angular@"^19.2.21" from the root project
+npm warn ERESOLVE overriding peer dependency
+npm warn While resolving: erpenterprise@0.0.0
+npm warn Found: @angular/platform-server@19.2.19
+npm warn node_modules/@angular/platform-server
+npm warn   @angular/platform-server@"19.2.21" from the root project
+npm warn   3 more (@angular-devkit/build-angular, @angular/build, @angular/ssr)
+npm warn
+npm warn Could not resolve dependency:
+npm warn peerOptional @angular/platform-server@"^19.0.0 || ^19.2.0-next.0" from @angular/ssr@19.2.21
+npm warn node_modules/@angular/ssr
+npm warn   @angular/ssr@"19.2.21" from the root project
+npm warn   2 more (@angular-devkit/build-angular, @angular/build)
+npm warn ERESOLVE overriding peer dependency
+npm warn While resolving: erpenterprise@0.0.0
+npm warn Found: @angular/platform-server@19.2.19
+npm warn node_modules/@angular/platform-server
+npm warn   @angular/platform-server@"19.2.21" from the root project
+npm warn   3 more (@angular-devkit/build-angular, @angular/build, @angular/ssr)
+npm warn
+npm warn Could not resolve dependency:
+npm warn peerOptional @angular/platform-server@"^19.0.0 || ^19.2.0-next.0" from @angular/ssr@19.2.21
+npm warn node_modules/@angular/ssr
+npm warn   @angular/ssr@"19.2.21" from the root project
+npm warn   2 more (@angular-devkit/build-angular, @angular/build)
+npm warn ERESOLVE overriding peer dependency
+npm warn While resolving: erpenterprise@0.0.0
+npm warn Found: @angular/router@19.2.19
+npm warn node_modules/@angular/router
+npm warn   @angular/router@"19.2.21" from the root project
+npm warn   1 more (@angular/ssr)
+npm warn
+npm warn Could not resolve dependency:
+npm warn peer @angular/router@"^19.0.0 || ^19.2.0-next.0" from @angular/ssr@19.2.21
+npm warn node_modules/@angular/ssr
+npm warn   @angular/ssr@"19.2.21" from the root project
+npm warn   2 more (@angular-devkit/build-angular, @angular/build)
+npm warn ERESOLVE overriding peer dependency
+npm warn While resolving: erpenterprise@0.0.0
+npm warn Found: @angular/router@19.2.19
+npm warn node_modules/@angular/router
+npm warn   @angular/router@"19.2.21" from the root project
+npm warn   1 more (@angular/ssr)
+npm warn
+npm warn Could not resolve dependency:
+npm warn peer @angular/router@"^19.0.0 || ^19.2.0-next.0" from @angular/ssr@19.2.21
+npm warn node_modules/@angular/ssr
+npm warn   @angular/ssr@"19.2.21" from the root project
+npm warn   2 more (@angular-devkit/build-angular, @angular/build)
+npm warn ERESOLVE overriding peer dependency
+npm warn While resolving: @angular-devkit/build-angular@19.2.21
+npm warn Found: peer @angular/compiler@"19.2.20" from @angular/compiler-cli@19.2.20
+npm warn node_modules/@angular/compiler-cli
+npm warn   dev @angular/compiler-cli@"19.2.21" from the root project
+npm warn   2 more (@angular-devkit/build-angular, @angular/build)
+npm warn
+npm warn Could not resolve dependency:
+npm warn peer @angular/compiler@"19.2.20" from @angular/compiler-cli@19.2.20
+npm warn node_modules/@angular/compiler-cli
+npm warn   dev @angular/compiler-cli@"19.2.21" from the root project
+npm warn   2 more (@angular-devkit/build-angular, @angular/build)
+npm warn ERESOLVE overriding peer dependency
+npm warn While resolving: @angular-devkit/build-angular@19.2.21
+npm warn Found: peer @angular/core@"19.2.20" from @angular/platform-server@19.2.20
+npm warn node_modules/@angular/platform-server
+npm warn   @angular/platform-server@"19.2.21" from the root project
+npm warn   3 more (@angular-devkit/build-angular, @angular/build, @angular/ssr)
+npm warn
+npm warn Could not resolve dependency:
+npm warn peer @angular/core@"19.2.20" from @angular/platform-server@19.2.20
+npm warn node_modules/@angular/platform-server
+npm warn   @angular/platform-server@"19.2.21" from the root project
+npm warn   3 more (@angular-devkit/build-angular, @angular/build, @angular/ssr)
+npm warn ERESOLVE overriding peer dependency
+npm warn While resolving: @angular-devkit/build-angular@19.2.21
+npm warn Found: peer @angular/common@"19.2.20" from @angular/platform-server@19.2.20
+npm warn node_modules/@angular/platform-server
+npm warn   @angular/platform-server@"19.2.21" from the root project
+npm warn   3 more (@angular-devkit/build-angular, @angular/build, @angular/ssr)
+npm warn
+npm warn Could not resolve dependency:
+npm warn peer @angular/common@"19.2.20" from @angular/platform-server@19.2.20
+npm warn node_modules/@angular/platform-server
+npm warn   @angular/platform-server@"19.2.21" from the root project
+npm warn   3 more (@angular-devkit/build-angular, @angular/build, @angular/ssr)
+npm warn ERESOLVE overriding peer dependency
+npm warn While resolving: @angular-devkit/build-angular@19.2.21
+npm warn Found: peer @angular/compiler@"19.2.20" from @angular/platform-server@19.2.20
+npm warn node_modules/@angular/platform-server
+npm warn   @angular/platform-server@"19.2.21" from the root project
+npm warn   3 more (@angular-devkit/build-angular, @angular/build, @angular/ssr)
+npm warn
+npm warn Could not resolve dependency:
+npm warn peer @angular/compiler@"19.2.20" from @angular/platform-server@19.2.20
+npm warn node_modules/@angular/platform-server
+npm warn   @angular/platform-server@"19.2.21" from the root project
+npm warn   3 more (@angular-devkit/build-angular, @angular/build, @angular/ssr)
+npm warn ERESOLVE overriding peer dependency
+npm warn While resolving: @angular-devkit/build-angular@19.2.21
+npm warn Found: peer @angular/platform-browser@"19.2.20" from @angular/platform-server@19.2.20
+npm warn node_modules/@angular/platform-server
+npm warn   @angular/platform-server@"19.2.21" from the root project
+npm warn   3 more (@angular-devkit/build-angular, @angular/build, @angular/ssr)
+npm warn
+npm warn Could not resolve dependency:
+npm warn peer @angular/platform-browser@"19.2.20" from @angular/platform-server@19.2.20
+npm warn node_modules/@angular/platform-server
+npm warn   @angular/platform-server@"19.2.21" from the root project
+npm warn   3 more (@angular-devkit/build-angular, @angular/build, @angular/ssr)
+npm warn ERESOLVE overriding peer dependency
+npm warn While resolving: @angular-devkit/build-angular@19.2.21
+npm warn Found: peer @angular/compiler@"19.2.20" from @angular/compiler-cli@19.2.20
+npm warn node_modules/@angular/compiler-cli
+npm warn   dev @angular/compiler-cli@"19.2.21" from the root project
+npm warn   3 more (@angular-devkit/build-angular, @angular/build, @ngtools/webpack)
+npm warn
+npm warn Could not resolve dependency:
+npm warn peer @angular/compiler@"19.2.20" from @angular/compiler-cli@19.2.20
+npm warn node_modules/@angular/compiler-cli
+npm warn   dev @angular/compiler-cli@"19.2.21" from the root project
+npm warn   3 more (@angular-devkit/build-angular, @angular/build, @ngtools/webpack)
+npm error code ETARGET
+npm error notarget No matching version found for @angular/forms@19.2.21.
+npm error notarget In most cases you or one of your dependencies are requesting
+npm error notarget a package version that doesn't exist.
+{
+  "error": {
+    "code": "ETARGET",
+    "summary": "No matching version found for @angular/forms@19.2.21.",
+    "detail": "In most cases you or one of your dependencies are requesting\na package version that doesn't exist."
+  }
+}
+npm error A complete log of this run can be found in: C:\Users\athif\AppData\Local\npm-cache\_logs\2026-04-05T11_24_41_196Z-debug-0.log

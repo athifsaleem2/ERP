@@ -1,22 +1,29 @@
+:host { 
+  display: block; 
+  position: fixed;
+  top: 63px !important;
+  left: 0;
+  bottom: 0;
+  width: 240px;
+  z-index: 1100;
+  background: #111827; 
+}
+
 .sidebar {
-  width: 260px;
-  min-height: 100%;
-  background: linear-gradient(180deg, #111827, #1f2937);
+  height: 100%;
+  width: 100%;
   color: #e5e7eb;
-  transition: width 0.3s ease;
-  overflow-y: auto;
-  box-shadow: 4px 0 20px rgba(0, 0, 0, 0.4);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow-y: auto; /* Internal scroll for long menus */
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
   padding: 15px 10px;
-  position: sticky;
-  top: 0;
-  align-self: flex-start;
-  height: 100vh;
+  border-right: 1px solid rgba(255, 255, 255, 0.05);
 }
+
 .sidebar.closed {
-  width: 0;
-  padding: 0;
-  overflow: hidden;
+  transform: translateX(-100%);
 }
+
 /* Scrollbar Premium */
 .sidebar::-webkit-scrollbar {
   width: 6px;
@@ -32,12 +39,10 @@
   margin: 0;
 }
 
-/* Main menu spacing */
 .menu-list > li {
   margin-bottom: 8px;
 }
 
-/* Menu header */
 .menu-header {
   display: flex;
   justify-content: space-between;
@@ -54,7 +59,6 @@
   transform: translateX(4px);
 }
 
-/* Arrow animation */
 .arrow {
   font-size: 12px;
   transition: transform 0.3s ease;
@@ -64,7 +68,6 @@
   transform: rotate(180deg);
 }
 
-/* Submenu styling */
 .submenu {
   list-style: none;
   padding-left: 10px;
@@ -87,7 +90,6 @@
   padding-left: 18px;
 }
 
-/* Single item (Dashboard) */
 .single-item {
   padding: 12px 14px;
   border-radius: 10px;
@@ -98,36 +100,6 @@
 .single-item:hover {
   background: rgba(255, 255, 255, 0.06);
   transform: translateX(4px);
-}
-.menu-header {
-  cursor: pointer;
-  padding: 10px 14px;
-  transition: background 0.2s ease;
-}
-
-.menu-header:hover {
-  background-color: rgba(0,0,0,0.05);
-  border-radius: 6px;
-}
-
-.arrow-icon {
-  font-size: 13px;
-  transition: transform 0.3s ease;
-}
-
-.rotate {
-  transform: rotate(90deg);
-}
-
-.menu-header {
-  cursor: pointer;
-  padding: 10px 14px;
-  transition: background 0.2s ease;
-}
-
-.menu-header:hover {
-  background-color: rgba(0,0,0,0.05);
-  border-radius: 6px;
 }
 
 .menu-icon {
@@ -144,4 +116,3 @@
 .rotate {
   transform: rotate(90deg);
 }
-

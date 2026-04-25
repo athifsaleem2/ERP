@@ -1,11 +1,23 @@
-.navbar {
-  position: sticky;
+:host { 
+  display: block; 
+  position: fixed;
   top: 0;
-  z-index: 1000;
-  height: 60px;
+  left: 0;
+  right: 0;
+  height: 64px;
+  z-index: 1200;
+  background-color: #111827;
 }
 
-/* Push content below fixed header */
-.main-container {
-  display: flex;
+.navbar {
+  height: 64px;
+  width: 100%;
+  border-radius: 0;
+  margin: 0 !important;
+  display: flex !important;
+  align-items: center;
+  padding: 0 1rem;
+  background-color: transparent !important; /* Managed by host */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  border: none !important;
 }

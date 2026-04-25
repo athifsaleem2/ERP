@@ -1,70 +1,69 @@
-<div class="card shadow-sm border-0">
-
-  <div class="card-header gradient-header text-white d-flex justify-content-between align-items-center">
-    <h5 class="mb-0">Employee Management</h5>
-    <button class="btn btn-light btn-sm">
-      Save Employee
-    </button>
+<div class="hrms-container">
+  <div class="hrms-header">
+    <div>
+      <h4 class="hrms-title"><i class="bi bi-person-plus-fill me-2"></i>Add New Employee</h4>
+      <span class="hrms-sub">HRMS Module &mdash; {{ today | date:'dd MMM yyyy' }}</span>
+    </div>
+    <button class="btn-secondary" (click)="cancel()">← Back to List</button>
   </div>
 
-  <div class="card-body small">
+  <div *ngIf="successMsg" class="alert-success-bar">✔ {{ successMsg }}</div>
+  <div *ngIf="errorMsg" class="alert-error-bar">✘ {{ errorMsg }}</div>
 
+  <div class="form-card">
+    <h6 class="section-label">Employee Information</h6>
     <div class="row g-3">
-
-      <div class="col-md-4">
-        <label>Employee ID</label>
-        <input class="form-control form-control-sm">
+      <div class="col-md-3">
+        <label class="field-label">Employee Code</label>
+        <input id="emp-code" type="text" class="field-input readonly-field" [value]="form.empCode" readonly>
       </div>
-
       <div class="col-md-4">
-        <label>Name</label>
-        <input class="form-control form-control-sm">
+        <label class="field-label">Full Name *</label>
+        <input id="emp-name" type="text" class="field-input" [(ngModel)]="form.name" placeholder="e.g. Rajesh Kumar">
       </div>
-
-      <div class="col-md-4">
-        <label>Email</label>
-        <input class="form-control form-control-sm">
+      <div class="col-md-5">
+        <label class="field-label">Email</label>
+        <input id="emp-email" type="email" class="field-input" [(ngModel)]="form.email" placeholder="email@company.com">
       </div>
-
-      <div class="col-md-4">
-        <label>Phone</label>
-        <input class="form-control form-control-sm">
+      <div class="col-md-3">
+        <label class="field-label">Phone</label>
+        <input id="emp-phone" type="text" class="field-input" [(ngModel)]="form.phone" placeholder="9XXXXXXXXX">
       </div>
-
       <div class="col-md-4">
-        <label>Department</label>
-        <select class="form-select form-select-sm">
-          <option>HR</option>
-          <option>Sales</option>
-          <option>Accounts</option>
-          <option>IT</option>
+        <label class="field-label">Department *</label>
+        <select id="emp-dept" class="field-input" [(ngModel)]="form.department">
+          <option value="">-- Select Department --</option>
+          <option *ngFor="let d of departments" [value]="d">{{ d }}</option>
         </select>
       </div>
-
-      <div class="col-md-4">
-        <label>Designation</label>
-        <input class="form-control form-control-sm">
+      <div class="col-md-5">
+        <label class="field-label">Designation</label>
+        <input id="emp-designation" type="text" class="field-input" [(ngModel)]="form.designation" placeholder="e.g. Senior Executive">
       </div>
-
-      <div class="col-md-4">
-        <label>Salary</label>
-        <input class="form-control form-control-sm">
+      <div class="col-md-3">
+        <label class="field-label">Basic Salary (₹)</label>
+        <input id="emp-salary" type="number" class="field-input" [(ngModel)]="form.basicSalary" min="0">
       </div>
-
-      <div class="col-md-4">
-        <label>Joining Date</label>
-        <input type="date" class="form-control form-control-sm">
+      <div class="col-md-3">
+        <label class="field-label">Joining Date</label>
+        <input id="emp-joining" type="date" class="field-input" [(ngModel)]="form.joiningDate">
       </div>
-
-      <div class="col-md-4">
-        <label>Status</label>
-        <select class="form-select form-select-sm">
-          <option>Active</option>
-          <option>Inactive</option>
+      <div class="col-md-3">
+        <label class="field-label">Status</label>
+        <select id="emp-status" class="field-input" [(ngModel)]="form.status">
+          <option *ngFor="let s of statusOptions" [value]="s">{{ s }}</option>
         </select>
       </div>
-
+      <div class="col-md-12">
+        <label class="field-label">Address</label>
+        <input id="emp-address" type="text" class="field-input" [(ngModel)]="form.address" placeholder="Full address…">
+      </div>
+      <div class="col-12 d-flex gap-2 justify-content-end">
+        <button class="btn-secondary" (click)="cancel()">Cancel</button>
+        <button id="btn-save-emp" class="btn-save" (click)="save()" [disabled]="saving">
+          {{ saving ? 'Saving…' : 'Save Employee' }}
+        </button>
+      </div>
     </div>
-
   </div>
 </div>

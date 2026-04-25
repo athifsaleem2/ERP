@@ -13,26 +13,35 @@
 
   <div class="card-body p-4 small">
 
-    <div class="row g-3 mb-4">
-      <div class="col-md-4">
-        <label class="form-label fw-semibold small">Application ID</label>
-        <input class="form-control form-control-sm">
-      </div>
-
-      <div class="col-md-4">
-        <label class="form-label fw-semibold small">Customer Name</label>
-        <input class="form-control form-control-sm">
-      </div>
-
-      <div class="col-md-4">
-        <label class="form-label fw-semibold small">Loan Amount</label>
-        <input class="form-control form-control-sm">
-      </div>
-    </div>
-
-    <div class="text-end">
-      <button class="btn btn-sm btn-outline-danger me-2">Reject</button>
-      <button class="btn btn-sm btn-success">Approve</button>
+    <div class="table-responsive">
+      <table class="table table-hover align-middle border">
+        <thead class="table-light">
+          <tr>
+            <th class="ps-3 text-secondary fw-semibold">Application ID</th>
+            <th class="text-secondary fw-semibold">Customer Name</th>
+            <th class="text-secondary fw-semibold">Principal</th>
+            <th class="text-secondary fw-semibold">Interest</th>
+            <th class="text-secondary fw-semibold">Tenure</th>
+            <th class="text-center text-secondary fw-semibold">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngIf="pendingLoans.length === 0">
+            <td colspan="6" class="text-center text-muted py-3">No pending loans found.</td>
+          </tr>
+          <tr *ngFor="let loan of pendingLoans">
+            <td class="ps-3 fw-medium">LA-{{ loan.id | number:'3.0' }}</td>
+            <td>{{ loan.applicantName }}</td>
+            <td>₹ {{ loan.principalAmount | number:'1.2-2' }}</td>
+            <td>{{ loan.interestRate }}%</td>
+            <td>{{ loan.tenureMonths }} mos</td>
+            <td class="text-center">
+              <button class="btn btn-sm btn-outline-danger me-2" (click)="rejectLoan(loan.id)">Reject</button>
+              <button class="btn btn-sm btn-success" (click)="approveLoan(loan.id)">Approve</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
 
   </div>
