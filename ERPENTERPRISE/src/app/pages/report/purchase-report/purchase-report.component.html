@@ -1,33 +1,101 @@
-<div class="card shadow-sm border-0">
-
-  <div class="card-header gradient-header text-white d-flex justify-content-between align-items-center">
-    <h5 class="mb-0">Purchase Report</h5>
-    <button class="btn btn-light btn-sm" (click)="generateReport()">
-      Generate Report
-    </button>
+<div class="report-container">
+  <div class="report-header rpt-purchase">
+    <div>
+      <h4 class="report-title">🛒 Purchase Report</h4>
+      <span class="report-sub">Reports Module &mdash; {{ today | date:'dd MMM yyyy' }}</span>
+    </div>
+    <div class="header-stats">
+      <span class="stat-chip">{{ invoiceCount }} Invoices</span>
+      <span class="stat-chip chip-orange">₹ {{ totalPurchase | number:'1.0-0' }}</span>
+    </div>
   </div>
 
-  <div class="card-body small">
+  <!-- KPI Cards -->
+  <div class="kpi-row">
+    <div class="kpi-card kpi-orange">
+      <div class="kpi-label">Total Purchase</div>
+      <div class="kpi-value">₹ {{ totalPurchase | number:'1.2-2' }}</div>
+      <div class="kpi-sub">{{ invoiceCount }} invoices</div>
+    </div>
+    <div class="kpi-card kpi-red">
+      <div class="kpi-label">Total Returns</div>
+      <div class="kpi-value">₹ {{ totalReturns | number:'1.2-2' }}</div>
+      <div class="kpi-sub">{{ allReturns.length }} returns</div>
+    </div>
+    <div class="kpi-card kpi-blue">
+      <div class="kpi-label">Net Purchase</div>
+      <div class="kpi-value">₹ {{ netPurchase | number:'1.2-2' }}</div>
+    </div>
+    <div class="kpi-card kpi-purple">
+      <div class="kpi-label">Suppliers</div>
+      <div class="kpi-value">{{ suppliers.length }}</div>
+      <div class="kpi-sub">registered</div>
+    </div>
+  </div>
 
-    <div class="row g-3">
-
-      <div class="col-md-4">
-        <label>From Date</label>
-        <input type="date" class="form-control form-control-sm" [(ngModel)]="report.fromDate">
+  <!-- Filters -->
+  <div class="filter-card">
+    <h6 class="section-label">🔍 Filter Report</h6>
+    <div class="row g-3 align-items-end">
+      <div class="col-md-3">
+        <label class="field-label">From Date</label>
+        <input type="date" class="field-input" [(ngModel)]="fromDate">
       </div>
-
-      <div class="col-md-4">
-        <label>To Date</label>
-        <input type="date" class="form-control form-control-sm" [(ngModel)]="report.toDate">
+      <div class="col-md-3">
+        <label class="field-label">To Date</label>
+        <input type="date" class="field-input" [(ngModel)]="toDate">
       </div>
-
       <div class="col-md-4">
-        <label>Supplier</label>
-        <input class="form-control form-control-sm" [(ngModel)]="report.supplier">
+        <label class="field-label">Supplier Name</label>
+        <input type="text" class="field-input" [(ngModel)]="filterSupplier" placeholder="Search supplier…">
       </div>
+      <div class="col-md-2">
+        <button class="btn-clear" (click)="clear()">Clear</button>
+      </div>
+    </div>
+  </div>
 
+  <div class="row g-4">
+    <div class="col-md-8">
+      <div class="table-card">
+        <h6 class="section-label">Purchase Invoices</h6>
+        <div *ngIf="loading" class="loading-state">Loading data…</div>
+        <div *ngIf="!loading && filtered.length === 0" class="empty-state">No purchase invoices found</div>
+        <div *ngIf="!loading && filtered.length > 0" class="table-responsive">
+          <table class="report-table">
+            <thead>
+              <tr><th>#</th><th>Invoice No.</th><th>Supplier</th><th>Tax</th><th class="text-end">Amount (₹)</th></tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let inv of filtered; let i = index">
+                <td class="row-num">{{ i + 1 }}</td>
+                <td class="mono">{{ inv.invoiceNumber }}</td>
+                <td class="fw-semibold">Supplier #{{ inv.supplierId }}</td>
+                <td>{{ inv.tax | number:'1.2-2' }}</td>
+                <td class="text-end fw-semibold text-warning">₹ {{ inv.grandTotal | number:'1.2-2' }}</td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td colspan="4" class="fw-bold">Total</td>
+                <td class="text-end fw-bold text-warning">₹ {{ totalPurchase | number:'1.2-2' }}</td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
     </div>
 
+    <div class="col-md-4">
+      <div class="table-card">
+        <h6 class="section-label">🏆 Top Suppliers</h6>
+        <div *ngIf="bySupplier.length === 0" class="empty-state">No data</div>
+        <div *ngFor="let s of bySupplier; let i = index" class="top-row">
+          <span class="top-rank">#{{ i + 1 }}</span>
+          <span class="top-name">{{ s.label }}</span>
+          <span class="top-amount">₹ {{ s.amount | number:'1.0-0' }}</span>
+        </div>
+      </div>
+    </div>
   </div>
-
 </div>

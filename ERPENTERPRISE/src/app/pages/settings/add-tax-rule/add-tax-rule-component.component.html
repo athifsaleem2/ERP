@@ -1,79 +1,69 @@
-<div class="card shadow-sm border-0">
-  <div class="card-header gradient-header text-white py-3 d-flex justify-content-between align-items-center">
+<div class="settings-container">
+  <div class="page-header">
     <div>
-      <h5 class="mb-0 fw-semibold">Add Tax Rule</h5>
-      <small>Create a new tax entry</small>
+      <h3 class="page-title">Add Tax Rule</h3>
+      <p class="page-sub">Configure a new tax rate rule</p>
     </div>
-    <button class="btn btn-sm btn-light text-dark" (click)="onCancel()">
-      <i class="bi bi-arrow-left"></i> Back to Tax Settings
-    </button>
+    <button class="btn-secondary" (click)="cancel()">Back to Taxes</button>
   </div>
-  <div class="card-body p-4 small">
-    
-    <form [formGroup]="taxRuleForm" (ngSubmit)="onSubmit()">
+
+  <div class="content-card" style="max-width: 800px; margin: 0 auto;">
+    <div *ngIf="successMsg" class="alert alert-success">{{ successMsg }}</div>
+    <div *ngIf="errorMsg" class="alert alert-danger">{{ errorMsg }}</div>
+
+    <form (ngSubmit)="save()">
       <div class="row g-4">
-        
-        <div class="col-md-12">
-          <label class="form-label fw-semibold">Rule Name <span class="text-danger">*</span></label>
-          <input type="text" class="form-control form-control-sm" formControlName="ruleName" placeholder="e.g. Standard VAT" [class.is-invalid]="submitted && f['ruleName'].errors">
-          <div class="invalid-feedback d-block" *ngIf="submitted && f['ruleName'].errors">
-            Rule name is required
-          </div>
-        </div>
-
         <div class="col-md-6">
-          <label class="form-label fw-semibold">Deduction Type</label>
-          <select class="form-select form-select-sm" formControlName="deductionType" [class.is-invalid]="submitted && f['deductionType'].errors">
-            <option value="" disabled>Select Type</option>
-            <option value="income_tax">Income Tax</option>
-            <option value="professional_tax">Professional Tax</option>
-            <option value="cess">Cess</option>
-          </select>
-          <div class="invalid-feedback d-block" *ngIf="submitted && f['deductionType'].errors">
-            Deduction type is required
-          </div>
+          <label class="form-label">Rule Name <span class="text-danger">*</span></label>
+          <input type="text" class="form-control" name="ruleName" [(ngModel)]="form.ruleName" placeholder="e.g. GST 18%" required>
         </div>
-        
         <div class="col-md-6">
-          <label class="form-label fw-semibold">Minimum Salary (₹)</label>
-          <input type="number" class="form-control form-control-sm" formControlName="minSalary" placeholder="0" [class.is-invalid]="submitted && f['minSalary'].errors">
-          <div class="invalid-feedback d-block" *ngIf="submitted && f['minSalary'].errors">
-            Minimum salary is required
-          </div>
-        </div>
-
-        <div class="col-md-6">
-          <label class="form-label fw-semibold">Maximum Salary (₹)</label>
-          <input type="number" class="form-control form-control-sm" formControlName="maxSalary" placeholder="999999" [class.is-invalid]="submitted && f['maxSalary'].errors">
-          <div class="invalid-feedback d-block" *ngIf="submitted && f['maxSalary'].errors">
-            Maximum salary is required
-          </div>
-        </div>
-        
-        <div class="col-md-6">
-          <label class="form-label fw-semibold">Tax Percentage (%)</label>
-          <input type="number" class="form-control form-control-sm" formControlName="taxPercentage" placeholder="0 - 100" [class.is-invalid]="submitted && f['taxPercentage'].errors">
-          <div class="invalid-feedback d-block" *ngIf="submitted && f['taxPercentage'].errors">
-            Tax percentage is required (0-100)
-          </div>
-        </div>
-
-        <div class="col-md-6">
-          <label class="form-label fw-semibold">Status</label>
-          <select class="form-select form-select-sm" formControlName="status">
-            <option value="active">Active</option>
-            <option value="inactive">Inactive</option>
+          <label class="form-label">Status</label>
+          <select class="form-select" name="status" [(ngModel)]="form.status">
+            <option>Active</option>
+            <option>Inactive</option>
           </select>
         </div>
+        
+        <div class="col-md-4">
+          <label class="form-label">Applies To</label>
+          <select class="form-select" name="appliesTo" [(ngModel)]="form.appliesTo">
+            <option *ngFor="let a of appliesTo" [value]="a">{{ a }}</option>
+          </select>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Tax Type</label>
+          <select class="form-select" name="taxType" [(ngModel)]="form.taxType">
+            <option *ngFor="let t of taxTypes" [value]="t">{{ t }}</option>
+          </select>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Rate / Value <span class="text-danger">*</span></label>
+          <div class="input-group">
+            <input type="number" class="form-control" name="taxPercentage" [(ngModel)]="form.taxPercentage" required>
+            <span class="input-group-text">{{ form.taxType === 'Percentage' ? '%' : '₹' }}</span>
+          </div>
+        </div>
 
+        <div class="col-12 mt-4"><hr></div>
+        <div class="col-12"><p class="form-label text-muted mb-0">Payroll Specific Options (Leave blank for standard tax)</p></div>
+        
+        <div class="col-md-6">
+          <label class="form-label">Min Salary Bracket (₹)</label>
+          <input type="number" class="form-control" name="minSalary" [(ngModel)]="form.minSalary">
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Max Salary Bracket (₹)</label>
+          <input type="number" class="form-control" name="maxSalary" [(ngModel)]="form.maxSalary">
+        </div>
       </div>
       
-      <hr class="my-4">
-      <div class="d-flex justify-content-end gap-2">
-        <button type="button" class="btn btn-sm btn-secondary px-4" (click)="onCancel()">Cancel</button>
-        <button type="submit" class="btn btn-sm btn-success px-4" [disabled]="taxRuleForm.invalid">Save Tax Rule</button>
+      <div class="mt-4 pt-3 border-top text-end">
+        <button type="button" class="btn-secondary me-2" (click)="cancel()">Cancel</button>
+        <button type="submit" class="btn-primary" [disabled]="saving || !form.ruleName">
+          {{ saving ? 'Saving...' : 'Create Tax Rule' }}
+        </button>
       </div>
     </form>
-    
   </div>
 </div>

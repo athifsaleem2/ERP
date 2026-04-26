@@ -18,11 +18,16 @@ namespace WebApplication1.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginRequest loginRequest)
         {
+            // The frontend sends "email" but users might type their username instead.
             var user = await _userRepository.GetByEmailAsync(loginRequest.Email);
+            if (user == null)
+            {
+                user = await _userRepository.GetByUsernameAsync(loginRequest.Email);
+            }
             
             if (user == null || user.Password != loginRequest.Password)
             {
-                return Unauthorized(new { message = "Invalid email or password" });
+                return Unauthorized(new { message = "Invalid email/username or password" });
             }
 
             return Ok(new

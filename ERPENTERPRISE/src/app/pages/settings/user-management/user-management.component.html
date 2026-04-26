@@ -1,45 +1,51 @@
-<div class="card shadow-sm border-0">
-  <div class="card-header gradient-header text-white py-3 d-flex justify-content-between align-items-center">
+<div class="settings-container">
+  <div class="page-header">
     <div>
-      <h5 class="mb-0 fw-semibold">User Management</h5>
-      <small>Manage System Users</small>
+      <h3 class="page-title">User Management</h3>
+      <p class="page-sub">Manage system users and access levels</p>
     </div>
-    <button class="btn btn-sm btn-light text-dark" (click)="addUser()">
-      + Add User
-    </button>
+    <button class="btn-primary" (click)="addUser()">+ Add New User</button>
   </div>
-  <div class="card-body p-4 small">
+
+  <div class="content-card">
     <div class="row g-3 mb-4">
       <div class="col-md-4">
-        <input class="form-control form-control-sm" placeholder="Search Users">
+        <input type="text" class="form-control" placeholder="Search by name or email..." [(ngModel)]="searchTerm">
       </div>
-      <div class="col-md-2">
-        <button class="btn btn-sm btn-dark w-100">Search</button>
+      <div class="col-md-8 text-end align-self-center">
+        <span class="text-muted small me-3">Total Users: {{ users.length }}</span>
+        <span class="text-muted small">Admins: {{ adminCount }}</span>
       </div>
     </div>
-    <div class="table-responsive">
-      <table class="table table-sm table-hover align-middle">
-        <thead class="table-light">
-          <tr>
-            <th>Username</th>
-            <th>Email</th>
-            <th>Role</th>
-            <th>Status</th>
-            <th width="160" class="text-center">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="fw-semibold">admin</td>
-            <td>admin&#64;example.com</td>
-            <td>Administrator</td>
-            <td><span class="badge bg-success">Active</span></td>
-            <td class="text-center">
-              <button class="btn btn-sm btn-outline-primary me-1">Edit</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+
+    <div *ngIf="loading" class="text-center py-4 text-muted">Loading users...</div>
+    <div *ngIf="!loading && filtered.length === 0" class="text-center py-4 text-muted">No users found</div>
+
+    <table class="table" *ngIf="filtered.length > 0">
+      <thead>
+        <tr>
+          <th>User Info</th>
+          <th>Username</th>
+          <th>Role</th>
+          <th>Joined</th>
+          <th class="text-end">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let u of filtered">
+          <td>
+            <div class="fw-bold">{{ u.fullName || '—' }}</div>
+            <div class="small text-muted">{{ u.email || '—' }}</div>
+          </td>
+          <td class="fw-medium">&#64;{{ u.username }}</td>
+          <td><span class="badge bg-{{ roleColor(u.role) }}">{{ u.role }}</span></td>
+          <td class="text-muted">{{ u.createdAt | date:'MMM yyyy' }}</td>
+          <td class="text-end">
+            <button class="btn-action btn-edit me-2" title="Edit"><i class="fa fa-pen"></i> Edit</button>
+            <button class="btn-action btn-delete" title="Delete" (click)="delete(u.id)"><i class="fa fa-trash"></i> Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </div>

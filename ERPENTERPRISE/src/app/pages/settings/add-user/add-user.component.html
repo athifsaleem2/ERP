@@ -1,46 +1,50 @@
-<div class="card shadow-sm border-0">
-  <div class="card-header gradient-header text-white py-3 d-flex justify-content-between align-items-center">
+<div class="settings-container">
+  <div class="page-header">
     <div>
-      <h5 class="mb-0 fw-semibold">Add New User</h5>
-      <small>Create a new system user profile</small>
+      <h3 class="page-title">Add New User</h3>
+      <p class="page-sub">Create a new system user profile</p>
     </div>
-    <button class="btn btn-sm btn-light text-dark" (click)="goBack()">
-      <i class="bi bi-arrow-left"></i> Back to Users
-    </button>
+    <button class="btn-secondary" (click)="cancel()">Back to Users</button>
   </div>
-  <div class="card-body p-4 small">
-    
-    <div class="row g-4">
-      <div class="col-md-6">
-        <label class="form-label fw-semibold">Full Name</label>
-        <input type="text" class="form-control form-control-sm" placeholder="Enter full name">
-      </div>
-      <div class="col-md-6">
-        <label class="form-label fw-semibold">Email Address</label>
-        <input type="email" class="form-control form-control-sm" placeholder="Enter email address">
+
+  <div class="content-card" style="max-width: 800px; margin: 0 auto;">
+    <div *ngIf="successMsg" class="alert alert-success">{{ successMsg }}</div>
+    <div *ngIf="errorMsg" class="alert alert-danger">{{ errorMsg }}</div>
+
+    <form (ngSubmit)="save()">
+      <div class="row g-4">
+        <div class="col-md-6">
+          <label class="form-label">Full Name</label>
+          <input type="text" class="form-control" name="fullName" [(ngModel)]="form.fullName">
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Email Address</label>
+          <input type="email" class="form-control" name="email" [(ngModel)]="form.email">
+        </div>
+        
+        <div class="col-md-6">
+          <label class="form-label">Username <span class="text-danger">*</span></label>
+          <input type="text" class="form-control" name="username" [(ngModel)]="form.username" required>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Password <span class="text-danger">*</span></label>
+          <input type="password" class="form-control" name="password" [(ngModel)]="form.password" required>
+        </div>
+
+        <div class="col-md-6">
+          <label class="form-label">User Role</label>
+          <select class="form-select" name="role" [(ngModel)]="form.role">
+            <option *ngFor="let r of roles" [value]="r">{{ r }}</option>
+          </select>
+        </div>
       </div>
       
-      <div class="col-md-6">
-        <label class="form-label fw-semibold">Role</label>
-        <select class="form-select form-select-sm">
-          <option selected disabled>Select Role</option>
-          <option>Administrator</option>
-          <option>Manager</option>
-          <option>Staff</option>
-        </select>
+      <div class="mt-4 pt-3 border-top text-end">
+        <button type="button" class="btn-secondary me-2" (click)="cancel()">Cancel</button>
+        <button type="submit" class="btn-primary" [disabled]="saving || !form.username || !form.password">
+          {{ saving ? 'Saving...' : 'Create User' }}
+        </button>
       </div>
-
-      <div class="col-md-6">
-        <label class="form-label fw-semibold">Password</label>
-        <input type="password" class="form-control form-control-sm" placeholder="Enter temporary password">
-      </div>
-    </div>
-    
-    <hr class="my-4">
-    <div class="d-flex justify-content-end gap-2">
-      <button class="btn btn-sm btn-secondary px-4" (click)="goBack()">Cancel</button>
-      <button class="btn btn-sm btn-success px-4" (click)="goBack()">Save User</button>
-    </div>
-    
+    </form>
   </div>
 </div>

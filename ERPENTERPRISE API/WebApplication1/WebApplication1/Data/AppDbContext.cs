@@ -33,5 +33,8 @@ namespace WebApplication1.Data
         public DbSet<Attendance> Attendances { get; set; }
         public DbSet<PayrollRecord> PayrollRecords { get; set; }
         public DbSet<LeaveRequest> LeaveRequests { get; set; }
+        public DbSet<CompanySetting> CompanySettings { get; set; }
+        public DbSet<TaxRule> TaxRules { get; set; }
+        public DbSet<Role> Roles { get; set; }
     }
 }

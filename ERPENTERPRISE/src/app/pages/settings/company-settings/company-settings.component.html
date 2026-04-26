@@ -1,48 +1,71 @@
-<div class="card shadow-sm border-0">
-  <div class="card-header gradient-header text-white py-3 d-flex justify-content-between align-items-center">
+<div class="settings-container">
+  <div class="page-header">
     <div>
-      <h5 class="mb-0 fw-semibold">Company Settings</h5>
-      <small>Manage Global Preferences</small>
+      <h3 class="page-title">Company Settings</h3>
+      <p class="page-sub">Manage global profile and preferences</p>
     </div>
+    <button class="btn-primary" (click)="save()" [disabled]="saving || !form.companyName">
+      {{ saving ? 'Saving...' : 'Save Changes' }}
+    </button>
   </div>
-  <div class="card-body p-4 small">
-    
-    <div class="row g-4">
-      <div class="col-md-6">
-        <label class="form-label fw-semibold">Company Name</label>
-        <input type="text" class="form-control form-control-sm" value="My Enterprise ERP">
-      </div>
-      <div class="col-md-6">
-        <label class="form-label fw-semibold">Contact Email</label>
-        <input type="email" class="form-control form-control-sm" value="contact@myenterprise.com">
-      </div>
+
+  <div class="content-card" style="max-width: 900px; margin: 0 auto;">
+    <div *ngIf="loading" class="text-center py-4 text-muted">Loading settings...</div>
+    <div *ngIf="!loading">
       
-      <div class="col-md-12">
-        <label class="form-label fw-semibold">Address</label>
-        <textarea class="form-control form-control-sm" rows="3">123 Business Road, Corporate City</textarea>
+      <div *ngIf="successMsg" class="alert alert-success">{{ successMsg }}</div>
+      <div *ngIf="errorMsg" class="alert alert-danger">{{ errorMsg }}</div>
+
+      <div class="row g-4 mb-4">
+        <h5 class="col-12 mb-0 border-bottom pb-2">Business Profile</h5>
+        
+        <div class="col-md-6">
+          <label class="form-label">Company Name <span class="text-danger">*</span></label>
+          <input type="text" class="form-control" [(ngModel)]="form.companyName">
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Tax / GST Number</label>
+          <input type="text" class="form-control" [(ngModel)]="form.taxNumber">
+        </div>
+        <div class="col-12">
+          <label class="form-label">Official Address</label>
+          <textarea class="form-control" [(ngModel)]="form.address" rows="2"></textarea>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Phone</label>
+          <input type="text" class="form-control" [(ngModel)]="form.phone">
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Email</label>
+          <input type="email" class="form-control" [(ngModel)]="form.email">
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Website</label>
+          <input type="text" class="form-control" [(ngModel)]="form.website">
+        </div>
       </div>
 
-      <div class="col-md-6">
-        <label class="form-label fw-semibold">Currency</label>
-        <select class="form-select form-select-sm">
-          <option selected>USD ($)</option>
-          <option>EUR (€)</option>
-          <option>INR (₹)</option>
-        </select>
+      <div class="row g-4 mb-3">
+        <h5 class="col-12 mb-0 border-bottom pb-2 mt-2">Localization</h5>
+        
+        <div class="col-md-4">
+          <label class="form-label">Currency</label>
+          <select class="form-select" [(ngModel)]="form.currency" (change)="onCurrencyChange()">
+            <option *ngFor="let c of currencies" [value]="c.code">{{ c.code }} ({{ c.symbol }})</option>
+          </select>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Currency Symbol</label>
+          <input type="text" class="form-control" [(ngModel)]="form.currencySymbol" readonly>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Date Format</label>
+          <select class="form-select" [(ngModel)]="form.dateFormat">
+            <option *ngFor="let d of dateFormats" [value]="d">{{ d }}</option>
+          </select>
+        </div>
       </div>
-      <div class="col-md-6">
-        <label class="form-label fw-semibold">Timezone</label>
-        <select class="form-select form-select-sm">
-          <option selected>UTC+00:00 (GMT)</option>
-          <option>UTC+05:30 (IST)</option>
-        </select>
-      </div>
+
     </div>
-    
-    <hr class="my-4">
-    <div class="d-flex justify-content-end">
-      <button class="btn btn-sm btn-success px-4">Save Changes</button>
-    </div>
-    
   </div>
 </div>

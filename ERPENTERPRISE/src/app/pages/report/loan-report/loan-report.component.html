@@ -1,37 +1,92 @@
-<div class="card shadow-sm border-0">
-
-  <div class="card-header gradient-header text-white d-flex justify-content-between align-items-center">
-    <h5 class="mb-0">Loan Report</h5>
-    <button class="btn btn-light btn-sm" (click)="generateReport()">
-      Generate Report
-    </button>
+<div class="report-container">
+  <div class="report-header rpt-loan">
+    <div>
+      <h4 class="report-title">💳 Loan Report</h4>
+      <span class="report-sub">Reports Module &mdash; {{ today | date:'dd MMM yyyy' }}</span>
+    </div>
+    <div class="header-stats">
+      <span class="stat-chip">{{ totalLoans }} Loans</span>
+      <span class="stat-chip chip-blue">₹ {{ totalPrincipal | number:'1.0-0' }}</span>
+    </div>
   </div>
 
-  <div class="card-body small">
+  <!-- KPI Cards -->
+  <div class="kpi-row">
+    <div class="kpi-card kpi-blue">
+      <div class="kpi-label">Total Loans</div>
+      <div class="kpi-value">{{ totalLoans }}</div>
+    </div>
+    <div class="kpi-card kpi-purple">
+      <div class="kpi-label">Total Principal</div>
+      <div class="kpi-value">₹ {{ totalPrincipal | number:'1.0-0' }}</div>
+    </div>
+    <div class="kpi-card kpi-orange">
+      <div class="kpi-label">Pending / Active</div>
+      <div class="kpi-value text-warning">{{ pendingCount + activeCount }}</div>
+    </div>
+    <div class="kpi-card kpi-green">
+      <div class="kpi-label">Closed / Paid</div>
+      <div class="kpi-value text-success">{{ closedCount }}</div>
+    </div>
+  </div>
 
-    <div class="row g-3">
-
+  <!-- Filters -->
+  <div class="filter-card">
+    <h6 class="section-label">🔍 Filter Report</h6>
+    <div class="row g-3 align-items-end">
       <div class="col-md-4">
-        <label>Customer</label>
-        <input class="form-control form-control-sm" [(ngModel)]="report.customer">
+        <label class="field-label">Applicant Name</label>
+        <input type="text" class="field-input" [(ngModel)]="searchApplicant" placeholder="Search applicant…">
       </div>
-
-      <div class="col-md-4">
-        <label>Loan Status</label>
-        <select class="form-select form-select-sm" [(ngModel)]="report.status">
-          <option>All</option>
+      <div class="col-md-3">
+        <label class="field-label">Status</label>
+        <select class="field-input" [(ngModel)]="filterStatus">
+          <option value="">All Statuses</option>
+          <option>Pending</option>
+          <option>Approved</option>
           <option>Active</option>
           <option>Closed</option>
+          <option>Rejected</option>
         </select>
       </div>
-
-      <div class="col-md-4">
-        <label>From Date</label>
-        <input type="date" class="form-control form-control-sm" [(ngModel)]="report.fromDate">
+      <div class="col-md-2">
+        <button class="btn-clear" (click)="clear()">Clear</button>
       </div>
-
     </div>
-
   </div>
 
+  <div class="table-card">
+    <h6 class="section-label">Loan Records</h6>
+    <div *ngIf="loading" class="loading-state">Loading loans…</div>
+    <div *ngIf="!loading && filtered.length === 0" class="empty-state">No loan records found</div>
+    <div *ngIf="!loading && filtered.length > 0" class="table-responsive">
+      <table class="report-table">
+        <thead>
+          <tr>
+            <th>#</th><th>Applicant</th><th>Tenure</th>
+            <th class="text-end">Interest Rate</th>
+            <th class="text-end">Principal (₹)</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let l of filtered; let i = index">
+            <td class="row-num">{{ i + 1 }}</td>
+            <td class="fw-semibold">{{ l.applicantName }}</td>
+            <td class="text-muted">{{ l.tenureMonths }} months</td>
+            <td class="text-end">{{ l.interestRate }}%</td>
+            <td class="text-end fw-semibold">₹ {{ l.principalAmount | number:'1.0-0' }}</td>
+            <td><span class="rpt-badge" [ngClass]="'rpt-' + statusColor(l.status)">{{ l.status || 'Pending' }}</span></td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="4" class="fw-bold">Total Principal</td>
+            <td class="text-end fw-bold">₹ {{ totalPrincipal | number:'1.0-0' }}</td>
+            <td></td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
 </div>

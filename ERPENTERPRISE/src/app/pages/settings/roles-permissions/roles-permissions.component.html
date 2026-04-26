@@ -1,51 +1,48 @@
-<div class="card shadow-sm border-0">
-  <div class="card-header gradient-header text-white py-3 d-flex justify-content-between align-items-center">
+<div class="settings-container">
+  <div class="page-header">
     <div>
-      <h5 class="mb-0 fw-semibold">Roles & Permissions</h5>
-      <small>Manage Access Control</small>
+      <h3 class="page-title">Roles & Permissions</h3>
+      <p class="page-sub">Define system roles and their module access</p>
     </div>
-    <button class="btn btn-sm btn-light text-dark" (click)="addRole()">
-      + Add Role
-    </button>
+    <button class="btn-primary" (click)="addRole()">+ Add New Role</button>
   </div>
-  <div class="card-body p-4 small">
-    <div class="row g-3 mb-4">
-      <div class="col-md-4">
-        <input class="form-control form-control-sm" placeholder="Search Roles">
-      </div>
-      <div class="col-md-2">
-        <button class="btn btn-sm btn-dark w-100">Search</button>
-      </div>
-    </div>
-    <div class="table-responsive">
-      <table class="table table-sm table-hover align-middle">
-        <thead class="table-light">
-          <tr>
-            <th>Role Name</th>
-            <th>Description</th>
-            <th>Total Users</th>
-            <th width="160" class="text-center">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="fw-semibold">Administrator</td>
-            <td>Full system access</td>
-            <td>1</td>
-            <td class="text-center">
-              <button class="btn btn-sm btn-outline-primary me-1">Edit</button>
-            </td>
-          </tr>
-          <tr>
-            <td class="fw-semibold">Manager</td>
-            <td>Access to module management</td>
-            <td>4</td>
-            <td class="text-center">
-              <button class="btn btn-sm btn-outline-primary me-1">Edit</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+
+  <div class="content-card">
+    <div *ngIf="loading" class="text-center py-4 text-muted">Loading roles...</div>
+    <div *ngIf="!loading && roles.length === 0" class="text-center py-4 text-muted">No roles found</div>
+
+    <table class="table" *ngIf="roles.length > 0">
+      <thead>
+        <tr>
+          <th>Role Name</th>
+          <th style="width: 50%;">Module Access</th>
+          <th>Status</th>
+          <th class="text-end">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let r of roles">
+          <td>
+            <div class="fw-bold text-dark">{{ r.name }}</div>
+            <div class="small text-muted">{{ r.description || 'No description' }}</div>
+          </td>
+          <td>
+            <div class="d-flex flex-wrap gap-1">
+              <span *ngFor="let p of getPermissions(r)" class="badge bg-secondary rounded-pill" style="font-size: 0.7rem; font-weight: 500;">
+                {{ p }}
+              </span>
+              <span *ngIf="getPermissions(r).length === 0" class="text-muted small">No access</span>
+            </div>
+          </td>
+          <td>
+            <span class="badge" [ngClass]="r.status === 'Active' ? 'bg-success' : 'bg-secondary'">{{ r.status }}</span>
+          </td>
+          <td class="text-end">
+            <button class="btn-action btn-edit me-2" title="Edit"><i class="fa fa-pen"></i> Edit</button>
+            <button class="btn-action btn-delete" title="Delete" (click)="delete(r.id)"><i class="fa fa-trash"></i> Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </div>

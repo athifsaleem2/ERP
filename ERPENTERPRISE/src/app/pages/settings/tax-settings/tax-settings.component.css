@@ -1,25 +1,93 @@
-.card {
-  border-radius: 12px;
+/* ── Shared Settings Styles ── */
+.settings-container {
+  padding: 1.5rem;
+  background: #f8f9fc;
+  min-height: calc(100vh - 60px);
 }
 
-.gradient-header {
-  background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+.page-header {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 1.5rem;
+}
+.page-title {
+  font-size: 1.25rem; font-weight: 700; color: #2c3e50; margin: 0;
+}
+.page-sub {
+  font-size: 0.85rem; color: #6c757d;
 }
 
+.btn-primary {
+  background: linear-gradient(135deg, #1A1A2E, #283747);
+  border: none; color: white; padding: 0.5rem 1.25rem;
+  border-radius: 8px; font-weight: 600; font-size: 0.85rem;
+  transition: all 0.2s; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+.btn-primary:hover { transform: translateY(-1px); box-shadow: 0 6px 15px rgba(0,0,0,0.15); color: white; }
+
+.btn-secondary {
+  background: white; border: 1px solid #ced4da;
+  color: #495057; padding: 0.5rem 1.25rem; border-radius: 8px;
+  font-weight: 600; font-size: 0.85rem; transition: background 0.2s;
+}
+.btn-secondary:hover { background: #f1f3f5; }
+
+/* ── Content Card ── */
+.content-card {
+  background: white; border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+  padding: 1.5rem; border: 1px solid #edf2f7;
+}
+
+/* ── Table ── */
+.table { width: 100%; border-collapse: collapse; margin-bottom: 0; }
 .table th {
-  font-weight: 600;
+  background: #f8f9fa; color: #495057;
+  font-weight: 600; font-size: 0.8rem; text-transform: uppercase;
+  padding: 0.8rem 1rem; border-bottom: 2px solid #e9ecef;
 }
-
 .table td {
-  vertical-align: middle;
+  padding: 0.8rem 1rem; border-bottom: 1px solid #f1f3f5;
+  color: #34495e; font-size: 0.85rem; vertical-align: middle;
 }
+.table tbody tr:hover { background-color: #f8faff; }
 
-.form-control-sm,
-.form-select-sm {
-  font-size: 13px;
+/* ── Action Buttons ── */
+.btn-action {
+  background: none; border: none; padding: 0.3rem 0.6rem;
+  border-radius: 6px; cursor: pointer; transition: all 0.2s; font-size: 0.85rem;
 }
+.btn-edit { color: #3498db; }
+.btn-edit:hover { background: rgba(52,152,219,0.1); }
+.btn-delete { color: #e74c3c; }
+.btn-delete:hover { background: rgba(231,76,60,0.1); }
 
-.btn {
-  border-radius: 6px;
-  font-size: 13px;
+/* ── Badges ── */
+.badge {
+  padding: 0.35rem 0.75rem; border-radius: 20px;
+  font-size: 0.75rem; font-weight: 600; text-transform: uppercase;
 }
+.bg-danger { background-color: rgba(231, 76, 60, 0.15) !important; color: #c0392b !important; }
+.bg-warning { background-color: rgba(243, 156, 18, 0.15) !important; color: #d35400 !important; }
+.bg-info { background-color: rgba(52, 152, 219, 0.15) !important; color: #2980b9 !important; }
+.bg-secondary { background-color: rgba(149, 165, 166, 0.15) !important; color: #7f8c8d !important; }
+.bg-success { background-color: rgba(46, 204, 113, 0.15) !important; color: #27ae60 !important; }
+
+/* ── Form Styling ── */
+.form-label { font-size: 0.85rem; font-weight: 600; color: #495057; margin-bottom: 0.4rem; }
+.form-control, .form-select {
+  font-size: 0.9rem; padding: 0.6rem 1rem; border-radius: 8px;
+  border: 1px solid #ced4da; transition: border-color 0.2s, box-shadow 0.2s;
+}
+.form-control:focus, .form-select:focus {
+  border-color: #3498db; box-shadow: 0 0 0 0.2rem rgba(52,152,219,0.15); outline: none;
+}
+/* Role selector chips */
+.module-chip {
+  display: inline-block; padding: 0.4rem 0.8rem; border-radius: 20px;
+  font-size: 0.8rem; font-weight: 500; cursor: pointer; transition: all 0.2s;
+  border: 1px solid #ced4da; background: white; color: #495057; margin: 0.2rem;
+}
+.module-chip.selected {
+  background: #3498db; color: white; border-color: #3498db;
+}
+.module-chip:hover:not(.selected) { background: #f8f9fa; }

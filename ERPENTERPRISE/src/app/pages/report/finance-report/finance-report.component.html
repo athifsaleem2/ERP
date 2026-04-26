@@ -1,33 +1,148 @@
-<div class="card shadow-sm border-0">
-
-  <div class="card-header gradient-header text-white d-flex justify-content-between align-items-center">
-    <h5 class="mb-0">Finance Report</h5>
-    <button class="btn btn-light btn-sm" (click)="generateReport()">
-      Generate Report
-    </button>
+<div class="report-container">
+  <div class="report-header rpt-finance">
+    <div>
+      <h4 class="report-title">💰 Finance Report</h4>
+      <span class="report-sub">Reports Module &mdash; {{ today | date:'dd MMM yyyy' }}</span>
+    </div>
+    <div class="header-badge" [ngClass]="isProfit ? 'badge-profit' : 'badge-loss'">
+      {{ isProfit ? '▲ Profitable' : '▼ Loss' }}
+    </div>
   </div>
 
-  <div class="card-body small">
-
-    <div class="row g-3">
-
-      <div class="col-md-4">
-        <label>Account</label>
-        <input class="form-control form-control-sm" [(ngModel)]="report.account">
-      </div>
-
-      <div class="col-md-4">
-        <label>From Date</label>
-        <input type="date" class="form-control form-control-sm" [(ngModel)]="report.fromDate">
-      </div>
-
-      <div class="col-md-4">
-        <label>To Date</label>
-        <input type="date" class="form-control form-control-sm" [(ngModel)]="report.toDate">
-      </div>
-
+  <!-- KPI Cards -->
+  <div class="kpi-row">
+    <div class="kpi-card kpi-green">
+      <div class="kpi-label">Total Income</div>
+      <div class="kpi-value">₹ {{ totalIncome | number:'1.2-2' }}</div>
+      <div class="kpi-sub">from {{ salesInvoices.length }} invoices</div>
     </div>
+    <div class="kpi-card kpi-red">
+      <div class="kpi-label">Total Expenses</div>
+      <div class="kpi-value">₹ {{ totalExpenses | number:'1.2-2' }}</div>
+      <div class="kpi-sub">{{ filteredExpenses.length }} entries</div>
+    </div>
+    <div class="kpi-card" [ngClass]="isProfit ? 'kpi-blue' : 'kpi-red'">
+      <div class="kpi-label">Net Profit / Loss</div>
+      <div class="kpi-value" [ngClass]="isProfit ? 'text-success' : 'text-danger'">₹ {{ netProfit | number:'1.2-2' }}</div>
+      <div class="kpi-sub">{{ profitMargin }}% margin</div>
+    </div>
+    <div class="kpi-card kpi-purple">
+      <div class="kpi-label">Bank Balance</div>
+      <div class="kpi-value">₹ {{ bankBalance | number:'1.2-2' }}</div>
+      <div class="kpi-sub">Deposits - Withdrawals</div>
+    </div>
+  </div>
 
+  <!-- Date Filter -->
+  <div class="filter-card">
+    <h6 class="section-label">🔍 Date Filter</h6>
+    <div class="row g-3 align-items-end">
+      <div class="col-md-3">
+        <label class="field-label">From Date</label>
+        <input type="date" class="field-input" [(ngModel)]="fromDate">
+      </div>
+      <div class="col-md-3">
+        <label class="field-label">To Date</label>
+        <input type="date" class="field-input" [(ngModel)]="toDate">
+      </div>
+      <div class="col-md-2">
+        <button class="btn-clear" (click)="clear()">Clear</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tabs -->
+  <div class="tab-row">
+    <button class="tab-btn" [ngClass]="{'tab-active': activeTab === 'summary'}"     (click)="activeTab = 'summary'">P&amp;L Summary</button>
+    <button class="tab-btn" [ngClass]="{'tab-active': activeTab === 'expenses'}"    (click)="activeTab = 'expenses'">Expenses</button>
+    <button class="tab-btn" [ngClass]="{'tab-active': activeTab === 'transactions'}"(click)="activeTab = 'transactions'">Bank Transactions</button>
+  </div>
+
+  <!-- P&L Summary Tab -->
+  <div *ngIf="activeTab === 'summary'">
+    <div class="row g-4">
+      <div class="col-md-6">
+        <div class="table-card">
+          <h6 class="section-label text-success">💰 Income</h6>
+          <table class="report-table">
+            <thead><tr><th>Source</th><th class="text-end">Amount (₹)</th></tr></thead>
+            <tbody>
+              <tr><td>Sales Revenue</td><td class="text-end text-success fw-semibold">₹ {{ totalIncome | number:'1.2-2' }}</td></tr>
+              <tr><td>Bank Deposits</td><td class="text-end text-success fw-semibold">₹ {{ totalDeposits | number:'1.2-2' }}</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="table-card">
+          <h6 class="section-label text-danger">📊 Expenses by Category</h6>
+          <div *ngIf="expenseByCategory.length === 0" class="empty-state">No expense data</div>
+          <table *ngIf="expenseByCategory.length > 0" class="report-table">
+            <thead><tr><th>Category</th><th class="text-end">Amount (₹)</th></tr></thead>
+            <tbody>
+              <tr *ngFor="let e of expenseByCategory">
+                <td>{{ e.label }}</td>
+                <td class="text-end text-danger fw-semibold">₹ {{ e.amount | number:'1.2-2' }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <!-- Net Banner -->
+    <div class="net-banner" [ngClass]="isProfit ? 'banner-profit' : 'banner-loss'">
+      <span class="banner-label">NET {{ isProfit ? 'PROFIT' : 'LOSS' }}</span>
+      <span class="banner-amount">₹ {{ (netProfit < 0 ? -netProfit : netProfit) | number:'1.2-2' }}</span>
+      <span class="banner-margin">({{ profitMargin }}% margin)</span>
+    </div>
+  </div>
+
+  <!-- Expenses Tab -->
+  <div *ngIf="activeTab === 'expenses'" class="table-card">
+    <h6 class="section-label">Expense Ledger</h6>
+    <div *ngIf="loading" class="loading-state">Loading…</div>
+    <div *ngIf="!loading && filteredExpenses.length === 0" class="empty-state">No expenses in period</div>
+    <div *ngIf="!loading && filteredExpenses.length > 0" class="table-responsive">
+      <table class="report-table">
+        <thead><tr><th>#</th><th>Exp No.</th><th>Category</th><th>Payment Mode</th><th>Description</th><th class="text-end">Amount (₹)</th></tr></thead>
+        <tbody>
+          <tr *ngFor="let e of filteredExpenses; let i = index">
+            <td class="row-num">{{ i + 1 }}</td>
+            <td class="mono">{{ e.expenseNumber }}</td>
+            <td><span class="cat-pill">{{ e.category }}</span></td>
+            <td class="text-muted">{{ e.paymentMode }}</td>
+            <td class="text-muted small">{{ e.description || '—' }}</td>
+            <td class="text-end fw-semibold text-danger">₹ {{ e.amount | number:'1.2-2' }}</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr><td colspan="5" class="fw-bold">Total</td><td class="text-end fw-bold text-danger">₹ {{ totalExpenses | number:'1.2-2' }}</td></tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+
+  <!-- Bank Transactions Tab -->
+  <div *ngIf="activeTab === 'transactions'" class="table-card">
+    <h6 class="section-label">Bank Transactions</h6>
+    <div *ngIf="filteredTransactions.length === 0" class="empty-state">No transactions in period</div>
+    <div *ngIf="filteredTransactions.length > 0" class="table-responsive">
+      <table class="report-table">
+        <thead><tr><th>#</th><th>Date</th><th>Bank</th><th>Type</th><th>Reference</th><th class="text-end">Amount (₹)</th></tr></thead>
+        <tbody>
+          <tr *ngFor="let t of filteredTransactions; let i = index">
+            <td class="row-num">{{ i + 1 }}</td>
+            <td>{{ t.transactionDate | date:'dd-MM-yyyy' }}</td>
+            <td class="fw-semibold">{{ t.bankName }}</td>
+            <td><span class="rpt-badge" [ngClass]="t.transactionType === 'Deposit' ? 'rpt-success' : 'rpt-danger'">{{ t.transactionType }}</span></td>
+            <td class="mono text-muted">{{ t.referenceNo || '—' }}</td>
+            <td class="text-end fw-semibold" [ngClass]="t.transactionType === 'Deposit' ? 'text-success' : 'text-danger'">
+              ₹ {{ t.amount | number:'1.2-2' }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 
 </div>

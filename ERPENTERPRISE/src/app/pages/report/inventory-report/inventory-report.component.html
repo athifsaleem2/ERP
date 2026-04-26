@@ -1,37 +1,86 @@
-<div class="card shadow-sm border-0">
-
-  <div class="card-header gradient-header text-white d-flex justify-content-between align-items-center">
-    <h5 class="mb-0">Inventory Report</h5>
-    <button class="btn btn-light btn-sm" (click)="generateReport()">
-      Generate Report
-    </button>
+<div class="report-container">
+  <div class="report-header rpt-inventory">
+    <div>
+      <h4 class="report-title">📦 Inventory Report</h4>
+      <span class="report-sub">Reports Module &mdash; {{ today | date:'dd MMM yyyy' }}</span>
+    </div>
+    <div class="header-stats">
+      <span class="stat-chip">{{ totalProducts }} Products</span>
+      <span class="stat-chip chip-red" *ngIf="lowStockCount > 0">⚠ {{ lowStockCount }} Low Stock</span>
+    </div>
   </div>
 
-  <div class="card-body small">
+  <!-- KPI Cards -->
+  <div class="kpi-row">
+    <div class="kpi-card kpi-blue">
+      <div class="kpi-label">Total Products</div>
+      <div class="kpi-value">{{ totalProducts }}</div>
+    </div>
+    <div class="kpi-card kpi-green">
+      <div class="kpi-label">In Stock</div>
+      <div class="kpi-value">{{ totalProducts - lowStockCount - outOfStockCount }}</div>
+    </div>
+    <div class="kpi-card kpi-orange">
+      <div class="kpi-label">Low Stock</div>
+      <div class="kpi-value text-warning">{{ lowStockCount }}</div>
+      <div class="kpi-sub">≤ 10 units</div>
+    </div>
+    <div class="kpi-card kpi-red">
+      <div class="kpi-label">Out of Stock</div>
+      <div class="kpi-value text-danger">{{ outOfStockCount }}</div>
+    </div>
+  </div>
 
-    <div class="row g-3">
-
+  <!-- Filters -->
+  <div class="filter-card">
+    <h6 class="section-label">🔍 Filter Report</h6>
+    <div class="row g-3 align-items-end">
       <div class="col-md-4">
-        <label>Product</label>
-        <input class="form-control form-control-sm" [(ngModel)]="report.product">
+        <label class="field-label">Search Product</label>
+        <input type="text" class="field-input" [(ngModel)]="searchProduct" placeholder="Product name…">
       </div>
-
-      <div class="col-md-4">
-        <label>Category</label>
-        <input class="form-control form-control-sm" [(ngModel)]="report.category">
-      </div>
-
-      <div class="col-md-4">
-        <label>Stock Status</label>
-        <select class="form-select form-select-sm" [(ngModel)]="report.stockStatus">
-          <option>All</option>
+      <div class="col-md-3">
+        <label class="field-label">Stock Status</label>
+        <select class="field-input" [(ngModel)]="filterStatus">
+          <option value="">All</option>
+          <option>In Stock</option>
           <option>Low Stock</option>
-          <option>Out Of Stock</option>
+          <option>Out of Stock</option>
         </select>
       </div>
-
+      <div class="col-md-2">
+        <button class="btn-clear" (click)="clear()">Clear</button>
+      </div>
     </div>
-
   </div>
 
+  <div class="table-card">
+    <h6 class="section-label">Stock Ledger Summary</h6>
+    <div *ngIf="loading" class="loading-state">Calculating stock…</div>
+    <div *ngIf="!loading && filtered.length === 0" class="empty-state">No products found</div>
+    <div *ngIf="!loading && filtered.length > 0" class="table-responsive">
+      <table class="report-table">
+        <thead>
+          <tr>
+            <th>#</th><th>Product Name</th><th>Category</th>
+            <th class="text-end">Total In</th><th class="text-end">Total Out</th>
+            <th class="text-end">Available</th><th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let p of filtered; let i = index">
+            <td class="row-num">{{ i + 1 }}</td>
+            <td class="fw-semibold">{{ p.productName }}</td>
+            <td class="text-muted">{{ p.category }}</td>
+            <td class="text-end text-success">{{ p.totalIn }}</td>
+            <td class="text-end text-danger">{{ p.totalOut }}</td>
+            <td class="text-end fw-bold">{{ p.availableStock }}</td>
+            <td>
+              <span class="stock-badge" [ngClass]="statusCls(p.status)">{{ p.status }}</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>

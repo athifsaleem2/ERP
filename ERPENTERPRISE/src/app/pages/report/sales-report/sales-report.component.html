@@ -1,42 +1,103 @@
-    <div class="card shadow-sm border-0">
+<div class="report-container">
+  <div class="report-header rpt-sales">
+    <div>
+      <h4 class="report-title">📊 Sales Report</h4>
+      <span class="report-sub">Reports Module &mdash; {{ today | date:'dd MMM yyyy' }}</span>
+    </div>
+    <div class="header-stats">
+      <span class="stat-chip">{{ invoiceCount }} Invoices</span>
+      <span class="stat-chip chip-green">₹ {{ totalSales | number:'1.0-0' }}</span>
+    </div>
+  </div>
 
-    <div class="card-header gradient-header text-white d-flex justify-content-between align-items-center">
-        <h5 class="mb-0">Sales Report</h5>
-        <button class="btn btn-light btn-sm" (click)="generateReport()">
-        Generate Report
-        </button>
+  <!-- KPI Cards -->
+  <div class="kpi-row">
+    <div class="kpi-card kpi-green">
+      <div class="kpi-label">Total Sales</div>
+      <div class="kpi-value">₹ {{ totalSales | number:'1.2-2' }}</div>
+      <div class="kpi-sub">{{ invoiceCount }} invoices</div>
+    </div>
+    <div class="kpi-card kpi-red">
+      <div class="kpi-label">Total Returns</div>
+      <div class="kpi-value">₹ {{ totalReturns | number:'1.2-2' }}</div>
+      <div class="kpi-sub">{{ allReturns.length }} returns</div>
+    </div>
+    <div class="kpi-card" [ngClass]="netRevenue >= 0 ? 'kpi-blue' : 'kpi-red'">
+      <div class="kpi-label">Net Revenue</div>
+      <div class="kpi-value" [ngClass]="netRevenue >= 0 ? 'text-success' : 'text-danger'">₹ {{ netRevenue | number:'1.2-2' }}</div>
+    </div>
+    <div class="kpi-card kpi-purple">
+      <div class="kpi-label">Customers</div>
+      <div class="kpi-value">{{ customers.length }}</div>
+      <div class="kpi-sub">registered</div>
+    </div>
+  </div>
+
+  <!-- Filters -->
+  <div class="filter-card">
+    <h6 class="section-label">🔍 Filter Report</h6>
+    <div class="row g-3 align-items-end">
+      <div class="col-md-3">
+        <label class="field-label">From Date</label>
+        <input type="date" class="field-input" [(ngModel)]="fromDate">
+      </div>
+      <div class="col-md-3">
+        <label class="field-label">To Date</label>
+        <input type="date" class="field-input" [(ngModel)]="toDate">
+      </div>
+      <div class="col-md-4">
+        <label class="field-label">Customer Name</label>
+        <input type="text" class="field-input" [(ngModel)]="filterCustomer" placeholder="Search customer…">
+      </div>
+      <div class="col-md-2">
+        <button class="btn-clear" (click)="clear()">Clear</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="row g-4">
+    <!-- Invoice Table -->
+    <div class="col-md-8">
+      <div class="table-card">
+        <h6 class="section-label">Sales Invoices</h6>
+        <div *ngIf="loading" class="loading-state">Loading data…</div>
+        <div *ngIf="!loading && filtered.length === 0" class="empty-state">No invoices found for the selected filters</div>
+        <div *ngIf="!loading && filtered.length > 0" class="table-responsive">
+          <table class="report-table">
+            <thead>
+              <tr><th>#</th><th>Invoice No.</th><th>Customer</th><th>Payment Mode</th><th class="text-end">Amount (₹)</th></tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let inv of filtered; let i = index">
+                <td class="row-num">{{ i + 1 }}</td>
+                <td class="mono">{{ inv.invoiceNumber }}</td>
+                <td class="fw-semibold">{{ inv.customerName }}</td>
+                <td><span class="mode-pill">{{ inv.paymentMode }}</span></td>
+                <td class="text-end fw-semibold text-success">₹ {{ inv.grandTotal | number:'1.2-2' }}</td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td colspan="4" class="fw-bold">Total</td>
+                <td class="text-end fw-bold text-success">₹ {{ totalSales | number:'1.2-2' }}</td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
     </div>
 
-    <div class="card-body small">
-
-        <div class="row g-3">
-
-        <div class="col-md-3">
-            <label>From Date</label>
-            <input type="date" class="form-control form-control-sm" [(ngModel)]="report.fromDate">
+    <!-- Top Customers -->
+    <div class="col-md-4">
+      <div class="table-card">
+        <h6 class="section-label">🏆 Top Customers</h6>
+        <div *ngIf="byCustomer.length === 0" class="empty-state">No data</div>
+        <div *ngFor="let c of byCustomer; let i = index" class="top-row">
+          <span class="top-rank">#{{ i + 1 }}</span>
+          <span class="top-name">{{ c.label }}</span>
+          <span class="top-amount">₹ {{ c.amount | number:'1.0-0' }}</span>
         </div>
-
-        <div class="col-md-3">
-            <label>To Date</label>
-            <input type="date" class="form-control form-control-sm" [(ngModel)]="report.toDate">
-        </div>
-
-        <div class="col-md-3">
-            <label>Customer</label>
-            <input class="form-control form-control-sm" [(ngModel)]="report.customer">
-        </div>
-
-        <div class="col-md-3">
-            <label>Status</label>
-            <select class="form-select form-select-sm" [(ngModel)]="report.status">
-            <option>All</option>
-            <option>Paid</option>
-            <option>Pending</option>
-            </select>
-        </div>
-
-        </div>
-
+      </div>
     </div>
-
-    </div>
+  </div>
+</div>

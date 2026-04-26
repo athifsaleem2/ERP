@@ -1,54 +1,51 @@
-<div class="card shadow-sm border-0">
-  <div class="card-header gradient-header text-white py-3 d-flex justify-content-between align-items-center">
+<div class="settings-container">
+  <div class="page-header">
     <div>
-      <h5 class="mb-0 fw-semibold">Tax Settings</h5>
-      <small>Manage Tax Rates & Rules</small>
+      <h3 class="page-title">Tax Settings</h3>
+      <p class="page-sub">Configure system tax rules and rates</p>
     </div>
-    <button class="btn btn-sm btn-light text-dark" (click)="openAddTaxRule()">
-      + Add Tax Rule
-    </button>
+    <button class="btn-primary" (click)="openAddTaxRule()">+ Add Tax Rule</button>
   </div>
-  <div class="card-body p-4 small">
-    <div class="row g-3 mb-4">
-      <div class="col-md-4">
-        <input class="form-control form-control-sm" placeholder="Search Tax Rules">
-      </div>
-      <div class="col-md-2">
-        <button class="btn btn-sm btn-dark w-100">Search</button>
-      </div>
+
+  <div class="content-card">
+    <div class="mb-3 text-muted small">
+      Active Rules: {{ activeCount }} / {{ taxRules.length }} total
     </div>
-    <div class="table-responsive">
-      <table class="table table-sm table-hover align-middle">
-        <thead class="table-light">
-          <tr>
-            <th>Tax Name</th>
-            <th>Rate (%)</th>
-            <th>Type</th>
-            <th>Status</th>
-            <th width="160" class="text-center">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="fw-semibold">VAT</td>
-            <td>10.00</td>
-            <td>Percentage</td>
-            <td><span class="badge bg-success">Active</span></td>
-            <td class="text-center">
-              <button class="btn btn-sm btn-outline-primary me-1">Edit</button>
-            </td>
-          </tr>
-          <tr>
-            <td class="fw-semibold">GST</td>
-            <td>18.00</td>
-            <td>Percentage</td>
-            <td><span class="badge bg-secondary">Inactive</span></td>
-            <td class="text-center">
-              <button class="btn btn-sm btn-outline-primary me-1">Edit</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+
+    <div *ngIf="loading" class="text-center py-4 text-muted">Loading tax rules...</div>
+    <div *ngIf="!loading && taxRules.length === 0" class="text-center py-4 text-muted">No tax rules defined</div>
+
+    <table class="table" *ngIf="taxRules.length > 0">
+      <thead>
+        <tr>
+          <th>Rule Name</th>
+          <th>Type & Rate</th>
+          <th>Applies To</th>
+          <th>Salary Range (If Payroll)</th>
+          <th>Status</th>
+          <th class="text-end">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let t of taxRules">
+          <td class="fw-bold">{{ t.ruleName }}</td>
+          <td>
+            <span class="badge bg-info text-dark">{{ t.taxType }}</span>
+            <span class="ms-2 fw-bold">{{ t.taxType === 'Percentage' ? t.taxPercentage + '%' : '₹' + t.taxPercentage }}</span>
+          </td>
+          <td><span class="badge bg-secondary">{{ t.appliesTo }}</span></td>
+          <td class="text-muted small">
+            {{ t.minSalary ? '₹' + t.minSalary : 'Min' }} - {{ t.maxSalary ? '₹' + t.maxSalary : 'Max' }}
+          </td>
+          <td>
+            <span class="badge" [ngClass]="t.status === 'Active' ? 'bg-success' : 'bg-secondary'">{{ t.status }}</span>
+          </td>
+          <td class="text-end">
+            <button class="btn-action btn-edit me-2" title="Edit"><i class="fa fa-pen"></i> Edit</button>
+            <button class="btn-action btn-delete" title="Delete" (click)="delete(t.id)"><i class="fa fa-trash"></i> Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </div>
