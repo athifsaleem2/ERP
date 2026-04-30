@@ -1,3 +1,4 @@
+import { environment } from '../../../environments/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -6,7 +7,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:52888/api/Auth'; // Corrected to match launchSettings.json port
+  private apiUrl = `${environment.apiUrl}/Auth`; // Corrected to match launchSettings.json port
 
   constructor(private http: HttpClient) { }
 

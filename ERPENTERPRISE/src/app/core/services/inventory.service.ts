@@ -1,3 +1,4 @@
+import { environment } from '../../../environments/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -30,7 +31,7 @@ export interface StockSummary {
   providedIn: 'root'
 })
 export class InventoryService {
-  private apiUrl = 'http://localhost:52888/api/StockEntries';
+  private apiUrl = `${environment.apiUrl}/StockEntries`;
 
   constructor(private http: HttpClient) { }
 

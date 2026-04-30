@@ -1,3 +1,4 @@
+import { environment } from '../../../environments/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -28,7 +29,7 @@ export interface PurchaseReturn {
   providedIn: 'root'
 })
 export class PurchaseReturnService {
-  private apiUrl = `http://localhost:52888/api/PurchaseReturn`;
+  private apiUrl = `${environment.apiUrl}/PurchaseReturn`;
 
   constructor(private http: HttpClient) { }
 

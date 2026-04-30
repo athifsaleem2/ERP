@@ -1,3 +1,4 @@
+import { environment } from '../../../environments/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -29,7 +30,7 @@ export interface LoanEmi {
   providedIn: 'root'
 })
 export class LoanService {
-  private apiUrl = 'http://localhost:52888/api/Loans';
+  private apiUrl = `${environment.apiUrl}/Loans`;
 
   constructor(private http: HttpClient) { }
 

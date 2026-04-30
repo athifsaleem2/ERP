@@ -1,3 +1,4 @@
+import { environment } from '../../../environments/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -32,7 +33,7 @@ export interface SalesInvoice {
   providedIn: 'root'
 })
 export class SalesInvoiceService {
-  private apiUrl = `http://localhost:52888/api/SalesInvoice`;
+  private apiUrl = `${environment.apiUrl}/SalesInvoice`;
 
   constructor(private http: HttpClient) { }
 
