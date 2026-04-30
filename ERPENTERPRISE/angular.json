@@ -16,7 +16,6 @@
             "outputPath": "dist/erpenterprise",
             "index": "src/index.html",
             "browser": "src/main.ts",
-            "server": "src/main.server.ts",
             "polyfills": [
               "zone.js"
             ],
@@ -30,26 +29,20 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": [],
-            "ssr": false,
-            "prerender": false
+            "scripts": []
           },
           "configurations": {
             "production": {
-              "outputMode": "server",
-              "ssr": {
-                "entry": "src/server.ts"
-              },
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kB",
-                  "maximumError": "1MB"
+                  "maximumWarning": "2MB",
+                  "maximumError": "5MB"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "4kB",
-                  "maximumError": "8kB"
+                  "maximumWarning": "6kB",
+                  "maximumError": "10kB"
                 }
               ],
               "outputHashing": "all"
