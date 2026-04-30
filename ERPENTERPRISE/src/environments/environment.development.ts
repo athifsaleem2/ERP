@@ -1,4 +1,4 @@
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:52888/api'
+  apiUrl: 'https://app-erp-api-backend-gac6a2bubgcycahz.centralindia-01.azurewebsites.net/api'
 };
