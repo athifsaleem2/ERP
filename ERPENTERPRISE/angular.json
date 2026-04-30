@@ -35,22 +35,23 @@
             "prerender": false
           },
           "configurations": {
-"production": {
-  "outputMode": "browser",
-  "budgets": [
-    {
-      "type": "initial",
-      "maximumWarning": "2MB",
-      "maximumError": "5MB"
-    },
-    {
-      "type": "anyComponentStyle",
-      "maximumWarning": "6kB",
-      "maximumError": "10kB"
-    }
-  ],
-  "outputHashing": "all"
-},
+            "production": {
+              "outputMode": "static",
+              "prerender": false,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2MB",
+                  "maximumError": "5MB"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kB",
+                  "maximumError": "10kB"
+                }
+              ],
+              "outputHashing": "all"
+            },
             "development": {
               "optimization": false,
               "extractLicenses": false,
