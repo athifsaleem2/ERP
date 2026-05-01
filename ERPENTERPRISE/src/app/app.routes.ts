@@ -180,6 +180,7 @@ export const routes: Routes = [
       { path: 'add-tax-rule', component: AddTaxRuleComponent },
 
       { path: 'add-user', component: AddUserComponent },
+      { path: 'edit-user/:id', component: AddUserComponent },
       { path: 'add-role', component: AddRoleComponent },
     ]
   },

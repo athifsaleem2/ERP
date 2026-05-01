@@ -63,7 +63,7 @@ export interface LeaveRequest {
 
 @Injectable({ providedIn: 'root' })
 export class HrmsService {
-  private base = 'http://localhost:52888/api';
+  private base = `${environment.apiUrl}`;
 
   constructor(private http: HttpClient) {}
 

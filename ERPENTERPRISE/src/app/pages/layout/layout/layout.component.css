@@ -21,7 +21,7 @@
 }
 
 .content-area.sidebar-collapsed {
-  left: 0;
+  left: 0 !important;
 }
 
 .scroll-container {

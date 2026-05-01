@@ -51,13 +51,16 @@ export interface CompanySetting {
 
 @Injectable({ providedIn: 'root' })
 export class SettingsService {
-  private base = 'http://localhost:52888/api';
+  private base = `${environment.apiUrl}`;
 
   constructor(private http: HttpClient) {}
 
   // ── Users ──────────────────────────────────────────────────
   getUsers(): Observable<AppUser[]> {
     return this.http.get<AppUser[]>(`${this.base}/Users`);
+  }
+  getUser(id: number): Observable<AppUser> {
+    return this.http.get<AppUser>(`${this.base}/Users/${id}`);
   }
   createUser(user: AppUser): Observable<AppUser> {
     return this.http.post<AppUser>(`${this.base}/Users`, user);

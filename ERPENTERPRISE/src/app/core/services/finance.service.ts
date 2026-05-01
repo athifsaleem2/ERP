@@ -43,7 +43,7 @@ export interface BankTransaction {
 
 @Injectable({ providedIn: 'root' })
 export class FinanceService {
-  private base = 'http://localhost:52888/api';
+  private base = `${environment.apiUrl}`;
 
   constructor(private http: HttpClient) {}
 

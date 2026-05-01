@@ -46,6 +46,12 @@ export class UserManagementComponent implements OnInit {
   }
 
   addUser() { this.router.navigate(['/dashboard/add-user']); }
+  
+  edit(id: number | undefined) {
+    if (id) {
+      this.router.navigate(['/dashboard/edit-user', id]);
+    }
+  }
 
   delete(id: number | undefined) {
     if (!id || !confirm('Delete this user?')) return;

@@ -34,6 +34,7 @@ export class LoginComponent {
   onSubmit() {
     if (this.loginForm.valid) {
       const loginData = {
+        username: this.loginForm.value.email.trim(),
         email: this.loginForm.value.email.trim(),
         password: this.loginForm.value.password.trim()
       };
