@@ -1,3 +1,6 @@
+# ERP Enterprise Application
+
+This is the frontend component of the ERP Enterprise application, built with **Angular 19**. The system consists of an Angular SPA frontend, an **ASP.NET Core 10.0** Web API backend, and a SQL Server database.
 
 ## 🏗️ Architecture & Tech Stack
 
