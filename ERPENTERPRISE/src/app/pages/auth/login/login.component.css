@@ -80,3 +80,32 @@ html, body {
 .login-card h5 {
   font-size: 20px;
 }
+
+/* Mobile Background Handling */
+@media (max-width: 991.98px) {
+  .login-page {
+    background: url('/photo-1554224155-6726b3ff858f.jpg') center/cover no-repeat;
+    position: relative;
+  }
+  
+  /* Add an overlay on mobile so text/card is legible */
+  .login-page::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    z-index: 0;
+  }
+
+  .container-fluid {
+    z-index: 1;
+    position: relative;
+  }
+
+  /* Make the card slightly transparent for a glass effect */
+  .login-card {
+    background: rgba(255, 255, 255, 0.92) !important;
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  }
+}
